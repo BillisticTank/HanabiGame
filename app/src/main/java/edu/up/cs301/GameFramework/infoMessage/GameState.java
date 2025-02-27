@@ -50,7 +50,7 @@ public abstract class GameState extends GameInfo {
     /**
      * toString
      *
-     * @return String representation of this instance
+     * @return
      */
     public String toString(){
         return numSetupTurns + SEPARATOR + currentSetupTurn;

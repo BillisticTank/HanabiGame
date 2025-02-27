@@ -1,7 +1,6 @@
 package edu.up.cs301.hanabiPack;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -91,8 +90,12 @@ public class HanabiState extends GameState {
 	}
 	@Override
 	public String toString(){
-
-		return ;
+		
+		return "Clock Tokens: " +  totalHints
+				+ " Fuse Tokens: " + fuseTokens
+				+ "Discarded Cards: " + discardAmount
+				+ "Final Score: " + finalScore
+				+ "Turn: Player " + player_Id;
 	}
 
 
