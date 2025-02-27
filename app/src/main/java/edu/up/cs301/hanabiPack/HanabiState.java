@@ -98,5 +98,4 @@ public class HanabiState extends GameState {
 				+ "Turn: Player " + player_Id;
 	}
 
-
 }
