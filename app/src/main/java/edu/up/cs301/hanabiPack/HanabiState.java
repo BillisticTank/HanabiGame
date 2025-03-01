@@ -11,6 +11,11 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 /**
  * This contains the state for the Hanabi game. The state consist of simply
  * the value of the counter.
+ *
+ * start to end move sequence: 1.Player 1 gives hint to player 2 --- 2.player 2 plays a card (red 2) -
+ * -- 3.player 2 gives hint to player 3 --- 4.player three discards a card (added to discard pile) -
+ * -- 5.player three gives hint to player 4 --- 5. player four plays card (green 3). Game is won due to cards
+ * in correct order with no faliures.
  * 
  * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
  * @version February 2025
@@ -105,8 +110,8 @@ public class HanabiState extends GameState {
 	}
 
 	//these three methods corraspond to each action class and check if the action is viable
-	public boolean makePlayCardAction(PlayCardAction action) {
-
+	public boolean makePlayCardAction(PlayCardAction action)
+	{
 		return true;
 	}
 
