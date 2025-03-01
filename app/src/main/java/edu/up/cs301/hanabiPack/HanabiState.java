@@ -103,6 +103,7 @@ public class HanabiState extends GameState {
 	//these three methods corraspond to each action class and check if the action is viable
 	public boolean makePlayCardAction(PlayCardAction action)
 	{
+
 		return true;
 	}
 
@@ -113,7 +114,17 @@ public class HanabiState extends GameState {
 
 	public boolean makeGiveHintAction(GiveHintAction action)
 	{
-		return true;
+		if(totalHints == 0)
+		{
+			return false;
+		}
+		else
+		{
+			totalHints--;
+
+			return true;
+		}
+
 	}
 
 }
