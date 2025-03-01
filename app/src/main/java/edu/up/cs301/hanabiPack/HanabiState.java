@@ -110,8 +110,27 @@ public class HanabiState extends GameState {
 	}
 
 	//these three methods corraspond to each action class and check if the action is viable
+	//then they modify the game state accordignly
 	public boolean makePlayCardAction(PlayCardAction action)
 	{
+
+		/**
+		if(cards_Value.length + 1 < cards_Value.length)
+		{
+			fuseTokens++;
+			return true;
+		}
+		else if(cards_Value.length + 1 > cards_Value[0])
+		{
+			finalScore = finalScore + cards_Value[0];
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		 **/
+		finalScore++;
 		return true;
 	}
 
