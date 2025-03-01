@@ -67,7 +67,7 @@ public class HanabiState extends GameState {
 	}
 	
 	/**
-	 * copy constructor; makes a copy of the original object
+	 * deep copy constructor; makes a copy of the original object
 	 * 
 	 * @param orig
 	 * 		the object from which the copy should be made
@@ -88,6 +88,8 @@ public class HanabiState extends GameState {
 			// Add Cards after we created card class;
 		}
 	}
+
+	//this toString method describes the state of the game as a string
 	@Override
 	public String toString(){
 		
@@ -96,6 +98,22 @@ public class HanabiState extends GameState {
 				+ "Discarded Cards: " + discardAmount
 				+ "Final Score: " + finalScore
 				+ "Turn: Player " + player_Id;
+	}
+
+	//these three methods corraspond to each action class and check if the action is viable
+	public boolean makePlayCardAction(PlayCardAction action)
+	{
+		return true;
+	}
+
+	public boolean makeDiscardCardAction(DiscardCardAction action)
+	{
+		return true;
+	}
+
+	public boolean makeGiveHintAction(GiveHintAction action)
+	{
+		return true;
 	}
 
 }

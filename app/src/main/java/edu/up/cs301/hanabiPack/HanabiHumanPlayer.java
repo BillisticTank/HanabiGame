@@ -59,7 +59,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 */
 	protected void updateDisplay() {
 		// set the text in the appropriate widget
-		counterValueTextView.setText("" + state.getCounter());
+		counterValueTextView.setText("" /** state.getCounter()**/);
 	}
 
 	/**

@@ -90,7 +90,7 @@ public class HanabiComputerPlayer2 extends HanabiComputerPlayer1 {
 					new Runnable() {
 						public void run() {
 						if (counterValueTextView != null && currentGameState != null) {
-							counterValueTextView.setText("" + currentGameState.getCounter());
+							counterValueTextView.setText("" /**currentGameState.getCounter()**/);
 						}
 					}});
 		}
