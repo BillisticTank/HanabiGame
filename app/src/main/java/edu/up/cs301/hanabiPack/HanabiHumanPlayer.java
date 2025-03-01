@@ -20,7 +20,8 @@ import android.view.View.OnClickListener;
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version July 2013
+ * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+ * @version February 2025
  */
 public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListener {
 

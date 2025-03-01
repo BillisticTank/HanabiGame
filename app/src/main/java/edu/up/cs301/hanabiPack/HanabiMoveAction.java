@@ -9,7 +9,8 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version September 2012
+ * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+ * @version February 2025
  */
 public class HanabiMoveAction extends GameAction {
 	

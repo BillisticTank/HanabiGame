@@ -10,6 +10,9 @@ public class PlayCardAction extends GameAction
      * constructor for GameAction
      *
      * @param player the player who created the action
+     *
+     * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+     * @version February 2025
      */
     public PlayCardAction(GamePlayer player) {
         super(player);

@@ -9,11 +9,11 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
 /**
- * This contains the state for the Counter game. The state consist of simply
+ * This contains the state for the Hanabi game. The state consist of simply
  * the value of the counter.
  * 
- * @author Steven R. Vegdahl
- * @version July 2013
+ * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+ * @version February 2025
  */
 public class HanabiState extends GameState {
 
@@ -25,20 +25,26 @@ public class HanabiState extends GameState {
 	private int cardsInHand = 4; //cards in a player hand;
 
 	int count = rand.nextInt(5) + 1;
-	private int[] color = new int[5];{
-			color[0] = Color.BLUE;
-			color[1] = Color.RED;
-			color[2] = Color.WHITE;
-			color[3] = Color.YELLOW;
-			color[4] = Color.GREEN;
-	};
+	private int[] color = new int[5];
+
+	{
+		color[0] = Color.BLUE;
+		color[1] = Color.RED;
+		color[2] = Color.WHITE;
+		color[3] = Color.YELLOW;
+		color[4] = Color.GREEN;
+	}
+
+	;
 
 
 	private int[] cards_Value = new int[cardsInHand]; // Array of Object Card Type;
 	private int discardAmount; // how many cards are discarded
 
-	ArrayList<Integer> drawPileAmount = new ArrayList<>(50);{
-		for(int i = 0; i < 50; ++i) {
+	ArrayList<Integer> drawPileAmount = new ArrayList<>(50);
+
+	{
+		for (int i = 0; i < 50; ++i) {
 			drawPileAmount.add(i);
 		}
 	}
@@ -65,12 +71,11 @@ public class HanabiState extends GameState {
 		this.discardAmount = 0;
 		this.finalScore = 0;
 	}
-	
+
 	/**
 	 * deep copy constructor; makes a copy of the original object
-	 * 
-	 * @param orig
-	 * 		the object from which the copy should be made
+	 *
+	 * @param orig the object from which the copy should be made
 	 */
 	public HanabiState(HanabiState orig) {
 		this.player_Id = orig.player_Id;
@@ -83,17 +88,16 @@ public class HanabiState extends GameState {
 		}
 		this.discardAmount = orig.discardAmount;
 		this.finalScore = orig.finalScore;
-		for (int i = 0; i < drawPileAmount.size(); i++)
-		{
+		for (int i = 0; i < drawPileAmount.size(); i++) {
 			// Add Cards after we created card class;
 		}
 	}
 
 	//this toString method describes the state of the game as a string
 	@Override
-	public String toString(){
-		
-		return "Clock Tokens: " +  totalHints
+	public String toString() {
+
+		return "Clock Tokens: " + totalHints
 				+ " Fuse Tokens: " + fuseTokens
 				+ "Discarded Cards: " + discardAmount
 				+ "Final Score: " + finalScore
@@ -101,19 +105,24 @@ public class HanabiState extends GameState {
 	}
 
 	//these three methods corraspond to each action class and check if the action is viable
-	public boolean makePlayCardAction(PlayCardAction action)
-	{
+	public boolean makePlayCardAction(PlayCardAction action) {
 
 		return true;
 	}
 
-	public boolean makeDiscardCardAction(DiscardCardAction action)
-	{
-		return true;
+	public boolean makeDiscardCardAction(DiscardCardAction action) {
+		if(totalHints == 8) {
+			return false;
+		}
+		else {
+			totalHints++;
+			discardAmount++;
+			return true;
+		}
+
 	}
 
-	public boolean makeGiveHintAction(GiveHintAction action)
-	{
+	public boolean makeGiveHintAction(GiveHintAction action) {
 		if(totalHints == 0)
 		{
 			return false;
@@ -126,5 +135,4 @@ public class HanabiState extends GameState {
 		}
 
 	}
-
 }

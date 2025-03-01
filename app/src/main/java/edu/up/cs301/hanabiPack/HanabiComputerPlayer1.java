@@ -11,7 +11,8 @@ import edu.up.cs301.GameFramework.utilities.Tickable;
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version September 2013
+ * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+ * @version February 2025
  */
 public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickable {
 	
