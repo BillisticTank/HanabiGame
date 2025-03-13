@@ -52,7 +52,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
-		return myActivity.findViewById(R.id.top_gui_layout); //hanabi_test);
+		return myActivity.findViewById(R.id.topLevelLayout); //hanabi_test);
 		//Professor Nuxoll please help!!!
 		//What does this mean???
 	}
@@ -118,4 +118,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	}
 
 }// class CounterHumanPlayer
+
+
+
+
+
 
