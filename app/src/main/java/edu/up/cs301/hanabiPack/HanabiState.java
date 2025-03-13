@@ -109,7 +109,7 @@ public class HanabiState extends GameState {
 				+ "Turn: Player " + player_Id;
 	}
 
-	//these three methods corraspond to each action class and check if the action is viable
+	//these three methods correspond to each action class and check if the action is viable
 	//then they modify the game state accordignly
 	public boolean makePlayCardAction(PlayCardAction action)
 	{

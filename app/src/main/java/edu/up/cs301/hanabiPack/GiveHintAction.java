@@ -13,7 +13,12 @@ public class GiveHintAction extends GameAction
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
      * @version February 2025
      */
-    public GiveHintAction(GamePlayer player) {
+    public GiveHintAction(GamePlayer player)
+    {
         super(player);
+        //choose a player of the player's choice
+
+        //player should choose whether to give hint on color or number
+        //game should automatically check if there are multiple and
     }
 }

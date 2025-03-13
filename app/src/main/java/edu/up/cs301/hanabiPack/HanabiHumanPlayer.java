@@ -28,7 +28,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	/* instance variables */
 	
 	// The TextView the displays the current counter value
-	private TextView counterValueTextView;
+	private TextView testResultsTextView;
 	
 	// the most recent game state, as given to us by the CounterLocalGame
 	private HanabiState state;
@@ -52,7 +52,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
-		return myActivity.findViewById(R.id.top_gui_layout);
+		return myActivity.findViewById(R.id.top_gui_layout); //hanabi_test);
+		//Professor Nuxoll please help!!!
+		//What does this mean???
 	}
 	
 	/**
@@ -60,7 +62,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 */
 	protected void updateDisplay() {
 		// set the text in the appropriate widget
-		counterValueTextView.setText("" /** state.getCounter()**/);
+		testResultsTextView.setText("" /** state.getCounter()**/);
 	}
 
 	/**
@@ -74,22 +76,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
 
-		// Construct the action and send it to the game
-		GameAction action = null;
-		if (button.getId() == R.id.plusButton) {
-			// plus button: create "increment" action
-			action = new HanabiMoveAction(this, true);
-		}
-		else if (button.getId() == R.id.minusButton) {
-			// minus button: create "decrement" action
-			action = new HanabiMoveAction(this, false);
-		}
-		else {
-			// something else was pressed: ignore
-			return;
-		}
-		
-		game.sendAction(action); // send action to the game
+
 	}// onClick
 	
 	/**
@@ -121,23 +108,13 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView(R.layout.counter_human_player);
-		
-		// make this object the listener for both the '+' and '-' 'buttons
-		Button plusButton = (Button) activity.findViewById(R.id.plusButton);
-		plusButton.setOnClickListener(this);
-		Button minusButton = (Button) activity.findViewById(R.id.minusButton);
-		minusButton.setOnClickListener(this);
+		activity.setContentView(R.layout.hanabi_test);
 
-		// remember the field that we update to display the counter's value
-		this.counterValueTextView =
-				(TextView) activity.findViewById(R.id.counterValueTextView);
-		
-		// if we have a game state, "simulate" that we have just received
-		// the state from the game so that the GUI values are updated
-		if (state != null) {
-			receiveInfo(state);
-		}
+		testResultsTextView.findViewById(R.id.editTextTextMultiLine);
+
+		Button human = activity.findViewById(R.id.runTestButton);
+		human.setOnClickListener(this);
+
 	}
 
 }// class CounterHumanPlayer
