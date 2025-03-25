@@ -20,9 +20,9 @@ public class PlayCardAction extends GameAction
     {
         super(player);
 
-        for(int i: HanabiState.cardsInHand)
-        {
-
-        }
+//        for(int i: HanabiState.cardsInHand)
+//        {
+//
+//        }
     }
 }

@@ -29,8 +29,10 @@ public class HanabiState extends GameState {
 	private int fuseTokens; // Number of failures, more than 3 lose.;
 	private int cardsInHand = 4; //cards in a player hand;
 
-	int count = rand.nextInt(5) + 1;
-	private int[] color = new int[5];
+	int count = rand.nextInt(5);
+
+	//TODO:  should this be public or should there be a getter?  You decide.
+	public int[] color = new int[5];
 
 	{
 		color[0] = Color.BLUE;
@@ -41,6 +43,11 @@ public class HanabiState extends GameState {
 	}
 
 	;
+
+	//TODO:  Nuxoll thinks a 3x5 2D array of Card objects would be a good way to track
+	//		 what's in each player's hand.  Each Card object contains:
+	//		 color, number, whether player knows the color, whether player knowns the number
+	//       i.e., int, int, boolean, boolean
 
 
 	private int[] cards_Value = new int[cardsInHand]; // Array of Object Card Type;

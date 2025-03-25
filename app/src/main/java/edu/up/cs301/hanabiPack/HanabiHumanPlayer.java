@@ -4,8 +4,12 @@ import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
+
+import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
@@ -23,19 +27,28 @@ import android.view.View.OnClickListener;
  * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
  * @version February 2025
  */
-public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListener {
+public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener {
 
 	/* instance variables */
-	
-	// The TextView the displays the current counter value
-	private TextView testResultsTextView;
 	
 	// the most recent game state, as given to us by the CounterLocalGame
 	private HanabiState state;
 	
 	// the android activity that we are running
 	private GameMainActivity myActivity;
-	
+
+	//references to GUI elements we tinker with during play
+	Button hintButton;
+
+	ImageView[] teammateCards = new ImageView[8];
+	//TODO:  add the other variables needed
+
+	//A mostly transparent yellow
+	int transYellow = 0x44FFFF00;
+
+	//Currently selected teammate's card
+	private int selectedCard = 0;
+
 	/**
 	 * constructor
 	 * @param name
@@ -52,17 +65,23 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
-		return myActivity.findViewById(R.id.topLevelLayout); //hanabi_test);
-		//Professor Nuxoll please help!!!
-		//What does this mean???
+		return myActivity.findViewById(R.id.main);
 	}
 	
 	/**
 	 * sets the counter value in the text view
 	 */
 	protected void updateDisplay() {
-		// set the text in the appropriate widget
-		testResultsTextView.setText("" /** state.getCounter()**/);
+		//Temporary:  set the hint button's background color to reflect the most recent hint
+		hintButton.setBackgroundColor(this.state.color[0]);
+
+		//Update the currently selected card
+		for(int i = 0; i < teammateCards.length; ++i) {
+			teammateCards[i].setColorFilter(0);  //fully transparent
+		}
+		teammateCards[selectedCard].setColorFilter(transYellow);
+
+		//TODO: more code needed here!
 	}
 
 	/**
@@ -76,9 +95,30 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
 
+		//handle the hint button (TODO:  More code needed here)
+		if (button == hintButton) {
+			//send a hint action to the local game
+			GiveHintAction gha = new GiveHintAction(this, Color.GREEN);
+			game.sendAction(gha);
+		}
+
 
 	}// onClick
-	
+
+	/** when the user touches a card, mark that card as selected */
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		for(int i = 0; i < teammateCards.length; ++i) {
+			if (v == teammateCards[i]) {
+				this.selectedCard = i;
+				updateDisplay();
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	/**
 	 * callback method when we get a message (e.g., from the game)
 	 * 
@@ -108,12 +148,28 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView(R.layout.hanabi_test);
+		activity.setContentView(R.layout.hanabi_human_player);
 
-		testResultsTextView.findViewById(R.id.editTextTextMultiLine);
+		//setup this class as a listener for button click events
+		hintButton = activity.findViewById(R.id.giveHintButton);
+		hintButton.setOnClickListener(this);
+		//TODO:  the other buttons
 
-		Button human = activity.findViewById(R.id.runTestButton);
-		human.setOnClickListener(this);
+		//init the references to the teammates' cards
+		teammateCards[0] = activity.findViewById(R.id.imageView);
+		teammateCards[1] = activity.findViewById(R.id.imageView2);
+		teammateCards[2] = activity.findViewById(R.id.imageView3);
+		teammateCards[3] = activity.findViewById(R.id.imageView4);
+		teammateCards[4] = activity.findViewById(R.id.imageView6);
+		teammateCards[5] = activity.findViewById(R.id.imageView7);
+		teammateCards[6] = activity.findViewById(R.id.imageView8);
+		teammateCards[7] = activity.findViewById(R.id.imageView9);
+
+		//Make myself the touch listener for all the cards
+		for(int i = 0; i < teammateCards.length; ++i) {
+			teammateCards[i].setOnTouchListener(this);
+		}
+
 
 	}
 

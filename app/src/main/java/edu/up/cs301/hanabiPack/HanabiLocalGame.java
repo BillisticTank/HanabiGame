@@ -59,16 +59,14 @@ public class HanabiLocalGame extends LocalGame {
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
 		
-		if (action instanceof HanabiMoveAction) {
+		if (action instanceof GiveHintAction) {
 		
 			// cast so that we Java knows it's a CounterMoveAction
-			HanabiMoveAction cma = (HanabiMoveAction)action;
+			GiveHintAction hintAction = (GiveHintAction)action;
+			this.gameState.color[0] = hintAction._color;
 
-			// Update the counter values based upon the action
-			// int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
-			// gameState.setCounter(result);
-			
-			// denote that this was a legal/successful move
+			//TODO:  handle this action properly.  The code above is just a demo
+
 			return true;
 		}
 		else {
