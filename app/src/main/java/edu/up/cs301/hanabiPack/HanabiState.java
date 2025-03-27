@@ -110,14 +110,14 @@ public class HanabiState extends GameState {
 	public String toString() {
 
 		return "Clock Tokens: " + totalHints
-				+ " Fuse Tokens: " + fuseTokens
+				+ "Fuse Tokens: " + fuseTokens
 				+ "Discarded Cards: " + discardAmount
 				+ "Final Score: " + finalScore
 				+ "Turn: Player " + player_Id;
 	}
 
 	//these three methods correspond to each action class and check if the action is viable
-	//then they modify the game state accordignly
+	//then they modify the game state accordingly
 	public boolean makePlayCardAction(PlayCardAction action)
 	{
 
