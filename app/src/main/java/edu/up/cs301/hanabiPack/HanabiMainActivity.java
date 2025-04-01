@@ -13,7 +13,7 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * 
  * @author Andrew M. Nuxoll
  * @author Steven R. Vegdahl
- * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+ * @author Derric Smith, Alexander Leah, Hassinullah Niazy, Carter Chan
  * @version February 2025
  */
 public class HanabiMainActivity extends GameMainActivity {
