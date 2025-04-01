@@ -7,6 +7,7 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
 
 public class PlayCardAction extends GameAction
 {
+    Card _selection;
 
     /**
      * constructor for GameAction
@@ -14,15 +15,11 @@ public class PlayCardAction extends GameAction
      * @param player the player who created the action
      *
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
-     * @version February 2025
+     * @version February 2025 l.
      */
-    public PlayCardAction(GamePlayer player)
+    public PlayCardAction(GamePlayer player, Card selection)
     {
         super(player);
-
-//        for(int i: HanabiState.cardsInHand)
-//        {
-//
-//        }
+        _selection = selection;
     }
 }
