@@ -51,33 +51,46 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="739dp"
-            android:layout_height="87dp"
-            android:layout_gravity="bottom"
-            android:background="#FF999999"
-            android:orientation="horizontal">
+            android:id="@+id/centerConsole"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/giveHintButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Give Hint" />
+            <LinearLayout
+                android:id="@+id/terminalPane"
+                android:layout_width="127dp"
+                android:layout_height="299dp"
+                android:orientation="horizontal"></LinearLayout>
 
-            <Button
-                android:id="@+id/playCardButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Play Card" />
+            <LinearLayout
+                android:layout_width="739dp"
+                android:layout_height="87dp"
+                android:layout_gravity="bottom"
+                android:background="#FF999999"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/discardButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Discard Card" />
+                <Button
+                    android:id="@+id/giveHintButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Give Hint" />
 
+                <Button
+                    android:id="@+id/playCardButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Play Card" />
+
+                <Button
+                    android:id="@+id/discardButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Discard Card" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
