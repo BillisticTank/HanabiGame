@@ -42,7 +42,22 @@ public class HanabiState extends GameState {
 		color[4] = Color.GREEN;
 	}
 
-	;
+	/**
+	 * getter methods
+	 */
+	public int getPlayer_Id() {return player_Id;}
+	public int getTotalHints() {return totalHints;}
+	public int getFuseTokens() {return fuseTokens;}
+	public int getCardsInHand() {return cardsInHand;}
+
+	/**
+	 * setter methods
+	 */
+	public void setPlayer_Id(int player_Id) {this.player_Id = player_Id;}
+	public void setTotalHints(int totalHints) {this.totalHints = totalHints;}
+	public void setFuseTokens(int fuseTokens) {this.fuseTokens = fuseTokens;}
+	public void setCardsInHand(int cardsInHand) {this.cardsInHand = cardsInHand;}
+
 
 	//TODO:  Nuxoll thinks a 3x5 2D array of Card objects would be a good way to track
 	//		 what's in each player's hand.  Each Card object contains:
@@ -61,6 +76,12 @@ public class HanabiState extends GameState {
 		}
 	}
 
+	/**\
+	 *
+	 * Firework Show on the table
+	 */
+	ArrayList< ArrayList<Card> > fireworkShow = new ArrayList<>();
+
 	// private Cards recentCardPlayed; // latest card played from hand.
 	private int finalScore; // score for firework show.
 
@@ -76,6 +97,12 @@ public class HanabiState extends GameState {
 		this.cardsInHand = 4;
 		for (int i = 0; i < color.length; i++) {
 			this.color[i] = color[count];
+		}
+
+		//add an empty list for each color
+		for (int j = 0; j < color.length; j++)
+		{
+			fireworkShow.add(new ArrayList<Card>());
 		}
 
 		// this.recentCardPlayed = 0;
@@ -98,6 +125,10 @@ public class HanabiState extends GameState {
 		for (int i = 0; i < color.length; i++) {
 			this.color[i] = orig.color[i];
 		}
+		//TODO we need to deep copy the firework show
+		//This is a shallow copy, we'll fix it later
+		this.fireworkShow = orig.fireworkShow;
+
 		this.discardAmount = orig.discardAmount;
 		this.finalScore = orig.finalScore;
 		for (int i = 0; i < drawPileAmount.size(); i++) {
@@ -120,9 +151,31 @@ public class HanabiState extends GameState {
 	//then they modify the game state accordingly
 	public boolean makePlayCardAction(PlayCardAction action)
 	{
+		/**
+		 * Play Card Action should check if the card is valid by first making sure that the card
+		 * can appropriately fit into the firework show arraylist by check the value of the
+		 * last card in each color row
+		 */
+
+		int cardColor = action._selection._color;
+		ArrayList<Card> subShow = fireworkShow.get(cardColor);
+		int cardNumber = action._selection._number;
 
 		/**
-		if(cards_Value.length + 1 < cards_Value.length)
+		 * color tells us the color row
+		 * cardNumber tells us where it goes on the list
+		 *
+		 * ex: if the card the player selects is equal to the
+		 * size of the empty arraylist + 1. Then add that card
+		 * into the arraylist thingymajig.
+		 */
+		if(cardNumber == subShow.size() + 1)
+		{
+			subShow.add(action._selection);
+		}
+
+		/**
+		if else(action == fireworkShow.get(0 + 1))
 		{
 			fuseTokens++;
 			return true;
@@ -136,9 +189,10 @@ public class HanabiState extends GameState {
 		{
 			return false;
 		}
-		 **/
 		finalScore++;
 		return true;
+		 */
+		return false;
 	}
 
 	public boolean makeDiscardCardAction(DiscardCardAction action) {
