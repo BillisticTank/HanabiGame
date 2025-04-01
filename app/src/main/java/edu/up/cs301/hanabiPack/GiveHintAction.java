@@ -17,11 +17,11 @@ public class GiveHintAction extends GameAction
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
      * @version February 2025
      */
-    public GiveHintAction(GamePlayer player, int color, int num, int numOfTokens)
+
+    public GiveHintAction(GamePlayer player, int color)
     {
         super(player);
         _color = color;
-        _num = num;
-        _numOfTokens = numOfTokens;
+
     }
 }
