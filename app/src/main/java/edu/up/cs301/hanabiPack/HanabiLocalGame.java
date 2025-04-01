@@ -73,60 +73,27 @@ public class HanabiLocalGame extends LocalGame {
 		if (action instanceof GiveHintAction) {
 
 			GiveHintAction mouth = (GiveHintAction) action;
-			//Player 1's Turn
-			if (gameState.getPlayer_Id() == 0) {
-				gameState.setPlayer_Id(1);
-			}
-			//Player 2's Turn
-			else if (gameState.getPlayer_Id() == 1) {
-				gameState.setPlayer_Id(2);
-			}
-			//Player 3's Turn
-			else if (gameState.getPlayer_Id() == 2) {
-				gameState.setPlayer_Id(0);
-			}
+			nextTurn();
 			return gameState.makeGiveHintAction(mouth);
 		}
 
 		if(action instanceof PlayCardAction)
 		{
 			PlayCardAction eyes = (PlayCardAction) action;
-			//Player 1's Turn
-			if (gameState.getPlayer_Id() == 0) {
-				gameState.setPlayer_Id(1);
-			}
-			//Player 2's Turn
-			else if (gameState.getPlayer_Id() == 1) {
-				gameState.setPlayer_Id(2);
-			}
-			//Player 3's Turn
-			else if (gameState.getPlayer_Id() == 2) {
-				gameState.setPlayer_Id(0);;
-			}
+			nextTurn();
 			return gameState.makePlayCardAction(eyes);
 		}
 
 		if(action instanceof DiscardCardAction)
 		{
 			DiscardCardAction ears = (DiscardCardAction) action;
-			//Player 1's Turn
-			if (gameState.getPlayer_Id() == 0) {
-				gameState.setPlayer_Id(1);
-			}
-			//Player 2's Turn
-			else if (gameState.getPlayer_Id() == 1) {
-				gameState.setPlayer_Id(2);
-			}
-			//Player 3's Turn
-			else if (gameState.getPlayer_Id() == 2) {
-				gameState.setPlayer_Id(0);
-			}
+			nextTurn();
 			return gameState.makeDiscardCardAction(ears);
 		}
 		return false;
 	}//makeMove
 
-	protected int nextTurn(int player_id){
+	protected void nextTurn(){
 		if(gameState.getPlayer_Id() == 0){
 			gameState.setPlayer_Id(1);
 		}
@@ -136,9 +103,6 @@ public class HanabiLocalGame extends LocalGame {
 		if(gameState.getPlayer_Id() == 1){
 			gameState.setPlayer_Id(0);
 		}
-
-		gameState.setPlayer_Id(player_id);
-		return player_id;
 	}
 	
 	/**

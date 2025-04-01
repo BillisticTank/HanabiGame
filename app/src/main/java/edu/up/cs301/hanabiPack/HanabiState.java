@@ -234,6 +234,7 @@ public class HanabiState extends GameState {
 
 
 
+
 			totalHints--;
 			return true;
 		}
