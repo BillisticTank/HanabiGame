@@ -24,7 +24,7 @@ public class HanabiState extends GameState {
 
 	Random rand = new Random();
 	// instance variables,
-	private int player_Id; //four players (1...4)
+	private int player_Id; //three players (1...3)
 	private int totalHints; // total hints.
 	private int fuseTokens; // Number of failures, more than 3 lose.;
 	private int cardsInHand = 4; //cards in a player hand;
@@ -208,28 +208,37 @@ public class HanabiState extends GameState {
 	}
 
 	public boolean makeDiscardCardAction(DiscardCardAction action) {
-		if(totalHints == 8) {
-			return false;
-		}
-		else {
+		if(totalHints < 8){
 			totalHints++;
-			discardAmount++;
 			return true;
 		}
 
+		else if(totalHints == 8){
+			return true;
+		}
+		return false;
 	}
 
 	public boolean makeGiveHintAction(GiveHintAction action) {
-		if(totalHints == 0)
-		{
-			return false;
-		}
-		else
-		{
-			totalHints--;
+		if(totalHints > 0){
+			/**
+			 * give hint action should question you on who you want to give the hint to
+			 * and then question whether you want to hint them on color or number of their cards
+			 * and then check to make sure if total hints is not equal to 0
+			 * and then display that information
+			 */
 
+
+
+
+
+
+
+			totalHints--;
 			return true;
 		}
+
+		return false;
 
 	}
 }

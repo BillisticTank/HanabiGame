@@ -45,7 +45,10 @@ public class HanabiLocalGame extends LocalGame {
 	 */
 	@Override
 	protected boolean canMove(int playerIdx) {
-		return true;
+		if(playerIdx == gameState.getPlayer_Id()){
+			return true;
+		};
+		return false;
 	}
 
 	/**
@@ -68,38 +71,75 @@ public class HanabiLocalGame extends LocalGame {
 		Log.i("action", action.getClass().toString());
 		
 		if (action instanceof GiveHintAction) {
-		
-			// cast so that we Java knows it's a CounterMoveAction
-			GiveHintAction hintAction = (GiveHintAction)action;
-			this.gameState.color[0] = hintAction._color;
 
-			//TODO:  handle this action properly.  The code above is just a demo
-
-			gameState.setTotalHints(gameState.getTotalHints() - 1);
-			return true;
+			GiveHintAction mouth = (GiveHintAction) action;
+			//Player 1's Turn
+			if (gameState.getPlayer_Id() == 0) {
+				gameState.setPlayer_Id(1);
+			}
+			//Player 2's Turn
+			else if (gameState.getPlayer_Id() == 1) {
+				gameState.setPlayer_Id(2);
+			}
+			//Player 3's Turn
+			else if (gameState.getPlayer_Id() == 2) {
+				gameState.setPlayer_Id(0);
+			}
+			return gameState.makeGiveHintAction(mouth);
 		}
 
-		/**
-		else
-		{
-			// denote that this was an illegal move
-			return false;
-		}
-		 */
 		if(action instanceof PlayCardAction)
 		{
 			PlayCardAction eyes = (PlayCardAction) action;
+			//Player 1's Turn
+			if (gameState.getPlayer_Id() == 0) {
+				gameState.setPlayer_Id(1);
+			}
+			//Player 2's Turn
+			else if (gameState.getPlayer_Id() == 1) {
+				gameState.setPlayer_Id(2);
+			}
+			//Player 3's Turn
+			else if (gameState.getPlayer_Id() == 2) {
+				gameState.setPlayer_Id(0);;
+			}
 			return gameState.makePlayCardAction(eyes);
 		}
 
 		if(action instanceof DiscardCardAction)
 		{
-			return true;
+			DiscardCardAction ears = (DiscardCardAction) action;
+			//Player 1's Turn
+			if (gameState.getPlayer_Id() == 0) {
+				gameState.setPlayer_Id(1);
+			}
+			//Player 2's Turn
+			else if (gameState.getPlayer_Id() == 1) {
+				gameState.setPlayer_Id(2);
+			}
+			//Player 3's Turn
+			else if (gameState.getPlayer_Id() == 2) {
+				gameState.setPlayer_Id(0);
+			}
+			return gameState.makeDiscardCardAction(ears);
 		}
-
-
 		return false;
 	}//makeMove
+
+	protected int nextTurn(int player_id){
+		if(gameState.getPlayer_Id() == 0){
+			gameState.setPlayer_Id(1);
+		}
+		if(gameState.getPlayer_Id() == 1){
+			gameState.setPlayer_Id(2);
+		}
+		if(gameState.getPlayer_Id() == 1){
+			gameState.setPlayer_Id(0);
+		}
+
+		gameState.setPlayer_Id(player_id);
+		return player_id;
+	}
 	
 	/**
 	 * send the updated state to a given player
