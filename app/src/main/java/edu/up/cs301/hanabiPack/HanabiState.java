@@ -29,6 +29,8 @@ public class HanabiState extends GameState {
 	private int fuseTokens; // Number of failures, more than 3 lose.;
 	private int cardsInHand = 4; //cards in a player hand;
 
+	private ArrayList<Card> drawPile = new ArrayList<Card>();
+
 	int count = rand.nextInt(5);
 
 	//TODO:  should this be public or should there be a getter?  You decide.
@@ -53,11 +55,15 @@ public class HanabiState extends GameState {
 	private int[] cards_Value = new int[cardsInHand]; // Array of Object Card Type;
 	private int discardAmount; // how many cards are discarded
 
-	ArrayList<Integer> drawPileAmount = new ArrayList<>(50);
-
+	ArrayList<Card> drawPileAmount = new ArrayList<Card>(50);
 	{
-		for (int i = 0; i < 50; ++i) {
-			drawPileAmount.add(i);
+		//for each color we have 5 cards;
+		for (int i = 0; i < color.length; ++i) {
+			for (int j = 0; j < 5; j++) {
+
+				drawPileAmount.add(new Card(i, j));
+				drawPileAmount.add(new Card(i, j));
+			}
 		}
 	}
 
@@ -82,6 +88,12 @@ public class HanabiState extends GameState {
 		this.cards_Value = null;
 		this.discardAmount = 0;
 		this.finalScore = 0;
+		for(int i = 0; i < 5; i++)
+		{
+
+		}
+
+
 	}
 
 	/**
