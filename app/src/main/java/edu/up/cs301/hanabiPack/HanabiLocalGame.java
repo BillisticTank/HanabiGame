@@ -26,7 +26,15 @@ public class HanabiLocalGame extends LocalGame {
 	public static final int TARGET_MAGNITUDE = 10;
 
 	// the game's state
-	private HanabiState gameState;
+	HanabiState gameState;
+
+	/**
+	 * default ctor that makes the game state
+	 */
+	public HanabiLocalGame()
+	{
+		gameState = new HanabiState();
+	}
 	
 	/**
 	 * can this player move
@@ -67,12 +75,30 @@ public class HanabiLocalGame extends LocalGame {
 
 			//TODO:  handle this action properly.  The code above is just a demo
 
+			gameState.setTotalHints(gameState.getTotalHints() - 1);
 			return true;
 		}
-		else {
+
+		/**
+		else
+		{
 			// denote that this was an illegal move
 			return false;
 		}
+		 */
+		if(action instanceof PlayCardAction)
+		{
+			PlayCardAction eyes = (PlayCardAction) action;
+			return gameState.makePlayCardAction(eyes);
+		}
+
+		if(action instanceof DiscardCardAction)
+		{
+			return true;
+		}
+
+
+		return false;
 	}//makeMove
 	
 	/**
