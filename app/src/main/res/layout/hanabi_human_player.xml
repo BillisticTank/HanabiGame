@@ -1,83 +1,99 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/main0002"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF777696"
-    android:orientation="horizontal">
+    android:background="#FF151B54"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HANABI GAME"
+        android:textAlignment="center"
+        android:gravity="top"
+        android:textColor="#FFFFFFFF"
+        android:textStyle="italic"
+        android:textSize="72dp"
+        tools:ignore="RtlCompat" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="629dp"
         android:layout_gravity="center_vertical"
-        android:background="#FFDDDDDD"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/googleGemini"
             android:layout_width="272dp"
             android:layout_height="match_parent"
-            android:background="#FFABCDEF"
+            android:background="#FF52B2B7"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/Gemini1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rotation="-90"
                 android:layout_weight="1"
+                android:rotation="-90"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/Gemini2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rotation="-90"
                 android:layout_weight="1"
+                android:rotation="-90"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/Gemini3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rotation="-90"
                 android:layout_weight="1"
+                android:rotation="-90"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/Gemini4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rotation="-90"
                 android:layout_weight="1"
+                android:rotation="-90"
                 android:src="@drawable/hanabi_card" />
+
             <ImageView
                 android:id="@+id/Gemini5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rotation="-90"
                 android:layout_weight="1"
+                android:rotation="-90"
                 android:src="@drawable/hanabi_card" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/centerConsole"
-            android:layout_width="wrap_content"
+            android:layout_width="741dp"
             android:layout_height="match_parent"
+            android:background="#FF52B2B7"
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/terminalPane"
                 android:layout_width="match_parent"
                 android:layout_height="377dp"
+                android:background="#FF860050"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/gameStaticInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -85,7 +101,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="#FF860050"
                         android:text="Fuse Tokens:"
+                        android:textColor="#FFFFFFFF"
                         android:textSize="25dp" />
 
                     <TextView
@@ -93,7 +111,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="#FF860050"
                         android:text="Hints: "
+                        android:textColor="#FFFFFFFF"
                         android:textSize="25dp" />
 
                     <TextView
@@ -101,7 +121,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="#FF860050"
                         android:text="Cards in Deck: "
+                        android:textColor="#FFFFFFFF"
                         android:textSize="25dp" />
                 </LinearLayout>
 
@@ -109,6 +131,7 @@
                     android:id="@+id/gamePlay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#FF000000"
                     android:orientation="horizontal">
 
                     <TextView
@@ -116,10 +139,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="What Happened in the Game!"
+                        android:text="What Happens in the Game (Moves)!"
                         android:textAlignment="center"
-                        android:textSize="20dp"
-                      />
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="20dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -127,55 +150,256 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#FFFFFFFF"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/Red"
-                        android:background="#30FF0000"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#66F27979"
                         android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/red1"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_red" />
+
+                        <ImageView
+                            android:id="@+id/red2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_red" />
+
+                        <ImageView
+                            android:id="@+id/red3"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_red" />
+
+                        <ImageView
+                            android:id="@+id/red4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_red" />
+
+                        <ImageView
+                            android:id="@+id/red5"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_red" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/Blue"
-                        android:background="#AAABCDEF"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#6682CAFF"
                         android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/blue1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_blue" />
+
+                        <ImageView
+                            android:id="@+id/blue2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_blue" />
+
+                        <ImageView
+                            android:id="@+id/blue3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_blue" />
+
+                        <ImageView
+                            android:id="@+id/blue4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_blue" />
+
+                        <ImageView
+                            android:id="@+id/blue5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_blue" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/White"
-                        android:background="#FFFFFFFF"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#FFFFFFFF"
                         android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/white1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_white" />
+
+                        <ImageView
+                            android:id="@+id/white2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_white" />
+
+                        <ImageView
+                            android:id="@+id/white3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_white" />
+
+                        <ImageView
+                            android:id="@+id/white4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_white" />
+
+                        <ImageView
+                            android:id="@+id/white5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_white" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/Yellow"
-                        android:background="#30FFFF00"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#66FFFA91"
                         android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/yellow1"
+                            android:layout_width="190dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="90"
+                            android:src="@drawable/hanabi_yellow" />
+
+                        <ImageView
+                            android:id="@+id/yellow2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="90"
+                            android:src="@drawable/hanabi_yellow" />
+
+                        <ImageView
+                            android:id="@+id/yellow3"
+                            android:layout_width="190dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="90"
+                            android:src="@drawable/hanabi_yellow" />
+
+                        <ImageView
+                            android:id="@+id/yellow4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="90"
+                            android:src="@drawable/hanabi_yellow" />
+
+                        <ImageView
+                            android:id="@+id/yellow5"
+                            android:layout_width="190dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="90"
+                            android:src="@drawable/hanabi_yellow" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/Green"
-                        android:background="#3000FF00"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#3300FF00"
                         android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/green1"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_green" />
+
+                        <ImageView
+                            android:id="@+id/green2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_green" />
+
+                        <ImageView
+                            android:id="@+id/green3"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_green" />
+
+                        <ImageView
+                            android:id="@+id/green4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_green" />
+
+                        <ImageView
+                            android:id="@+id/green5"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:rotation="-90"
+                            android:src="@drawable/hanabi_green" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -185,9 +409,9 @@
             <LinearLayout
                 android:id="@+id/buttonsPane"
                 android:layout_width="739dp"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_gravity="bottom"
-                android:background="#FF999999"
+                android:background="#FF151B54"
                 android:orientation="horizontal">
 
                 <Button
@@ -196,6 +420,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
+                    android:backgroundTint="#FFFFFFFF"
                     android:text="Give Hint" />
 
                 <Button
@@ -204,6 +429,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
+                    android:backgroundTint="#FFFFFFFF"
                     android:text="Play Card" />
 
                 <Button
@@ -212,6 +438,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
+                    android:backgroundTint="#FFFFFFFF"
                     android:text="Discard Card" />
 
             </LinearLayout>
@@ -220,6 +447,7 @@
                 android:id="@+id/playerCardsPane"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
+                android:background="#FF52B2B7"
                 android:gravity="bottom"
                 android:orientation="horizontal">
 
@@ -271,46 +499,47 @@
             android:id="@+id/ChatGPT"
             android:layout_width="266dp"
             android:layout_height="match_parent"
-            android:background="#FFABCDEF"
+            android:background="#FF52B2B7"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/GPT1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rotation="90"
                 android:layout_weight="1"
+                android:rotation="90"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/GPT2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rotation="90"
                 android:layout_weight="1"
+                android:rotation="90"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/GPT3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rotation="90"
                 android:layout_weight="1"
+                android:rotation="90"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/GPT4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rotation="90"
                 android:layout_weight="1"
+                android:rotation="90"
                 android:src="@drawable/hanabi_card" />
+
             <ImageView
                 android:id="@+id/GPT5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rotation="90"
                 android:layout_weight="1"
+                android:rotation="90"
                 android:src="@drawable/hanabi_card" />
 
         </LinearLayout>
