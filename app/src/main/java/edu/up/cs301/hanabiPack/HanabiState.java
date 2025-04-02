@@ -27,7 +27,7 @@ public class HanabiState extends GameState {
 	private int player_Id; //three players (1...3)
 	private int totalHints; // total hints.
 	private int fuseTokens; // Number of failures, more than 3 lose.;
-	private int cardsInHand = 4; //cards in a player hand;
+	private int cardsInHand = 5; //cards in a player hand;
 
 	private ArrayList<Card> drawPile = new ArrayList<Card>();
 
@@ -44,30 +44,16 @@ public class HanabiState extends GameState {
 		color[4] = Color.GREEN;
 	}
 
-	/**
-	 * getter methods
-	 */
-	public int getPlayer_Id() {return player_Id;}
-	public int getTotalHints() {return totalHints;}
-	public int getFuseTokens() {return fuseTokens;}
-	public int getCardsInHand() {return cardsInHand;}
-
-	/**
-	 * setter methods
-	 */
-	public void setPlayer_Id(int player_Id) {this.player_Id = player_Id;}
-	public void setTotalHints(int totalHints) {this.totalHints = totalHints;}
-	public void setFuseTokens(int fuseTokens) {this.fuseTokens = fuseTokens;}
-	public void setCardsInHand(int cardsInHand) {this.cardsInHand = cardsInHand;}
-
-
 	//TODO:  Nuxoll thinks a 3x5 2D array of Card objects would be a good way to track
 	//		 what's in each player's hand.  Each Card object contains:
 	//		 color, number, whether player knows the color, whether player knowns the number
 	//       i.e., int, int, boolean, boolean
 
-
-	private int[] cards_Value = new int[cardsInHand]; // Array of Object Card Type;
+	/**
+	 * The cards_value is a 2D array. The 3 represents the 3 players, and the 5 represents the
+	 * 5 cards each player has
+	 */
+	private Card[][] cards_Value = new Card[3][5]; // Array of Object Card Type;
 	private int discardAmount; // how many cards are discarded
 
 	ArrayList<Card> drawPileAmount = new ArrayList<Card>(50);
@@ -80,6 +66,7 @@ public class HanabiState extends GameState {
 				drawPileAmount.add(new Card(i, j));
 			}
 		}
+		//TODO shuffle the deck
 	}
 
 	/**\
@@ -88,12 +75,16 @@ public class HanabiState extends GameState {
 	 */
 	ArrayList< ArrayList<Card> > fireworkShow = new ArrayList<>();
 
-	// private Cards recentCardPlayed; // latest card played from hand.
+	/**
+	 * An Array of Cards in your hand, this will be used for the hint action in gamestate
+	 */
+	private Card[] hints = new Card[5];
+
 	private int finalScore; // score for firework show.
 
 	/**
 	 * default constructor;
-	 * constructor, initializing the counter value from the parameter
+	 * intitalizes all the variables for a new game of Hanabi
 	 */
 
 	public HanabiState() {
@@ -112,7 +103,16 @@ public class HanabiState extends GameState {
 		}
 
 		// this.recentCardPlayed = 0;
-		this.cards_Value = null;
+		for (int i = 0; i < 3; i++){
+			for (int j = 0; j < 5; j++){
+				cards_Value[i][j] = drawPile.remove(0) ;
+			}
+		}
+
+		//hints array
+		for (int i = 0; i < hints.length; i++){
+			hints[i] = new Card(-1,-1);
+		}
 		this.discardAmount = 0;
 		this.finalScore = 0;
 		for(int i = 0; i < 5; i++)
@@ -133,13 +133,25 @@ public class HanabiState extends GameState {
 		this.totalHints = orig.totalHints;
 		this.fuseTokens = orig.fuseTokens;
 		this.cardsInHand = orig.cardsInHand;
-		this.cards_Value = orig.cards_Value;
+		//TODO this array needs to be a deep copy, currently it is a shallow copy
+		//this.cards_Value = orig.cards_Value;
+		for (int i = 0; i < cards_Value.length; i++) {
+			for (int j = 0; j < cards_Value[i].length; i++) {
+				this.cards_Value[i][j] = orig.cards_Value[i][j];
+			}
+		}
+
 		for (int i = 0; i < color.length; i++) {
 			this.color[i] = orig.color[i];
 		}
 		//TODO we need to deep copy the firework show
 		//This is a shallow copy, we'll fix it later
 		this.fireworkShow = orig.fireworkShow;
+
+		//TODO we need to deep copy the hints show
+		for (int i = 0; i < hints.length; i++) {
+			this.hints[i] = orig.hints[i];
+		}
 
 		this.discardAmount = orig.discardAmount;
 		this.finalScore = orig.finalScore;
@@ -148,7 +160,26 @@ public class HanabiState extends GameState {
 		}
 	}
 
-	//this toString method describes the state of the game as a string
+	/**
+	 * getter methods
+	 */
+	public int getPlayer_Id() {return player_Id;}
+	public int getTotalHints() {return totalHints;}
+	public int getFuseTokens() {return fuseTokens;}
+	public int getCardsInHand() {return cardsInHand;}
+
+	/**
+	 * setter methods
+	 */
+	public void setPlayer_Id(int player_Id) {this.player_Id = player_Id;}
+	public void setTotalHints(int totalHints) {this.totalHints = totalHints;}
+	public void setFuseTokens(int fuseTokens) {this.fuseTokens = fuseTokens;}
+	public void setCardsInHand(int cardsInHand) {this.cardsInHand = cardsInHand;}
+
+	/**
+	 * this toString method describes the state of the game as a string
+	 */
+
 	@Override
 	public String toString() {
 
@@ -159,8 +190,10 @@ public class HanabiState extends GameState {
 				+ "Turn: Player " + player_Id;
 	}
 
-	//these three methods correspond to each action class and check if the action is viable
-	//then they modify the game state accordingly
+	/**
+	 * these three methods correspond to each action class and check if the action is viable
+	 * then they modify the game state accordingly
+	 */
 	public boolean makePlayCardAction(PlayCardAction action)
 	{
 		/**
@@ -169,9 +202,9 @@ public class HanabiState extends GameState {
 		 * last card in each color row
 		 */
 
-		int cardColor = action._selection._color;
+		int cardColor = action._cardId._color;
 		ArrayList<Card> subShow = fireworkShow.get(cardColor);
-		int cardNumber = action._selection._number;
+		int cardNumber = action._cardId._number;
 
 		/**
 		 * color tells us the color row
@@ -181,29 +214,15 @@ public class HanabiState extends GameState {
 		 * size of the empty arraylist + 1. Then add that card
 		 * into the arraylist thingymajig.
 		 */
-		if(cardNumber == subShow.size() + 1)
-		{
-			subShow.add(action._selection);
-		}
-
-		/**
-		if else(action == fireworkShow.get(0 + 1))
-		{
-			fuseTokens++;
+		if(cardNumber == subShow.size() + 1) {
+			subShow.add(action._cardId);
+			finalScore++;
 			return true;
 		}
-		else if(cards_Value.length + 1 > cards_Value[0])
-		{
-			finalScore = finalScore + cards_Value[0];
+		else if(cardNumber != subShow.size() + 1) {
+			fuseTokens--;
 			return true;
 		}
-		else
-		{
-			return false;
-		}
-		finalScore++;
-		return true;
-		 */
 		return false;
 	}
 
@@ -227,13 +246,21 @@ public class HanabiState extends GameState {
 			 * and then check to make sure if total hints is not equal to 0
 			 * and then display that information
 			 */
-
-
-
-
-
-
-
+			if(player_Id == action._reciverId){
+				return false;
+				/**
+				 * you can't give a hint to yourself
+				 */
+			}
+			//get the card the hint is about
+			Card hintCard = cards_Value[action._reciverId][action._aboutCard];
+			if(action._isColor)
+			{
+				hints[action._aboutCard]._color = hintCard._color;
+			}
+			else{
+				hints[action._aboutCard]._number = hintCard._number;
+			}
 
 			totalHints--;
 			return true;
