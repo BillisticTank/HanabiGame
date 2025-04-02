@@ -7,7 +7,9 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
 
 public class PlayCardAction extends GameAction
 {
-    Card _selection;
+    //TODO fix it so this checks the Card ID of your selected card
+
+    Card _cardId;
 
     /**
      * constructor for GameAction
@@ -17,9 +19,9 @@ public class PlayCardAction extends GameAction
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
      * @version February 2025 l.
      */
-    public PlayCardAction(GamePlayer player, Card selection)
+    public PlayCardAction(GamePlayer player, Card cardId)
     {
         super(player);
-        _selection = selection;
+        _cardId = cardId;
     }
 }
