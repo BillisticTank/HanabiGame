@@ -29,7 +29,7 @@ public class HanabiState extends GameState {
 	private int fuseTokens; // Number of failures, more than 3 lose.;
 	private int cardsInHand = 5; //cards in a player hand;
 
-	private ArrayList<Card> drawPile = new ArrayList<Card>();
+	private ArrayList<Card> drawPile = new ArrayList<Card>(50);
 
 	int count = rand.nextInt(5);
 
@@ -254,13 +254,6 @@ public class HanabiState extends GameState {
 			}
 			//get the card the hint is about
 			Card hintCard = cards_Value[action._reciverId][action._aboutCard];
-			/**
-			 * if the give hint action is about color, then announce a hint
-			 * about aboutCard's specific color.
-			 *
-			 * if the give hint action isn't about color, then announce a hint
-			 * about _aboutCard's number
-			 */
 			if(action._isColor)
 			{
 				hints[action._aboutCard]._color = hintCard._color;

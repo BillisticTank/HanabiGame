@@ -41,6 +41,8 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 	//references to GUI elements we tinker with during play
 	Button hintButton;
+	Button playCardButton;
+	Button discardButton;
 
 	ImageView[] teammateCards = new ImageView[8];
 	//TODO:  add the other variables needed
@@ -102,6 +104,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			//send a hint action to the local game based on color
 			GiveHintAction colorHint = new GiveHintAction(this,Color.GREEN);
 			game.sendAction(colorHint);
+
 		}
 	}// onClick
 
@@ -150,7 +153,10 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		hintButton = activity.findViewById(R.id.giveHintButton);
 		hintButton.setOnClickListener(this);
-		//TODO:  the other buttons
+		playCardButton = activity.findViewById(R.id.playCardButton);
+		playCardButton.setOnClickListener(this);
+		discardButton = activity.findViewById(R.id.discardButton);
+		discardButton.setOnClickListener(this);
 
 		//init the references to the teammates' cards
 		teammateCards[0] = activity.findViewById(R.id.GPT1);

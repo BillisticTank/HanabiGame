@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#FF860050"
-                        android:text="Hints: "
+                        android:text="Hints:"
                         android:textColor="#FFFFFFFF"
                         android:textSize="25dp" />
 
@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#FF860050"
-                        android:text="Cards in Deck: "
+                        android:text="Cards in Deck:"
                         android:textColor="#FFFFFFFF"
                         android:textSize="25dp" />
                 </LinearLayout>
