@@ -101,7 +101,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		//handle the hint button (TODO:  More code needed here)
 		if (button == hintButton) {
 			//send a hint action to the local game
-			GiveHintAction gha = new GiveHintAction(this, Color.GREEN);
+			GiveHintAction gha = new GiveHintAction(this, true, state.getPlayer_Id(), state.getCardsInHand());
 			game.sendAction(gha);
 		}
 	}// onClick

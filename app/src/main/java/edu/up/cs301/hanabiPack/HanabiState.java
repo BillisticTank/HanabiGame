@@ -254,6 +254,13 @@ public class HanabiState extends GameState {
 			}
 			//get the card the hint is about
 			Card hintCard = cards_Value[action._reciverId][action._aboutCard];
+			/**
+			 * if the give hint action is about color, then announce a hint
+			 * about aboutCard's specific color.
+			 *
+			 * if the give hint action isn't about color, then announce a hint
+			 * about _aboutCard's number
+			 */
 			if(action._isColor)
 			{
 				hints[action._aboutCard]._color = hintCard._color;
