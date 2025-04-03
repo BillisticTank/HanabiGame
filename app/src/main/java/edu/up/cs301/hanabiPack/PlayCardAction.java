@@ -19,9 +19,8 @@ public class PlayCardAction extends GameAction
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
      * @version February 2025 l.
      */
-    public PlayCardAction(GamePlayer player, Card cardId)
+    public PlayCardAction(GamePlayer player)
     {
         super(player);
-        _cardId = cardId;
     }
 }

@@ -66,9 +66,8 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
-		return myActivity.findViewById(R.id.main); //hanabi_test);
-		//Professor Nuxoll please help!!!
-		//What does this mean???
+		return myActivity.findViewById(R.id.main); //hanabi_main);
+
 	}
 	
 	/**
@@ -100,9 +99,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		//handle the hint button (TODO:  More code needed here)
 		if (button == hintButton) {
-			//send a hint action to the local game
-			GiveHintAction gha = new GiveHintAction(this, Color.GREEN);
-			game.sendAction(gha);
+			//send a hint action to the local game based on color
+			GiveHintAction colorHint = new GiveHintAction(this,Color.GREEN);
+			game.sendAction(colorHint);
 		}
 	}// onClick
 
@@ -167,7 +166,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		for(int i = 0; i < teammateCards.length; ++i) {
 			teammateCards[i].setOnTouchListener(this);
 		}
-
 
 
 		//human.setOnClickListener(this);

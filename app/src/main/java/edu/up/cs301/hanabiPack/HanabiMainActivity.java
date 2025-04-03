@@ -84,8 +84,9 @@ public class HanabiMainActivity extends GameMainActivity {
 	 */
 	@Override
 	public LocalGame createLocalGame(GameState state) {
-		if (state == null) state = new HanabiState();
-		return new HanabiLocalGame(state);
+		if (state == null) { state = new HanabiState(); }
+			return new HanabiLocalGame(state);
+
 	}
 
 }

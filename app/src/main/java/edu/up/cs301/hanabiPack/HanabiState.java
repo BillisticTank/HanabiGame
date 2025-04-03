@@ -101,14 +101,14 @@ public class HanabiState extends GameState {
 		{
 			fireworkShow.add(new ArrayList<Card>());
 		}
-
+/*
 		// this.recentCardPlayed = 0;
 		for (int i = 0; i < 3; i++){
 			for (int j = 0; j < 5; j++){
 				cards_Value[i][j] = drawPile.remove(0) ;
 			}
 		}
-
+*/
 		//hints array
 		for (int i = 0; i < hints.length; i++){
 			hints[i] = new Card(-1,-1);
@@ -136,7 +136,7 @@ public class HanabiState extends GameState {
 		//TODO this array needs to be a deep copy, currently it is a shallow copy
 		//this.cards_Value = orig.cards_Value;
 		for (int i = 0; i < cards_Value.length; i++) {
-			for (int j = 0; j < cards_Value[i].length; i++) {
+			for (int j = 0; j < cards_Value[i].length; j++) {
 				this.cards_Value[i][j] = orig.cards_Value[i][j];
 			}
 		}

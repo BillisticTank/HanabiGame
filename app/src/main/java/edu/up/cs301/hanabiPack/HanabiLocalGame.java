@@ -97,10 +97,10 @@ public class HanabiLocalGame extends LocalGame {
 		if(gameState.getPlayer_Id() == 0){
 			gameState.setPlayer_Id(1);
 		}
-		if(gameState.getPlayer_Id() == 1){
+		else if(gameState.getPlayer_Id() == 1){
 			gameState.setPlayer_Id(2);
 		}
-		if(gameState.getPlayer_Id() == 1){
+		else if(gameState.getPlayer_Id() == 2){
 			gameState.setPlayer_Id(0);
 		}
 	}

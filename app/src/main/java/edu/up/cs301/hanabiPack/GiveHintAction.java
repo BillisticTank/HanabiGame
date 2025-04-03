@@ -6,9 +6,10 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
 public class GiveHintAction extends GameAction
 {
     //TODO:  Add instance variables here to specify:  which, which type of hint (num or color), and the hint value itself
+    public int _color;
     public boolean _isColor;
     public int _reciverId;
-    public int _aboutCard;
+    public int _aboutCard; //the card you pick.
 
     /**
      * constructor for GameAction
@@ -17,11 +18,10 @@ public class GiveHintAction extends GameAction
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
      * @version February 2025
      */
-    public GiveHintAction(GamePlayer player, boolean isColor, int reciverId, int aboutCard)
+    public GiveHintAction(GamePlayer player, int isColor)
     {
         super(player);
-        _isColor = isColor;
-        _reciverId = reciverId;
-        _aboutCard = aboutCard;
+        _color = isColor;
+
     }
 }
