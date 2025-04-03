@@ -28,6 +28,7 @@ public class HanabiState extends GameState {
 	private int totalHints; // total hints.
 	private int fuseTokens; // Number of failures, more than 3 lose.;
 	private int cardsInHand = 5; //cards in a player hand;
+	private int totalCardsInDeck = 50; //cards in the deck
 
 	private ArrayList<Card> drawPile = new ArrayList<Card>(50);
 
@@ -56,7 +57,7 @@ public class HanabiState extends GameState {
 	private Card[][] cards_Value = new Card[3][5]; // Array of Object Card Type;
 	private int discardAmount; // how many cards are discarded
 
-	ArrayList<Card> drawPileAmount = new ArrayList<Card>(50);
+	ArrayList<Card> drawPileAmount = new ArrayList<Card>(totalCardsInDeck);
 	{
 		//for each color we have 5 cards;
 		for (int i = 0; i < color.length; ++i) {
@@ -167,6 +168,7 @@ public class HanabiState extends GameState {
 	public int getTotalHints() {return totalHints;}
 	public int getFuseTokens() {return fuseTokens;}
 	public int getCardsInHand() {return cardsInHand;}
+	public int getTotalCardsInDeck(){return totalCardsInDeck;}
 
 	/**
 	 * setter methods
@@ -175,6 +177,7 @@ public class HanabiState extends GameState {
 	public void setTotalHints(int totalHints) {this.totalHints = totalHints;}
 	public void setFuseTokens(int fuseTokens) {this.fuseTokens = fuseTokens;}
 	public void setCardsInHand(int cardsInHand) {this.cardsInHand = cardsInHand;}
+	public void setTotalCardsInDeck(int cardsInDeck) {this.totalCardsInDeck = cardsInDeck;}
 
 	/**
 	 * this toString method describes the state of the game as a string
