@@ -8,7 +8,7 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
 public class DiscardCardAction extends GameAction
 {
 
-    Card _selection;
+    public int _cardIndex;
 
     /**
      * constructor for GameAction
@@ -18,9 +18,9 @@ public class DiscardCardAction extends GameAction
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
      * @version February 2025 l.
      */
-    public DiscardCardAction(GamePlayer player, Card selection)
+    public DiscardCardAction(GamePlayer player, int cardIndex)
     {
         super(player);
-        _selection = selection;
+        _cardIndex = cardIndex;
     }
 }

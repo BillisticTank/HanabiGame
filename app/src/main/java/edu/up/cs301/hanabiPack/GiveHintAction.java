@@ -18,10 +18,13 @@ public class GiveHintAction extends GameAction
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
      * @version February 2025
      */
-    public GiveHintAction(GamePlayer player, int isColor)
+    public GiveHintAction(GamePlayer player, boolean isColor,
+                          int reciverId, int aboutCard)
     {
         super(player);
-        _color = isColor;
+        _isColor = isColor;
+        _reciverId = reciverId;
+        _aboutCard = aboutCard;
 
     }
 }
