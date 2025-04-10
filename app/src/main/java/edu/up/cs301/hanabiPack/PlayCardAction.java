@@ -9,7 +9,7 @@ public class PlayCardAction extends GameAction
 {
     //TODO fix it so this checks the Card ID of your selected card
 
-    Card _cardId;
+    public int _cardIndex;
 
     /**
      * constructor for GameAction
@@ -19,8 +19,8 @@ public class PlayCardAction extends GameAction
      * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
      * @version February 2025 l.
      */
-    public PlayCardAction(GamePlayer player)
-    {
+    public PlayCardAction(GamePlayer player, int cardIndex) {
         super(player);
+        this._cardIndex = cardIndex;
     }
 }

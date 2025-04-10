@@ -2,10 +2,8 @@ package edu.up.cs301.hanabiPack;
 
 import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
-import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,13 +47,17 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 
 	ImageView[] teammateCards = new ImageView[10];
+
+	ImageView[] yourCards = new ImageView[5];
 	//TODO:  add the other variables needed
 
 	//A mostly transparent yellow
 	int transYellow = 0x44FFFF00;
 
 	//Currently selected teammate's card
-	private int selectedCard = 0;
+	private int selectedTeammateCard = 0;
+	//Currently selected card in your deck
+	private int selectedYourCard = 0;
 	/**
 	 * constructor
 	 * @param name
@@ -88,11 +90,17 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		TextView deckView = myActivity.findViewById(R.id.cardsDeck);
 		deckView.setText("Cards Left in Deck: " + state.getTotalCardsInDeck());
 
-		//Update the currently selected card
+		//Update the currently selected teammate card
 		for(int i = 0; i < teammateCards.length; ++i) {
 			teammateCards[i].setColorFilter(0);  //fully transparent
 		}
-		teammateCards[selectedCard].setColorFilter(transYellow);
+		teammateCards[selectedTeammateCard].setColorFilter(transYellow);
+
+		//Update the currently selected card in your deck
+		for(int i = 0; i < yourCards.length; ++i) {
+			yourCards[i].setColorFilter(0);  //fully transparent
+		}
+		yourCards[selectedYourCard].setColorFilter(transYellow);
 
 
 
@@ -117,7 +125,11 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		if (button == hintButton) {
 
 			//send a hint action to the local game based on color
-			GiveHintAction colorHint = new GiveHintAction(this,Color.GREEN);
+			GiveHintAction colorHint = new GiveHintAction(this, true,
+					state.getPlayer_Id(), selectedTeammateCard);
+
+			//TODO feel like this also should be done in HanabiState
+
 			int newHints = state.getTotalHints() - 1;
 			state.setTotalHints(newHints);
 			if(state.getTotalHints() < 0 || state.getTotalHints() == 0){
@@ -130,21 +142,41 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			else {announcer.setText("Player"+state.getPlayer_Id() +" used a Hint.");}  // if the hints are negative.
 			game.sendAction(colorHint);
 			updateDisplay();
+
 		}
 		else if (button == discardButton) {
 
+			DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
+
+			// TODO error? shouldn't this be done in HanabiState
+			//  via the discardCardAction?
+			//decrease the card in a player's deck by one
 			int cardsLeft = state.getTotalCardsInDeck() - 1;
 			state.setTotalCardsInDeck(cardsLeft);
 
+			if (state.getTotalHints() < 8) {
+				int newHints = state.getTotalHints() + 1;
+				state.setTotalHints(newHints);
+			}
+
+			//checks to make sure you
 			if(state.getTotalCardsInDeck() < 0 || state.getTotalCardsInDeck() == 0){
 
 				state.setTotalCardsInDeck(0);
 				announcer.setText("GAME OVER! All the cards have been played.");
 			} // if the hints are negative.
 
+			// TODO send a discard card action
 			else {announcer.setText("Player"+state.getPlayer_Id() +" discarded a Card.");}
+			game.sendAction(discardCard);
 			updateDisplay();
 
+		}
+		else if (button == playCardButton) {
+
+			PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
+
+			game.sendAction(playCard);
 		}
 
 	}// onClick
@@ -154,7 +186,16 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	public boolean onTouch(View v, MotionEvent event) {
 		for(int i = 0; i < teammateCards.length; ++i) {
 			if (v == teammateCards[i]) {
-				this.selectedCard = i;
+				this.selectedTeammateCard = i;
+				updateDisplay();
+				return true;
+			}
+		}
+
+
+		for(int i = 0; i < yourCards.length; ++i) {
+			if (v == yourCards[i]) {
+				this.selectedYourCard = i;
 				updateDisplay();
 				return true;
 			}
@@ -211,9 +252,20 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		teammateCards[8] = activity.findViewById(R.id.Gemini4);
 		teammateCards[9] = activity.findViewById(R.id.Gemini5);
 
+		//init the references to the teammates' cards
+		yourCards[0] = activity.findViewById(R.id.playerCard1);
+		yourCards[1] = activity.findViewById(R.id.playerCard2);
+		yourCards[2] = activity.findViewById(R.id.playerCard3);
+		yourCards[3] = activity.findViewById(R.id.playerCard4);
+		yourCards[4] = activity.findViewById(R.id.playerCard5);
+
 		//Make myself the touch listener for all the cards
 		for(int i = 0; i < teammateCards.length; ++i) {
 			teammateCards[i].setOnTouchListener(this);
+		}
+
+		for(int i = 0; i < yourCards.length; ++i) {
+			yourCards[i].setOnTouchListener(this);
 		}
 
 

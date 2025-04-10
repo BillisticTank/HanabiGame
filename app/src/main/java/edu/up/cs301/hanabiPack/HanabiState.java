@@ -91,7 +91,7 @@ public class HanabiState extends GameState {
 	public HanabiState() {
 		this.player_Id = 1;
 		this.totalHints = 8;
-		this.fuseTokens = 0;
+		this.fuseTokens = 3;
 		this.cardsInHand = 4;
 		for (int i = 0; i < color.length; i++) {
 			this.color[i] = color[count];
@@ -120,7 +120,6 @@ public class HanabiState extends GameState {
 		{
 
 		}
-
 
 	}
 
@@ -205,9 +204,9 @@ public class HanabiState extends GameState {
 		 * last card in each color row
 		 */
 
-		int cardColor = action._cardId._color;
+		int cardColor = action._cardIndex;
 		ArrayList<Card> subShow = fireworkShow.get(cardColor);
-		int cardNumber = action._cardId._number;
+		int cardNumber = action._cardIndex;
 
 		/**
 		 * color tells us the color row
@@ -218,7 +217,8 @@ public class HanabiState extends GameState {
 		 * into the arraylist thingymajig.
 		 */
 		if(cardNumber == subShow.size() + 1) {
-			subShow.add(action._cardId);
+			//TODO maybe wrong
+			subShow.add(hints[action._cardIndex]);
 			finalScore++;
 			return true;
 		}
@@ -265,7 +265,10 @@ public class HanabiState extends GameState {
 				hints[action._aboutCard]._number = hintCard._number;
 			}
 
-			totalHints--;
+			if(getTotalHints() < 0 || getTotalHints() == 0){
+				setTotalHints(0);
+			}
+
 			return true;
 		}
 
