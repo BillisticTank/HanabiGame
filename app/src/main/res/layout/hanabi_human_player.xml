@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF151B54"
+    android:orientation="vertical"
     android:gravity="center"
-    android:orientation="vertical">
+    >
 
     <TextView
         android:id="@+id/Title"
@@ -28,49 +29,54 @@
 
         <LinearLayout
             android:id="@+id/googleGemini"
-            android:layout_width="272dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="#FF52B2B7"
+            android:background="#FF151B54"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/Gemini1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="-90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/Gemini2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="-90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/Gemini3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="-90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/Gemini4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="-90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/Gemini5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="-90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
         </LinearLayout>
@@ -79,7 +85,6 @@
             android:id="@+id/centerConsole"
             android:layout_width="741dp"
             android:layout_height="match_parent"
-            android:background="#FF52B2B7"
             android:orientation="vertical">
 
             <LinearLayout
@@ -476,48 +481,55 @@
             <LinearLayout
                 android:id="@+id/playerCardsPane"
                 android:layout_width="match_parent"
-                android:layout_height="185dp"
-                android:background="#FF52B2B7"
+                android:layout_height="match_parent"
+                android:background="#FF151B54"
                 android:gravity="bottom"
+                android:layout_marginTop="10dp"
+
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/playerCard1"
                     android:layout_width="match_parent"
-                    android:layout_height="163dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
                 <ImageView
                     android:id="@+id/playerCard2"
                     android:layout_width="match_parent"
-                    android:layout_height="163dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
                 <ImageView
                     android:id="@+id/playerCard3"
                     android:layout_width="match_parent"
-                    android:layout_height="163dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
                 <ImageView
                     android:id="@+id/playerCard4"
                     android:layout_width="match_parent"
-                    android:layout_height="163dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
                 <ImageView
                     android:id="@+id/playerCard5"
                     android:layout_width="match_parent"
-                    android:layout_height="163dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
@@ -527,49 +539,54 @@
 
         <LinearLayout
             android:id="@+id/ChatGPT"
-            android:layout_width="266dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF52B2B7"
+            android:background="#FF151B54"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/GPT1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/GPT2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/GPT3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/GPT4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
             <ImageView
                 android:id="@+id/GPT5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:rotation="90"
+                android:rotation="0"
                 android:src="@drawable/hanabi_card" />
 
         </LinearLayout>
