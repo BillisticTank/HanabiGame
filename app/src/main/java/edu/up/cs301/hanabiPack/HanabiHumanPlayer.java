@@ -12,6 +12,8 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import java.util.Random;
+
 /**
  * A GUI of a counter-player. The GUI displays the current value of the counter,
  * and allows the human player to press the '+' and '-' buttons in order to
@@ -144,7 +146,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			updateDisplay();
 
 		}
-		else if (button == discardButton) {
+			else if (button == discardButton) {
 
 			DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
 
@@ -252,6 +254,61 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		teammateCards[8] = activity.findViewById(R.id.Gemini4);
 		teammateCards[9] = activity.findViewById(R.id.Gemini5);
 
+		//Setting updated cards;
+		Random random = new Random();
+		for (int i = 0; i < teammateCards.length; i++){
+			int color = random.nextInt(5);
+			int value = random.nextInt(5) + 1;
+
+			// color 0 = blue color.
+			// color 1 = red color.
+			// color 2 = yellow color.
+			// color 3 = white color.
+			// color 4 = red color.
+
+			if (color == 0){ //blue color
+				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_blue_1);}
+				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_blue_2);}
+				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_blue_3);}
+				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_blue_4);}
+				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_blue_5);}
+			}
+			else if (color == 1){ //red color
+				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_red_1);}
+				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_red_2);}
+				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_red_3);}
+				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_red_4);}
+				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_red_5);}
+			}
+			else if (color == 2){ //yellow color
+				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_1);}
+				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_2);}
+				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_3);}
+				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_4);}
+				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_5);}
+			}
+			else if (color == 3){ //white color
+				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_white_1);}
+				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_white_2);}
+				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_white_3);}
+				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_white_4);}
+				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_white_5);}
+			}
+			else if (color == 4){ //green color
+				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_green_1);}
+				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_green_2);}
+				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_green_3);}
+				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_green_4);}
+				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_green_5);}
+			}
+
+
+		}
+
+		//
+
+
+
 		//init the references to the teammates' cards
 		yourCards[0] = activity.findViewById(R.id.playerCard1);
 		yourCards[1] = activity.findViewById(R.id.playerCard2);
@@ -268,12 +325,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			yourCards[i].setOnTouchListener(this);
 		}
 
-
-		//human.setOnClickListener(this);
-
 	}
 
-}// class CounterHumanPlayer
+}// class HanabiHumanPlayer
 
 
 

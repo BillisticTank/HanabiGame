@@ -36,7 +36,7 @@
 
             <ImageView
                 android:id="@+id/Gemini1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
@@ -83,9 +83,10 @@
 
         <LinearLayout
             android:id="@+id/centerConsole"
-            android:layout_width="741dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:id="@+id/terminalPane"
@@ -141,7 +142,7 @@
 
                     <TextView
                         android:id="@+id/announcer"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Welcome to Hanabi Game by UP Students!"
@@ -168,48 +169,48 @@
 
                         <ImageView
                             android:id="@+id/red1"
-                            android:layout_marginTop="1dp"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_red" />
 
                         <ImageView
                             android:id="@+id/red2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_red" />
 
                         <ImageView
                             android:id="@+id/red3"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_red" />
 
                         <ImageView
                             android:id="@+id/red4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_red" />
 
                         <ImageView
                             android:id="@+id/red5"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_red" />
 
                     </LinearLayout>
@@ -224,48 +225,48 @@
 
                         <ImageView
                             android:id="@+id/blue1"
-                            android:layout_marginTop="1dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_blue" />
 
                         <ImageView
                             android:id="@+id/blue2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_blue" />
 
                         <ImageView
                             android:id="@+id/blue3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_blue" />
 
                         <ImageView
                             android:id="@+id/blue4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_blue" />
 
                         <ImageView
                             android:id="@+id/blue5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_blue" />
 
                     </LinearLayout>
@@ -280,48 +281,48 @@
 
                         <ImageView
                             android:id="@+id/white1"
-                            android:layout_marginTop="1dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_white" />
 
                         <ImageView
                             android:id="@+id/white2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_white" />
 
                         <ImageView
                             android:id="@+id/white3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_white" />
 
                         <ImageView
                             android:id="@+id/white4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_white" />
 
                         <ImageView
                             android:id="@+id/white5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_white" />
 
                     </LinearLayout>
@@ -336,48 +337,48 @@
 
                         <ImageView
                             android:id="@+id/yellow1"
-                            android:layout_marginTop="1dp"
                             android:layout_width="190dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_yellow" />
 
                         <ImageView
                             android:id="@+id/yellow2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_yellow" />
 
                         <ImageView
                             android:id="@+id/yellow3"
                             android:layout_width="190dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_yellow" />
 
                         <ImageView
                             android:id="@+id/yellow4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_yellow" />
 
                         <ImageView
                             android:id="@+id/yellow5"
                             android:layout_width="190dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_yellow" />
 
                     </LinearLayout>
@@ -392,48 +393,48 @@
 
                         <ImageView
                             android:id="@+id/green1"
-                            android:layout_marginTop="1dp"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_green" />
 
                         <ImageView
                             android:id="@+id/green2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_green" />
 
                         <ImageView
                             android:id="@+id/green3"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_green" />
 
                         <ImageView
                             android:id="@+id/green4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_green" />
 
                         <ImageView
                             android:id="@+id/green5"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:rotation="0"
-                            android:layout_marginBottom="1dp"
                             android:src="@drawable/hanabi_green" />
 
                     </LinearLayout>
@@ -443,7 +444,7 @@
 
             <LinearLayout
                 android:id="@+id/buttonsPane"
-                android:layout_width="739dp"
+                android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_gravity="bottom"
                 android:background="#FF151B54"
@@ -451,7 +452,7 @@
 
                 <Button
                     android:id="@+id/giveHintButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
@@ -460,7 +461,7 @@
 
                 <Button
                     android:id="@+id/playCardButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
@@ -469,7 +470,7 @@
 
                 <Button
                     android:id="@+id/discardButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
@@ -482,9 +483,9 @@
                 android:id="@+id/playerCardsPane"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:background="#FF151B54"
                 android:gravity="bottom"
-                android:layout_marginTop="10dp"
 
                 android:orientation="horizontal">
 
@@ -492,8 +493,8 @@
                     android:id="@+id/playerCard1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
@@ -501,8 +502,8 @@
                     android:id="@+id/playerCard2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
@@ -510,8 +511,8 @@
                     android:id="@+id/playerCard3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
@@ -519,8 +520,8 @@
                     android:id="@+id/playerCard4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
@@ -528,8 +529,8 @@
                     android:id="@+id/playerCard5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:src="@drawable/hanabi_player_card" />
 
@@ -539,7 +540,7 @@
 
         <LinearLayout
             android:id="@+id/ChatGPT"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="#FF151B54"
             android:orientation="vertical">
