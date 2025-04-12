@@ -46,8 +46,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	Button playCardButton;
 	Button discardButton;
 
-
-
 	ImageView[] teammateCards = new ImageView[10];
 
 	ImageView[] yourCards = new ImageView[5];
@@ -91,6 +89,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		TextView deckView = myActivity.findViewById(R.id.cardsDeck);
 		deckView.setText("Cards Left in Deck: " + state.getTotalCardsInDeck());
+
+		TextView fuseView = myActivity.findViewById(R.id.fuseTokens);
+		fuseView.setText("Fuse Tokens: " + state.getFuseTokens());
 
 		//Update the currently selected teammate card
 		for(int i = 0; i < teammateCards.length; ++i) {
@@ -162,11 +163,12 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 				state.setTotalHints(newHints);
 			}
 
-			//checks to make sure you
+			//Checks if Game Over conditions are met
 			if(state.getTotalCardsInDeck() < 0 || state.getTotalCardsInDeck() == 0){
 
 				state.setTotalCardsInDeck(0);
 				announcer.setText("GAME OVER! All the cards have been played.");
+				myActivity.setGameOver(true);
 			} // if the hints are negative.
 
 			else {announcer.setText("Player"+state.getPlayer_Id() +" discarded a Card.");}
@@ -178,7 +180,32 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 			PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
 
-			announcer.setText("Player "+state.getPlayer_Id() +" played a Card.");
+			//TODO: This is just a test to see if the Fuse Tokens are working,
+			// we'll change this when we actually try to implement the Play Card Action
+
+			/**
+			 * Suggestion:
+			 * if(card color == firework show column) {
+			 * 		if(card number = numCards in column + 1) {
+			 * 			playCard
+			 * 			announcer.setText("Player succesfully played a " +
+			 * 			getCardColor + getCardNumber)
+			 * 		}
+			 * 	}
+			 */
+
+
+
+			int newFuse = state.getFuseTokens() - 1;
+			state.setFuseTokens(newFuse);
+			announcer.setText("Player Played the Wrong Card!");
+
+			//Checks if Game Over conditions are met
+			if(state.getFuseTokens() < 0 || state.getFuseTokens() == 0) {
+				state.setFuseTokens(0);
+				announcer.setText("GAME OVER! The Bomb Blew Up!");
+				myActivity.setGameOver(true);
+			}
 
 			game.sendAction(playCard);
 			updateDisplay();

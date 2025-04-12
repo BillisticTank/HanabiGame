@@ -201,29 +201,27 @@ public class HanabiState extends GameState {
 	public boolean makePlayCardAction(PlayCardAction action)
 	{
 		/**
-		 * Play Card Action should check if the card is valid by first making sure that the card
-		 * can appropriately fit into the firework show arraylist by check the value of the
-		 * last card in each color row
+		 * cardColor is the selected card's color
+		 * subShow arraylist is the firework show's column that matches the selected card
+		 * cardNumber is the selected card's number
 		 */
-
 		int cardColor = action._cardIndex;
 		ArrayList<Card> subShow = fireworkShow.get(cardColor);
 		int cardNumber = action._cardIndex;
 
 		/**
-		 * color tells us the color row
-		 * cardNumber tells us where it goes on the list
-		 *
 		 * ex: if the card the player selects is equal to the
 		 * size of the empty arraylist + 1. Then add that card
 		 * into the arraylist thingymajig.
 		 */
+
 		if(cardNumber == subShow.size() + 1) {
 			//TODO maybe wrong
 			subShow.add(hints[action._cardIndex]);
 			finalScore++;
 			return true;
 		}
+		//if card isn't a valid play
 		else if(cardNumber != subShow.size() + 1) {
 			fuseTokens--;
 			return true;

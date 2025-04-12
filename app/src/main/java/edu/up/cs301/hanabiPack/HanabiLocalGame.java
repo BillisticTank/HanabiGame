@@ -135,7 +135,7 @@ public class HanabiLocalGame extends LocalGame {
 	@Override
 	protected String checkIfGameOver() {
 
-		if(gameState.getFuseTokens() == 0) {
+		if(gameState.getFuseTokens() < 0) {
 			return "The bomb blew up! Game Over!\n";
 		}
 		return null;
