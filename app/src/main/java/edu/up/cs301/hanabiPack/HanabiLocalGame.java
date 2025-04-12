@@ -69,7 +69,8 @@ public class HanabiLocalGame extends LocalGame {
 	@Override
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
-		
+
+		//If the player's action is a GiveHintAction
 		if (action instanceof GiveHintAction) {
 
 			GiveHintAction mouth = (GiveHintAction) action;
@@ -77,6 +78,7 @@ public class HanabiLocalGame extends LocalGame {
 			return gameState.makeGiveHintAction(mouth);
 		}
 
+		//If the player's action is a PlayCardAction
 		if(action instanceof PlayCardAction)
 		{
 			PlayCardAction eyes = (PlayCardAction) action;
@@ -84,6 +86,7 @@ public class HanabiLocalGame extends LocalGame {
 			return gameState.makePlayCardAction(eyes);
 		}
 
+		//If the player's action is a DiscardCardAction
 		if(action instanceof DiscardCardAction)
 		{
 			DiscardCardAction ears = (DiscardCardAction) action;
@@ -93,13 +96,18 @@ public class HanabiLocalGame extends LocalGame {
 		return false;
 	}//makeMove
 
-	protected void nextTurn(){
+	protected void nextTurn() {
+		//Player 0's turn ends
 		if(gameState.getPlayer_Id() == 0){
 			gameState.setPlayer_Id(1);
 		}
+
+		//Player 1's turn ends
 		else if(gameState.getPlayer_Id() == 1){
 			gameState.setPlayer_Id(2);
 		}
+
+		//Player 2's turn ends
 		else if(gameState.getPlayer_Id() == 2){
 			gameState.setPlayer_Id(0);
 		}
@@ -127,31 +135,9 @@ public class HanabiLocalGame extends LocalGame {
 	@Override
 	protected String checkIfGameOver() {
 
-		/**
-		 * // get the value of the counter
-		 * 		int counterVal = this.gameState.getCounter();
-		 *
-		 * 		if (counterVal >= TARGET_MAGNITUDE) {
-		 * 			// counter has reached target magnitude, so return message that
-		 * 			// player 0 has won.
-		 * 			return playerNames[0]+" has won.";
-		 * 		        }
-		 * 		else if (counterVal <= -TARGET_MAGNITUDE) {
-		 * 			// counter has reached negative of target magnitude; if there
-		 * 			// is a second player, return message that this player has won,
-		 * 			// otherwise that the first player has lost
-		 * 			if (playerNames.length >= 2) {
-		 * 				return playerNames[1]+" has won.";
-		 *            }
-		 * 			else {
-		 * 				return playerNames[0]+" has lost.";
-		 *            }
-		 *        }else {
-		 * 			// game is still between the two limit: return null, as the game
-		 * 			// is not yet over
-		 * 			return null;
-		 *        }
-		 */
+		if(gameState.getFuseTokens() == 0) {
+			return "The bomb blew up! Game Over!\n";
+		}
 		return null;
 	}
 

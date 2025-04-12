@@ -230,7 +230,8 @@ public class HanabiState extends GameState {
 	}
 
 	public boolean makeDiscardCardAction(DiscardCardAction action) {
-		if(totalHints < 8){
+
+		if(totalHints < 8) {
 			totalHints++;
 			return true;
 		}

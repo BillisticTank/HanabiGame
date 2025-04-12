@@ -125,6 +125,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		if (button == hintButton) {
 
 			//send a hint action to the local game based on color
+			//TODO colorHint isColor parameter needs to be changed to be something more flexible
 			GiveHintAction colorHint = new GiveHintAction(this, true,
 					state.getPlayer_Id(), selectedTeammateCard);
 
@@ -166,7 +167,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 				announcer.setText("GAME OVER! All the cards have been played.");
 			} // if the hints are negative.
 
-			// TODO send a discard card action
 			else {announcer.setText("Player"+state.getPlayer_Id() +" discarded a Card.");}
 			game.sendAction(discardCard);
 			updateDisplay();
@@ -176,7 +176,10 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 			PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
 
+			announcer.setText("Player "+state.getPlayer_Id() +" played a Card.");
+
 			game.sendAction(playCard);
+			updateDisplay();
 		}
 
 	}// onClick
