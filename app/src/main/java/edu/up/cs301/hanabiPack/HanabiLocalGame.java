@@ -104,7 +104,7 @@ public class HanabiLocalGame extends LocalGame {
 			gameState.setPlayer_Id(0);
 		}
 	}
-	
+
 	/**
 	 * send the updated state to a given player
 	 */
@@ -155,4 +155,4 @@ public class HanabiLocalGame extends LocalGame {
 		return null;
 	}
 
-}// class CounterLocalGame
+}// class HanabiLocalGame
