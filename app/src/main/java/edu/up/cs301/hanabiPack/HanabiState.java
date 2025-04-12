@@ -29,6 +29,7 @@ public class HanabiState extends GameState {
 	private int fuseTokens; // Number of failures, more than 3 lose.;
 	private int cardsInHand = 5; //cards in a player hand;
 	private int totalCardsInDeck = 50; //cards in the deck
+	private boolean cardVisibility = true;
 
 	private ArrayList<Card> drawPile = new ArrayList<Card>(50);
 
@@ -89,7 +90,7 @@ public class HanabiState extends GameState {
 	 */
 
 	public HanabiState() {
-		this.player_Id = 1;
+		this.player_Id = 1; // human player
 		this.totalHints = 8;
 		this.fuseTokens = 3;
 		this.cardsInHand = 4;
@@ -168,6 +169,7 @@ public class HanabiState extends GameState {
 	public int getFuseTokens() {return fuseTokens;}
 	public int getCardsInHand() {return cardsInHand;}
 	public int getTotalCardsInDeck(){return totalCardsInDeck;}
+	public boolean getCardVisibility(){return cardVisibility;}
 
 	/**
 	 * setter methods
@@ -177,7 +179,7 @@ public class HanabiState extends GameState {
 	public void setFuseTokens(int fuseTokens) {this.fuseTokens = fuseTokens;}
 	public void setCardsInHand(int cardsInHand) {this.cardsInHand = cardsInHand;}
 	public void setTotalCardsInDeck(int cardsInDeck) {this.totalCardsInDeck = cardsInDeck;}
-
+	public void setCardVisibility(boolean visible){this.cardVisibility = visible;};
 	/**
 	 * this toString method describes the state of the game as a string
 	 */
