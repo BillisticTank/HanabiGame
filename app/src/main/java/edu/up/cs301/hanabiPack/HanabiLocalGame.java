@@ -138,6 +138,10 @@ public class HanabiLocalGame extends LocalGame {
 		if(gameState.getFuseTokens() < 0) {
 			return "The bomb blew up! Game Over!\n";
 		}
+
+		if (gameState.drawPile.isEmpty()) {
+			return "No more cards in the draw pile! Game Over!\n";
+		}
 		return null;
 	}
 

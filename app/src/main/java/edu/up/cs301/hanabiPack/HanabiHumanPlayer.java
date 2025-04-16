@@ -105,6 +105,8 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		}
 		yourCards[selectedYourCard].setColorFilter(transYellow);
 
+		//TODO draw a little circle on com's cards to show which cards i've
+		//TODO I've already given hints on
 
 
 		//TODO: more code needed here!

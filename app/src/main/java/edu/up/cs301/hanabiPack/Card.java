@@ -15,4 +15,9 @@ public class Card {
        _color = color;
        _number = number;
     }
+
+    public Card(Card that) {
+        this._color = that._color;
+        this._number = that._number;
+    }
 }

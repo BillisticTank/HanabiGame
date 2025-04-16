@@ -1,5 +1,7 @@
 package edu.up.cs301.hanabiPack;
 
+import java.util.Random;
+
 import edu.up.cs301.GameFramework.players.GameComputerPlayer;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.utilities.Tickable;
@@ -39,8 +41,54 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
      */
 	@Override
 	protected void receiveInfo(GameInfo info) {
-		// Do nothing, as we ignore all state in deciding our next move. It
-		// depends totally on the timer and random numbers.
+        //deciding factors
+        Random rand = new Random();
+
+        Boolean isColor = rand.nextBoolean();
+        int cardIndex = rand.nextInt(5);
+        int receiverId = rand.nextInt(3);
+
+        while (receiverId == this.playerNum) {
+            receiverId = rand.nextInt(3);
+        }
+
+		// Make sure that 'info' is a HanabiGameState
+        if (!(info instanceof HanabiState)) {
+            return;
+        }
+
+        HanabiState state = ((HanabiState) info);
+
+        // See if it's "my" turn
+        if (state.getPlayer_Id() != this.playerNum) {
+            return;
+        }
+
+        // Calculate what move to make
+
+
+        //send the move to the local game
+
+            double decide = Math.random();
+
+            if (decide < 0.3) {
+                GiveHintAction hint = new GiveHintAction(this, isColor, receiverId, cardIndex);
+                this.sleep(1000);
+                this.game.sendAction(hint);
+            }
+
+            else if (decide > 0.3 && decide < 0.6) {
+                DiscardCardAction discard = new DiscardCardAction(this, cardIndex);
+                this.sleep(1000);
+                this.game.sendAction(discard);
+            }
+
+            else {
+                PlayCardAction play = new PlayCardAction(this, cardIndex);
+                this.sleep(1000);
+                this.game.sendAction(play);
+            }
+
 	}
 
 }

@@ -31,7 +31,6 @@ public class HanabiState extends GameState {
 	private int totalCardsInDeck = 50; //cards in the deck
 	private boolean cardVisibility = true;
 
-	private ArrayList<Card> drawPile = new ArrayList<Card>(50);
 
 	int count = rand.nextInt(5);
 
@@ -58,14 +57,14 @@ public class HanabiState extends GameState {
 	private Card[][] cards_Value = new Card[3][5]; // Array of Object Card Type;
 	private int discardAmount; // how many cards are discarded
 
-	ArrayList<Card> drawPileAmount = new ArrayList<Card>(totalCardsInDeck);
+	ArrayList<Card> drawPile = new ArrayList<Card>(totalCardsInDeck);
 	{
 		//for each color we have 5 cards;
 		for (int i = 0; i < color.length; ++i) {
 			for (int j = 0; j < 5; j++) {
 
-				drawPileAmount.add(new Card(i, j));
-				drawPileAmount.add(new Card(i, j));
+				drawPile.add(new Card(i, j));
+				drawPile.add(new Card(i, j));
 			}
 		}
 		//TODO shuffle the deck
@@ -80,7 +79,7 @@ public class HanabiState extends GameState {
 	/**
 	 * An Array of Cards in your hand, this will be used for the hint action in gamestate
 	 */
-	private Card[] hints = new Card[5];
+	private Card[][] hints = new Card[3][5];
 
 	private int finalScore; // score for firework show.
 
@@ -90,7 +89,7 @@ public class HanabiState extends GameState {
 	 */
 
 	public HanabiState() {
-		this.player_Id = 1; // human player
+		this.player_Id = 0; // human player
 		this.totalHints = 8;
 		this.fuseTokens = 3;
 		this.cardsInHand = 4;
@@ -103,17 +102,19 @@ public class HanabiState extends GameState {
 		{
 			fireworkShow.add(new ArrayList<Card>());
 		}
-/*
+
 		// this.recentCardPlayed = 0;
 		for (int i = 0; i < 3; i++){
 			for (int j = 0; j < 5; j++){
 				cards_Value[i][j] = drawPile.remove(0) ;
 			}
 		}
-*/
+
 		//hints array
-		for (int i = 0; i < hints.length; i++){
-			hints[i] = new Card(-1,-1);
+		for (int i = 0; i < hints.length; i++) {
+			for (int j = 0; j < hints[i].length; j++) {
+				hints[i][j] = new Card(-1, -1);
+			}
 		}
 		this.discardAmount = 0;
 		this.finalScore = 0;
@@ -156,8 +157,8 @@ public class HanabiState extends GameState {
 
 		this.discardAmount = orig.discardAmount;
 		this.finalScore = orig.finalScore;
-		for (int i = 0; i < drawPileAmount.size(); i++) {
-			// Add Cards after we created card class;
+		for (int i = 0; i < drawPile.size(); i++) {
+			//TODO Add Cards after we created card class;
 		}
 	}
 
@@ -205,28 +206,24 @@ public class HanabiState extends GameState {
 		 * subShow arraylist is the firework show's column that matches the selected card
 		 * cardNumber is the selected card's number
 		 */
-		int cardColor = action._cardIndex;
-		ArrayList<Card> subShow = fireworkShow.get(cardColor);
-		int cardNumber = action._cardIndex;
 
-		/**
-		 * ex: if the card the player selects is equal to the
-		 * size of the empty arraylist + 1. Then add that card
-		 * into the arraylist thingymajig.
-		 */
+		//get a reference to the card, at this index
+		Card toPlay = cards_Value[player_Id][action._cardIndex];
+		//get the array for the selected card's respective color
+		ArrayList<Card> subShow = fireworkShow.get(toPlay._color);
+		//remove the card from the player's hand and replace it with a new card
+		cards_Value[player_Id][action._cardIndex] = drawPile.remove(0);
 
-		if(cardNumber == subShow.size() + 1) {
-			//TODO maybe wrong
-			subShow.add(hints[action._cardIndex]);
+		//if the card is appropriate to play
+		if(toPlay._number == subShow.size() + 1) {
+			subShow.add(toPlay);
 			finalScore++;
-			return true;
 		}
 		//if card isn't a valid play
-		else if(cardNumber != subShow.size() + 1) {
+		else {
 			fuseTokens--;
-			return true;
 		}
-		return false;
+		return true;
 	}
 
 	public boolean makeDiscardCardAction(DiscardCardAction action) {
@@ -260,10 +257,10 @@ public class HanabiState extends GameState {
 			Card hintCard = cards_Value[action._reciverId][action._aboutCard];
 			if(action._isColor)
 			{
-				hints[action._aboutCard]._color = hintCard._color;
+				hints[action._reciverId][action._aboutCard]._color = hintCard._color;
 			}
 			else{
-				hints[action._aboutCard]._number = hintCard._number;
+				hints[action._reciverId][action._aboutCard]._number = hintCard._number;
 			}
 
 			if(getTotalHints() < 0 || getTotalHints() == 0){
