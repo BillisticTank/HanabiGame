@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import android.graphics.Color;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
@@ -106,26 +105,101 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		}
 		yourCards[selectedYourCard].setColorFilter(transYellow);
 
-		//example (delete later):  if the first red card has been played, ...
-		ImageView firstRedSubShowCard = myActivity.findViewById(R.id.red1);
-		ArrayList<Card> redSubShow = state.fireworkShow.get(1);
-		ArrayList<Card> whiteSubShow = state.fireworkShow.get(2);
-		ArrayList<Card> blueSubShow = state.fireworkShow.get(3);
-		//0 = yellow
+
+		//0 = yellow incorrect
 		//1 = red correct
 		//2 = white correct
 		//3 = blue correct
-		//4 = green
-		if (redSubShow.size() > 0) {
-			firstRedSubShowCard.setImageResource(R.drawable.hanabi_red_1);
-		}
+		//4 = green incorrect
+
+		//Red SubShow Cards has been played, ...
+		ArrayList<Card> redSubShow = state.fireworkShow.get(1);
+		ImageView redSubShowCard1 = myActivity.findViewById(R.id.red1);
+		ImageView redSubShowCard2 = myActivity.findViewById(R.id.red2);
+		ImageView redSubShowCard3 = myActivity.findViewById(R.id.red3);
+		ImageView redSubShowCard4 = myActivity.findViewById(R.id.red4);
+		ImageView redSubShowCard5 = myActivity.findViewById(R.id.red5);
+
+		//White SubShow Cards has been played, ...
+		ArrayList<Card> whiteSubShow = state.fireworkShow.get(2);
+		ImageView whiteSubShowCard1 = myActivity.findViewById(R.id.white1);
+		ImageView whiteSubShowCard2 = myActivity.findViewById(R.id.white2);
+		ImageView whiteSubShowCard3 = myActivity.findViewById(R.id.white3);
+		ImageView whiteSubShowCard4 = myActivity.findViewById(R.id.white4);
+		ImageView whiteSubShowCard5 = myActivity.findViewById(R.id.white5);
+
+		//Blue SubShow Cards has been played, ...
+		ArrayList<Card> blueSubShow = state.fireworkShow.get(3);
+		ImageView blueSubShowCard1 = myActivity.findViewById(R.id.blue1);
+		ImageView blueSubShowCard2 = myActivity.findViewById(R.id.blue2);
+		ImageView blueSubShowCard3 = myActivity.findViewById(R.id.blue3);
+		ImageView blueSubShowCard4 = myActivity.findViewById(R.id.blue4);
+		ImageView blueSubShowCard5 = myActivity.findViewById(R.id.blue5);
+
+		//Green SubShow Cards has been played, ...
+		ArrayList<Card> greenSubShow = state.fireworkShow.get(4);
+		ImageView greenSubShowCard1 = myActivity.findViewById(R.id.green1);
+		ImageView greenSubShowCard2 = myActivity.findViewById(R.id.green2);
+		ImageView greenSubShowCard3 = myActivity.findViewById(R.id.green3);
+		ImageView greenSubShowCard4 = myActivity.findViewById(R.id.green4);
+		ImageView greenSubShowCard5 = myActivity.findViewById(R.id.green5);
+
+		//Yellow SubShow Cards has been played, ...
+		ArrayList<Card> yellowSubShow = state.fireworkShow.get(0);
+		ImageView yellowSubShowCard1 = myActivity.findViewById(R.id.yellow1);
+		ImageView yellowSubShowCard2 = myActivity.findViewById(R.id.yellow2);
+		ImageView yellowSubShowCard3 = myActivity.findViewById(R.id.yellow3);
+		ImageView yellowSubShowCard4 = myActivity.findViewById(R.id.yellow4);
+		ImageView yellowSubShowCard5 = myActivity.findViewById(R.id.yellow5);
+
+		// Updated Red Subshow Cards
+		if (redSubShow.size() > 0) { redSubShowCard1.setImageResource(R.drawable.hanabi_red_1); }
+		if (redSubShow.size() > 1) { redSubShowCard2.setImageResource(R.drawable.hanabi_red_2);}
+		if (redSubShow.size() > 2) { redSubShowCard2.setImageResource(R.drawable.hanabi_red_3);}
+		if (redSubShow.size() > 3) { redSubShowCard2.setImageResource(R.drawable.hanabi_red_4);}
+		if (redSubShow.size() > 4) { redSubShowCard2.setImageResource(R.drawable.hanabi_red_5);}
+
+		// Updated Blue Subshow Cards
+		if (blueSubShow.size() > 0) { blueSubShowCard1.setImageResource(R.drawable.hanabi_blue_1); }
+		if (blueSubShow.size() > 1) { blueSubShowCard2.setImageResource(R.drawable.hanabi_blue_2); }
+		if (blueSubShow.size() > 2) { blueSubShowCard3.setImageResource(R.drawable.hanabi_blue_3); }
+		if (blueSubShow.size() > 3) { blueSubShowCard4.setImageResource(R.drawable.hanabi_blue_4); }
+		if (blueSubShow.size() > 4) { blueSubShowCard5.setImageResource(R.drawable.hanabi_blue_5); }
+
+		// Updated White Subshow Cards
+		if (whiteSubShow.size() > 0) { whiteSubShowCard1.setImageResource(R.drawable.hanabi_white_1); }
+		if (whiteSubShow.size() > 1) { whiteSubShowCard2.setImageResource(R.drawable.hanabi_white_2); }
+		if (whiteSubShow.size() > 2) { whiteSubShowCard3.setImageResource(R.drawable.hanabi_white_3); }
+		if (whiteSubShow.size() > 3) { whiteSubShowCard4.setImageResource(R.drawable.hanabi_white_4); }
+		if (whiteSubShow.size() > 4) { whiteSubShowCard5.setImageResource(R.drawable.hanabi_white_5); }
+
+		//Updated Green Subshow Cards
+		if (greenSubShow.size() > 0) { greenSubShowCard1.setImageResource(R.drawable.hanabi_green_1); }
+		if (greenSubShow.size() > 1) { greenSubShowCard2.setImageResource(R.drawable.hanabi_green_2); }
+		if (greenSubShow.size() > 2) { greenSubShowCard3.setImageResource(R.drawable.hanabi_green_3); }
+		if (greenSubShow.size() > 3) { greenSubShowCard4.setImageResource(R.drawable.hanabi_green_4); }
+		if (greenSubShow.size() > 4) { greenSubShowCard5.setImageResource(R.drawable.hanabi_green_5); }
+
+		//Updated Yellow Subshow Cards
+		if (yellowSubShow.size() > 0) { yellowSubShowCard1.setImageResource(R.drawable.hanabi_yellow_1); }
+		if (yellowSubShow.size() > 1) { yellowSubShowCard2.setImageResource(R.drawable.hanabi_yellow_2); }
+		if (yellowSubShow.size() > 2) { yellowSubShowCard3.setImageResource(R.drawable.hanabi_yellow_3); }
+		if (yellowSubShow.size() > 3) { yellowSubShowCard4.setImageResource(R.drawable.hanabi_yellow_4); }
+		if (yellowSubShow.size() > 4) { yellowSubShowCard5.setImageResource(R.drawable.hanabi_yellow_5); }
 
 		//Display the subshow cards
 		for(int color = 0; color < state.color.length; ++color) {
-			ArrayList<Card> subshow = state.fireworkShow.get(color);
-			if (redSubShow.size() > 0) {
-				firstRedSubShowCard.setImageResource(R.drawable.hanabi_red_1);
-			}
+			//ArrayList<Card> RedSubShow = state.fireworkShow.get(color);
+			//ArrayList<Card> WhiteSubShow = state.fireworkShow.get(color);
+			//ArrayList<Card> YellowSubShow = state.fireworkShow.get(color);
+			//ArrayList<Card> GreenSubShow = state.fireworkShow.get(color);
+			//ArrayList<Card> BlueSubShow = state.fireworkShow.get(color);
+
+			if (redSubShow.size() > 0) { redSubShowCard1.setImageResource(R.drawable.hanabi_red_1); }
+			if (whiteSubShow.size() > 0) { whiteSubShowCard1.setImageResource(R.drawable.hanabi_white_1); }
+			if (yellowSubShow.size() > 0) { yellowSubShowCard1.setImageResource(R.drawable.hanabi_yellow_1); }
+			if (greenSubShow.size() > 0) { greenSubShowCard1.setImageResource(R.drawable.hanabi_green_1); }
+			if (blueSubShow.size() > 0) { blueSubShowCard1.setImageResource(R.drawable.hanabi_blue_1); }
 
 		}
 
