@@ -24,6 +24,13 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
  */
 public class HanabiState extends GameState {
 
+
+	public static final int BLUE = 0;
+	public static final int RED = 1;
+	public static final int WHITE = 2;
+	public static final int YELLOW = 3;
+	public static final int GREEN = 4;
+
 	Random rand = new Random();
 	// instance variables,
 	private int player_Id; //three players (1...3)
@@ -37,15 +44,17 @@ public class HanabiState extends GameState {
 
 	int count = rand.nextInt(5);
 
+
+
 	//TODO:  should this be public or should there be a getter?  You decide.
 	public int[] color = new int[5];
 
 	{
-		color[0] = Color.BLUE;
-		color[1] = Color.RED;
-		color[2] = Color.WHITE;
-		color[3] = Color.YELLOW;
-		color[4] = Color.GREEN;
+		color[BLUE] = Color.BLUE;
+		color[RED] = Color.RED;
+		color[WHITE] = Color.WHITE;
+		color[YELLOW] = Color.YELLOW;
+		color[GREEN] = Color.GREEN;
 	}
 
 	//TODO:  Nuxoll thinks a 3x5 2D array of Card objects would be a good way to track
@@ -170,7 +179,7 @@ public class HanabiState extends GameState {
 	public int getPlayer_Id() {return player_Id;}
 	public int getTotalHints() {return totalHints;}
 	public int getFuseTokens() {return fuseTokens;}
-	public int getCardsInHand() {return cardsInHand;}
+	public Card[] getCardsInHand(int player_Id) {return cards_Value[player_Id];}
 	public int getTotalCardsInDeck(){return totalCardsInDeck;}
 	public boolean getCardVisibility(){return cardVisibility;}
 

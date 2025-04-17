@@ -1,9 +1,11 @@
 package edu.up.cs301.hanabiPack;
 
+import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -36,7 +38,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	private TextView testResultsTextView;
 	
 	// the most recent game state, as given to us by the CounterLocalGame
-	private HanabiState state;
+	private HanabiState state = new HanabiState();
 	
 	// the android activity that we are running
 	private GameMainActivity myActivity;
@@ -106,14 +108,16 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		yourCards[selectedYourCard].setColorFilter(transYellow);
 
 
-		//0 = yellow incorrect
-		//1 = red correct
-		//2 = white correct
-		//3 = blue correct
-		//4 = green incorrect
+		//Yellow SubShow Cards has been played, ...
+		ArrayList<Card> yellowSubShow = state.fireworkShow.get(HanabiState.YELLOW);
+		ImageView yellowSubShowCard1 = myActivity.findViewById(R.id.yellow1);
+		ImageView yellowSubShowCard2 = myActivity.findViewById(R.id.yellow2);
+		ImageView yellowSubShowCard3 = myActivity.findViewById(R.id.yellow3);
+		ImageView yellowSubShowCard4 = myActivity.findViewById(R.id.yellow4);
+		ImageView yellowSubShowCard5 = myActivity.findViewById(R.id.yellow5);
 
 		//Red SubShow Cards has been played, ...
-		ArrayList<Card> redSubShow = state.fireworkShow.get(1);
+		ArrayList<Card> redSubShow = state.fireworkShow.get(HanabiState.RED);
 		ImageView redSubShowCard1 = myActivity.findViewById(R.id.red1);
 		ImageView redSubShowCard2 = myActivity.findViewById(R.id.red2);
 		ImageView redSubShowCard3 = myActivity.findViewById(R.id.red3);
@@ -121,7 +125,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		ImageView redSubShowCard5 = myActivity.findViewById(R.id.red5);
 
 		//White SubShow Cards has been played, ...
-		ArrayList<Card> whiteSubShow = state.fireworkShow.get(2);
+		ArrayList<Card> whiteSubShow = state.fireworkShow.get(HanabiState.WHITE);
 		ImageView whiteSubShowCard1 = myActivity.findViewById(R.id.white1);
 		ImageView whiteSubShowCard2 = myActivity.findViewById(R.id.white2);
 		ImageView whiteSubShowCard3 = myActivity.findViewById(R.id.white3);
@@ -129,7 +133,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		ImageView whiteSubShowCard5 = myActivity.findViewById(R.id.white5);
 
 		//Blue SubShow Cards has been played, ...
-		ArrayList<Card> blueSubShow = state.fireworkShow.get(3);
+		ArrayList<Card> blueSubShow = state.fireworkShow.get(HanabiState.BLUE);
 		ImageView blueSubShowCard1 = myActivity.findViewById(R.id.blue1);
 		ImageView blueSubShowCard2 = myActivity.findViewById(R.id.blue2);
 		ImageView blueSubShowCard3 = myActivity.findViewById(R.id.blue3);
@@ -137,20 +141,13 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		ImageView blueSubShowCard5 = myActivity.findViewById(R.id.blue5);
 
 		//Green SubShow Cards has been played, ...
-		ArrayList<Card> greenSubShow = state.fireworkShow.get(4);
+		ArrayList<Card> greenSubShow = state.fireworkShow.get(HanabiState.GREEN);
 		ImageView greenSubShowCard1 = myActivity.findViewById(R.id.green1);
 		ImageView greenSubShowCard2 = myActivity.findViewById(R.id.green2);
 		ImageView greenSubShowCard3 = myActivity.findViewById(R.id.green3);
 		ImageView greenSubShowCard4 = myActivity.findViewById(R.id.green4);
 		ImageView greenSubShowCard5 = myActivity.findViewById(R.id.green5);
 
-		//Yellow SubShow Cards has been played, ...
-		ArrayList<Card> yellowSubShow = state.fireworkShow.get(0);
-		ImageView yellowSubShowCard1 = myActivity.findViewById(R.id.yellow1);
-		ImageView yellowSubShowCard2 = myActivity.findViewById(R.id.yellow2);
-		ImageView yellowSubShowCard3 = myActivity.findViewById(R.id.yellow3);
-		ImageView yellowSubShowCard4 = myActivity.findViewById(R.id.yellow4);
-		ImageView yellowSubShowCard5 = myActivity.findViewById(R.id.yellow5);
 
 		// Updated Red Subshow Cards
 		if (redSubShow.size() > 0) { redSubShowCard1.setImageResource(R.drawable.hanabi_red_1); }
@@ -385,46 +382,47 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		teammateCards[9] = activity.findViewById(R.id.Gemini5);
 
 		//Setting updated cards;
-		Random random = new Random();
+
 		for (int i = 0; i < teammateCards.length; i++){
-			int color = random.nextInt(5);
-			int value = random.nextInt(5) + 1;
+			int teammateId1 = (state.getPlayer_Id() + 1) % 3;
+			int teammateId2 = (teammateId1 + 1) % 3;
+			Card [] playerHand = state.getCardsInHand(teammateId1);
 
-			// color 0: Blue color.
-			// color 1: Red color.
-			// color 2: Yellow color.
-			// color 3: White color.
-			// color 4: Green color.
+			if(i >= playerHand.length){
+				playerHand = state.getCardsInHand(teammateId2);
+			}
+			int color = playerHand[i%5]._color;
+			int value = playerHand[i%5]._number;
 
-			if (color == 0){ //Blue color
+			if (color == state.BLUE){ //Blue color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_blue_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_blue_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_blue_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_blue_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_blue_5);}
 			}
-			else if (color == 1){ //Red color
+			else if (color == state.RED){ //Red color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_red_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_red_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_red_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_red_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_red_5);}
 			}
-			else if (color == 2){ //Yellow color
+			else if (color == state.YELLOW){ //Yellow color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_5);}
 			}
-			else if (color == 3){ //White color
+			else if (color == state.WHITE){ //White color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_white_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_white_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_white_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_white_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_white_5);}
 			}
-			else if (color == 4){ //Green color
+			else if (color == state.GREEN){ //Green color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_green_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_green_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_green_3);}
@@ -447,37 +445,38 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		for(int i = 0; i < yourCards.length; i++)
 		{
-			int color = random.nextInt(5);
-			int value = random.nextInt(5) + 1;
-			if (color == 0){ //blue color
+			int color = state.getCardsInHand(state.getPlayer_Id())[i]._color;
+			int value = state.getCardsInHand(state.getPlayer_Id())[i]._number;
+
+			if (color == state.BLUE){ //blue color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_blue_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_blue_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_blue_3);}
 				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_blue_4);}
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_blue_5);}
 			}
-			else if (color == 1){ //red color
+			else if (color == state.RED){ //red color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_red_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_red_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_red_3);}
 				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_red_4);}
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_red_5);}
 			}
-			else if (color == 2){ //yellow color
+			else if (color == state.YELLOW){ //yellow color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_yellow_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_yellow_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_yellow_3);}
 				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_yellow_4);}
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_yellow_5);}
 			}
-			else if (color == 3){ //white color
+			else if (color == state.WHITE){ //white color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_white_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_white_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_white_3);}
 				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_white_4);}
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_white_5);}
 			}
-			else if (color == 4){ //green color
+			else if (color == state.GREEN){ //green color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_green_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_green_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_green_3);}
