@@ -8,6 +8,9 @@ package edu.up.cs301.hanabiPack;
 public class Card {
     public int _color;  //the color of the card
     public int _number; //the number of the card
+
+    public String _cardUniqueId;
+
     public boolean _colorKnown = false;
     public boolean _numberKnown = false;
 

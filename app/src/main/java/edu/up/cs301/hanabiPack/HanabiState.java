@@ -3,6 +3,7 @@ package edu.up.cs301.hanabiPack;
 import android.graphics.Color;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -67,8 +68,10 @@ public class HanabiState extends GameState {
 				drawPile.add(new Card(i, j));
 			}
 		}
-		//TODO shuffle the deck
+		// This shuffles the deck to make sure every game, players start with different cards
+		Collections.shuffle(drawPile);
 	}
+
 
 	/**\
 	 *
@@ -118,10 +121,7 @@ public class HanabiState extends GameState {
 		}
 		this.discardAmount = 0;
 		this.finalScore = 0;
-		for(int i = 0; i < 5; i++)
-		{
 
-		}
 
 	}
 
