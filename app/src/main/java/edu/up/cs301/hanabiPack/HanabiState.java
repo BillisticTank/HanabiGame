@@ -1,6 +1,7 @@
 package edu.up.cs301.hanabiPack;
 
 import android.graphics.Color;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +32,7 @@ public class HanabiState extends GameState {
 	private int cardsInHand = 5; //cards in a player hand;
 	private int totalCardsInDeck = 50; //cards in the deck
 	private boolean cardVisibility = true;
+	HanabiMainActivity mainActivity;
 
 
 	int count = rand.nextInt(5);
@@ -95,7 +97,7 @@ public class HanabiState extends GameState {
 		this.player_Id = 0; // human player
 		this.totalHints = 8;
 		this.fuseTokens = 3;
-		this.cardsInHand = 4;
+		this.cardsInHand = 5;
 		for (int i = 0; i < color.length; i++) {
 			this.color[i] = color[count];
 		}
@@ -227,15 +229,23 @@ public class HanabiState extends GameState {
 	}
 
 	public boolean makeDiscardCardAction(DiscardCardAction action) {
+	if(totalCardsInDeck > 0) {
 
-		if(totalHints < 8) {
-			totalHints++;
-			return true;
-		}
+		totalCardsInDeck--;
 
-		else if(totalHints == 8){
-			return true;
-		}
+	if (totalHints < 8) {
+		totalHints++;
+		return true;
+	}
+	else if (totalHints == 8) {
+		return true;
+	}
+
+	else if (totalCardsInDeck == 0) {
+		TextView announce = mainActivity.findViewById(R.id.announcer);
+		announce.setText("GAME OVER! You have no cards left in deck!");
+	}
+	}
 		return false;
 	}
 

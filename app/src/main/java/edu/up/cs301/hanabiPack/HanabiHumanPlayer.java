@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -79,7 +80,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	}
 	
 	/**
-	 *
+	 *It updates the whole display of the game based on the current state.
 	 */
 
     protected void updateDisplay() {
@@ -104,6 +105,29 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			yourCards[i].setColorFilter(0);  //fully transparent
 		}
 		yourCards[selectedYourCard].setColorFilter(transYellow);
+
+		//example (delete later):  if the first red card has been played, ...
+		ImageView firstRedSubShowCard = myActivity.findViewById(R.id.red1);
+		ArrayList<Card> redSubShow = state.fireworkShow.get(1);
+		ArrayList<Card> whiteSubShow = state.fireworkShow.get(2);
+		ArrayList<Card> blueSubShow = state.fireworkShow.get(3);
+		//0 = yellow
+		//1 = red correct
+		//2 = white correct
+		//3 = blue correct
+		//4 = green
+		if (redSubShow.size() > 0) {
+			firstRedSubShowCard.setImageResource(R.drawable.hanabi_red_1);
+		}
+
+		//Display the subshow cards
+		for(int color = 0; color < state.color.length; ++color) {
+			ArrayList<Card> subshow = state.fireworkShow.get(color);
+			if (redSubShow.size() > 0) {
+				firstRedSubShowCard.setImageResource(R.drawable.hanabi_red_1);
+			}
+
+		}
 
 		//TODO draw a little circle on com's cards to show which cards i've
 		//TODO I've already given hints on
@@ -292,41 +316,41 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			int color = random.nextInt(5);
 			int value = random.nextInt(5) + 1;
 
-			// color 0 = blue color.
-			// color 1 = red color.
-			// color 2 = yellow color.
-			// color 3 = white color.
-			// color 4 = red color.
+			// color 0: Blue color.
+			// color 1: Red color.
+			// color 2: Yellow color.
+			// color 3: White color.
+			// color 4: Green color.
 
-			if (color == 0){ //blue color
+			if (color == 0){ //Blue color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_blue_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_blue_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_blue_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_blue_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_blue_5);}
 			}
-			else if (color == 1){ //red color
+			else if (color == 1){ //Red color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_red_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_red_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_red_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_red_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_red_5);}
 			}
-			else if (color == 2){ //yellow color
+			else if (color == 2){ //Yellow color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_5);}
 			}
-			else if (color == 3){ //white color
+			else if (color == 3){ //White color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_white_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_white_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_white_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_white_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_white_5);}
 			}
-			else if (color == 4){ //green color
+			else if (color == 4){ //Green color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_green_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_green_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_green_3);}
@@ -345,6 +369,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		yourCards[2] = activity.findViewById(R.id.playerCard3);
 		yourCards[3] = activity.findViewById(R.id.playerCard4);
 		yourCards[4] = activity.findViewById(R.id.playerCard5);
+
 
 		for(int i = 0; i < yourCards.length; i++)
 		{
@@ -386,6 +411,8 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_green_5);}
 			}
 		}
+
+
 
 
 		//Make myself the touch listener for all the cards
