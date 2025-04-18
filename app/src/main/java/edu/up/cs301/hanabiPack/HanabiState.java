@@ -37,7 +37,6 @@ public class HanabiState extends GameState {
 
 	//TODO:  should this be public or should there be a getter?  You decide.
 	public int[] color = new int[5];
-
 	{
 		color[0] = Color.BLUE;
 		color[1] = Color.RED;
@@ -58,7 +57,8 @@ public class HanabiState extends GameState {
 	private Card[][] cards_Value = new Card[3][5]; // Array of Object Card Type;
 	private int discardAmount; // how many cards are discarded
 
-	ArrayList<Card> drawPile = new ArrayList<Card>(totalCardsInDeck);
+
+	public ArrayList<Card> drawPile = new ArrayList<Card>(totalCardsInDeck);
 	{
 		//for each color we have 5 cards;
 		for (int i = 0; i < color.length; ++i) {
@@ -70,8 +70,16 @@ public class HanabiState extends GameState {
 		}
 		// This shuffles the deck to make sure every game, players start with different cards
 		Collections.shuffle(drawPile);
+
+
+
 	}
 
+	// this methods grabs a specific index of the drawPile array
+	public ArrayList<Card> getDrawPile()
+	{
+		return drawPile;
+	}
 
 	/**\
 	 *

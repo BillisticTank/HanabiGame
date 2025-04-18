@@ -31,7 +31,8 @@ import java.util.Random;
 public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener {
 
 	/* instance variables */
-	
+
+
 	// The TextView the displays the current counter value
 	private TextView testResultsTextView;
 	
@@ -51,6 +52,12 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	ImageView[] yourCards = new ImageView[5];
 	//TODO:  add the other variables needed
 
+
+
+	// array containing the data of the players hand
+	ArrayList<Card> yourCardData = new ArrayList<Card>(5);
+
+
 	//A mostly transparent yellow
 	int transYellow = 0x44FFFF00;
 
@@ -60,9 +67,12 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	private int selectedYourCard = 0;
 	/**
 	 * constructor
-	 * @param name
+	 * param name
 	 * 		the player's name
 	 */
+
+
+
 	public HanabiHumanPlayer(String name) {
 		super(name);
 	}
@@ -150,67 +160,80 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			updateDisplay();
 
 		}
-			else if (button == discardButton) {
+		else if (button == discardButton)
+		{
+			if(state.getPlayer_Id() == 0) //this if statement prevents the player from playing a card when its not thier turn
+			{
+				DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
 
-			DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
+				// TODO error? shouldn't this be done in HanabiState
+				//  via the discardCardAction?
+				//decrease the card in a player's deck by one
+				int cardsLeft = state.getTotalCardsInDeck() - 1;
+				state.setTotalCardsInDeck(cardsLeft);
 
-			// TODO error? shouldn't this be done in HanabiState
-			//  via the discardCardAction?
-			//decrease the card in a player's deck by one
-			int cardsLeft = state.getTotalCardsInDeck() - 1;
-			state.setTotalCardsInDeck(cardsLeft);
+				if (state.getTotalHints() < 8) {
+					int newHints = state.getTotalHints() + 1;
+					state.setTotalHints(newHints);
+				}
 
-			if (state.getTotalHints() < 8) {
-				int newHints = state.getTotalHints() + 1;
-				state.setTotalHints(newHints);
+				//Checks if Game Over conditions are met
+				if(state.getTotalCardsInDeck() < 0 || state.getTotalCardsInDeck() == 0){
+
+					state.setTotalCardsInDeck(0);
+					announcer.setText("GAME OVER! All the cards have been played.");
+					myActivity.setGameOver(true);
+				} // if the hints are negative.
+
+				else {announcer.setText("Player"+state.getPlayer_Id() +" discarded a Card.");}
+				game.sendAction(discardCard);
+				updateDisplay();
+			}
+			else{
+				announcer.setText("Human player, its not your turn!");
 			}
 
-			//Checks if Game Over conditions are met
-			if(state.getTotalCardsInDeck() < 0 || state.getTotalCardsInDeck() == 0){
 
-				state.setTotalCardsInDeck(0);
-				announcer.setText("GAME OVER! All the cards have been played.");
-				myActivity.setGameOver(true);
-			} // if the hints are negative.
-
-			else {announcer.setText("Player"+state.getPlayer_Id() +" discarded a Card.");}
-			game.sendAction(discardCard);
-			updateDisplay();
 
 		}
-		else if (button == playCardButton) {
+		else if (button == playCardButton)
+		{
+			if(state.getPlayer_Id() == 0) //this if statement prevents the player from playing a card when its not thier turn
+			{
+				PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
 
-			PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
+				//TODO: This is just a test to see if the Fuse Tokens are working,
+				// we'll change this when we actually try to implement the Play Card Action
 
-			//TODO: This is just a test to see if the Fuse Tokens are working,
-			// we'll change this when we actually try to implement the Play Card Action
-
-			/**
-			 * Suggestion:
-			 * if(card color == firework show column) {
-			 * 		if(card number = numCards in column + 1) {
-			 * 			playCard
-			 * 			announcer.setText("Player succesfully played a " +
-			 * 			getCardColor + getCardNumber)
-			 * 		}
-			 * 	}
-			 */
+				/**
+				 * Suggestion:
+				 * if(card color == firework show column) {
+				 * 		if(card number = numCards in column + 1) {
+				 * 			playCard
+				 * 			announcer.setText("Player succesfully played a " +
+				 * 			getCardColor + getCardNumber)
+				 * 		        }    * 	}
+				 */
 
 
+				int newFuse = state.getFuseTokens() - 1;
+				state.setFuseTokens(newFuse);
+				announcer.setText("Player Played the Wrong Card!");
 
-			int newFuse = state.getFuseTokens() - 1;
-			state.setFuseTokens(newFuse);
-			announcer.setText("Player Played the Wrong Card!");
+				//Checks if Game Over conditions are met
+				if (state.getFuseTokens() < 0 || state.getFuseTokens() == 0) {
+					state.setFuseTokens(0);
+					announcer.setText("GAME OVER! The Bomb Blew Up!");
+					myActivity.setGameOver(true);
+				}
 
-			//Checks if Game Over conditions are met
-			if(state.getFuseTokens() < 0 || state.getFuseTokens() == 0) {
-				state.setFuseTokens(0);
-				announcer.setText("GAME OVER! The Bomb Blew Up!");
-				myActivity.setGameOver(true);
+				game.sendAction(playCard);
+				updateDisplay();
 			}
-
-			game.sendAction(playCard);
-			updateDisplay();
+			else
+			{
+				announcer.setText("Player 0, its not your turn!");
+			}
 		}
 
 	}// onClick

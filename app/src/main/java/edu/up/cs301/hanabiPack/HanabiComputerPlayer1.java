@@ -1,5 +1,6 @@
 package edu.up.cs301.hanabiPack;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import edu.up.cs301.GameFramework.players.GameComputerPlayer;
@@ -7,16 +8,13 @@ import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.utilities.Tickable;
 
 /**
- * A computer-version of a counter-player.  Since this is such a simple game,
- * it just sends "+" and "-" commands with equal probability, at an average
- * rate of one per second. 
- * 
+ *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
  * @version February 2025
  */
-public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickable {
+public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickable, Serializable {
 	
     /**
      * Constructor for objects of class CounterComputerPlayer1
@@ -81,6 +79,7 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
                 DiscardCardAction discard = new DiscardCardAction(this, cardIndex);
                 this.sleep(1000);
                 this.game.sendAction(discard);
+
             }
 
             else {
