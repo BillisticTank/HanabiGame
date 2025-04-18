@@ -1,17 +1,19 @@
 package edu.up.cs301.hanabiPack;
 
+import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import android.graphics.Color;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -31,13 +33,12 @@ import java.util.Random;
 public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener {
 
 	/* instance variables */
-
-
+	
 	// The TextView the displays the current counter value
 	private TextView testResultsTextView;
 	
 	// the most recent game state, as given to us by the CounterLocalGame
-	private HanabiState state;
+	private HanabiState state = new HanabiState();
 	
 	// the android activity that we are running
 	private GameMainActivity myActivity;
@@ -52,12 +53,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	ImageView[] yourCards = new ImageView[5];
 	//TODO:  add the other variables needed
 
-
-
-	// array containing the data of the players hand
-	ArrayList<Card> yourCardData = new ArrayList<Card>(5);
-
-
 	//A mostly transparent yellow
 	int transYellow = 0x44FFFF00;
 
@@ -67,12 +62,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	private int selectedYourCard = 0;
 	/**
 	 * constructor
-	 * param name
+	 * @param name
 	 * 		the player's name
 	 */
-
-
-
 	public HanabiHumanPlayer(String name) {
 		super(name);
 	}
@@ -89,7 +81,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	}
 	
 	/**
-	 *
+	 *It updates the whole display of the game based on the current state.
 	 */
 
     protected void updateDisplay() {
@@ -114,6 +106,99 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			yourCards[i].setColorFilter(0);  //fully transparent
 		}
 		yourCards[selectedYourCard].setColorFilter(transYellow);
+
+
+		//Yellow SubShow Cards has been played, ...
+		ArrayList<Card> yellowSubShow = state.fireworkShow.get(HanabiState.YELLOW);
+		ImageView yellowSubShowCard1 = myActivity.findViewById(R.id.yellow1);
+		ImageView yellowSubShowCard2 = myActivity.findViewById(R.id.yellow2);
+		ImageView yellowSubShowCard3 = myActivity.findViewById(R.id.yellow3);
+		ImageView yellowSubShowCard4 = myActivity.findViewById(R.id.yellow4);
+		ImageView yellowSubShowCard5 = myActivity.findViewById(R.id.yellow5);
+
+		//Red SubShow Cards has been played, ...
+		ArrayList<Card> redSubShow = state.fireworkShow.get(HanabiState.RED);
+		ImageView redSubShowCard1 = myActivity.findViewById(R.id.red1);
+		ImageView redSubShowCard2 = myActivity.findViewById(R.id.red2);
+		ImageView redSubShowCard3 = myActivity.findViewById(R.id.red3);
+		ImageView redSubShowCard4 = myActivity.findViewById(R.id.red4);
+		ImageView redSubShowCard5 = myActivity.findViewById(R.id.red5);
+
+		//White SubShow Cards has been played, ...
+		ArrayList<Card> whiteSubShow = state.fireworkShow.get(HanabiState.WHITE);
+		ImageView whiteSubShowCard1 = myActivity.findViewById(R.id.white1);
+		ImageView whiteSubShowCard2 = myActivity.findViewById(R.id.white2);
+		ImageView whiteSubShowCard3 = myActivity.findViewById(R.id.white3);
+		ImageView whiteSubShowCard4 = myActivity.findViewById(R.id.white4);
+		ImageView whiteSubShowCard5 = myActivity.findViewById(R.id.white5);
+
+		//Blue SubShow Cards has been played, ...
+		ArrayList<Card> blueSubShow = state.fireworkShow.get(HanabiState.BLUE);
+		ImageView blueSubShowCard1 = myActivity.findViewById(R.id.blue1);
+		ImageView blueSubShowCard2 = myActivity.findViewById(R.id.blue2);
+		ImageView blueSubShowCard3 = myActivity.findViewById(R.id.blue3);
+		ImageView blueSubShowCard4 = myActivity.findViewById(R.id.blue4);
+		ImageView blueSubShowCard5 = myActivity.findViewById(R.id.blue5);
+
+		//Green SubShow Cards has been played, ...
+		ArrayList<Card> greenSubShow = state.fireworkShow.get(HanabiState.GREEN);
+		ImageView greenSubShowCard1 = myActivity.findViewById(R.id.green1);
+		ImageView greenSubShowCard2 = myActivity.findViewById(R.id.green2);
+		ImageView greenSubShowCard3 = myActivity.findViewById(R.id.green3);
+		ImageView greenSubShowCard4 = myActivity.findViewById(R.id.green4);
+		ImageView greenSubShowCard5 = myActivity.findViewById(R.id.green5);
+
+
+		// Updated Red Subshow Cards
+		if (redSubShow.size() > 0) { redSubShowCard1.setImageResource(R.drawable.hanabi_red_1); }
+		if (redSubShow.size() > 1) { redSubShowCard2.setImageResource(R.drawable.hanabi_red_2);}
+		if (redSubShow.size() > 2) { redSubShowCard2.setImageResource(R.drawable.hanabi_red_3);}
+		if (redSubShow.size() > 3) { redSubShowCard2.setImageResource(R.drawable.hanabi_red_4);}
+		if (redSubShow.size() > 4) { redSubShowCard2.setImageResource(R.drawable.hanabi_red_5);}
+
+		// Updated Blue Subshow Cards
+		if (blueSubShow.size() > 0) { blueSubShowCard1.setImageResource(R.drawable.hanabi_blue_1); }
+		if (blueSubShow.size() > 1) { blueSubShowCard2.setImageResource(R.drawable.hanabi_blue_2); }
+		if (blueSubShow.size() > 2) { blueSubShowCard3.setImageResource(R.drawable.hanabi_blue_3); }
+		if (blueSubShow.size() > 3) { blueSubShowCard4.setImageResource(R.drawable.hanabi_blue_4); }
+		if (blueSubShow.size() > 4) { blueSubShowCard5.setImageResource(R.drawable.hanabi_blue_5); }
+
+		// Updated White Subshow Cards
+		if (whiteSubShow.size() > 0) { whiteSubShowCard1.setImageResource(R.drawable.hanabi_white_1); }
+		if (whiteSubShow.size() > 1) { whiteSubShowCard2.setImageResource(R.drawable.hanabi_white_2); }
+		if (whiteSubShow.size() > 2) { whiteSubShowCard3.setImageResource(R.drawable.hanabi_white_3); }
+		if (whiteSubShow.size() > 3) { whiteSubShowCard4.setImageResource(R.drawable.hanabi_white_4); }
+		if (whiteSubShow.size() > 4) { whiteSubShowCard5.setImageResource(R.drawable.hanabi_white_5); }
+
+		//Updated Green Subshow Cards
+		if (greenSubShow.size() > 0) { greenSubShowCard1.setImageResource(R.drawable.hanabi_green_1); }
+		if (greenSubShow.size() > 1) { greenSubShowCard2.setImageResource(R.drawable.hanabi_green_2); }
+		if (greenSubShow.size() > 2) { greenSubShowCard3.setImageResource(R.drawable.hanabi_green_3); }
+		if (greenSubShow.size() > 3) { greenSubShowCard4.setImageResource(R.drawable.hanabi_green_4); }
+		if (greenSubShow.size() > 4) { greenSubShowCard5.setImageResource(R.drawable.hanabi_green_5); }
+
+		//Updated Yellow Subshow Cards
+		if (yellowSubShow.size() > 0) { yellowSubShowCard1.setImageResource(R.drawable.hanabi_yellow_1); }
+		if (yellowSubShow.size() > 1) { yellowSubShowCard2.setImageResource(R.drawable.hanabi_yellow_2); }
+		if (yellowSubShow.size() > 2) { yellowSubShowCard3.setImageResource(R.drawable.hanabi_yellow_3); }
+		if (yellowSubShow.size() > 3) { yellowSubShowCard4.setImageResource(R.drawable.hanabi_yellow_4); }
+		if (yellowSubShow.size() > 4) { yellowSubShowCard5.setImageResource(R.drawable.hanabi_yellow_5); }
+
+		//Display the subshow cards
+		for(int color = 0; color < state.color.length; ++color) {
+			//ArrayList<Card> RedSubShow = state.fireworkShow.get(color);
+			//ArrayList<Card> WhiteSubShow = state.fireworkShow.get(color);
+			//ArrayList<Card> YellowSubShow = state.fireworkShow.get(color);
+			//ArrayList<Card> GreenSubShow = state.fireworkShow.get(color);
+			//ArrayList<Card> BlueSubShow = state.fireworkShow.get(color);
+
+			if (redSubShow.size() > 0) { redSubShowCard1.setImageResource(R.drawable.hanabi_red_1); }
+			if (whiteSubShow.size() > 0) { whiteSubShowCard1.setImageResource(R.drawable.hanabi_white_1); }
+			if (yellowSubShow.size() > 0) { yellowSubShowCard1.setImageResource(R.drawable.hanabi_yellow_1); }
+			if (greenSubShow.size() > 0) { greenSubShowCard1.setImageResource(R.drawable.hanabi_green_1); }
+			if (blueSubShow.size() > 0) { blueSubShowCard1.setImageResource(R.drawable.hanabi_blue_1); }
+
+		}
 
 		//TODO draw a little circle on com's cards to show which cards i've
 		//TODO I've already given hints on
@@ -141,99 +226,93 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 			//send a hint action to the local game based on color
 			//TODO colorHint isColor parameter needs to be changed to be something more flexible
-			GiveHintAction colorHint = new GiveHintAction(this, true,
-					state.getPlayer_Id(), selectedTeammateCard);
+			//create a hint action with a temporary value for the isColor boolean
+			GiveHintAction colorHint = new GiveHintAction(this,
+					false, state.getPlayer_Id(), selectedTeammateCard);
 
-			//TODO feel like this also should be done in HanabiState
-
-			int newHints = state.getTotalHints() - 1;
-			state.setTotalHints(newHints);
 			if(state.getTotalHints() < 0 || state.getTotalHints() == 0){
 
 				state.setTotalHints(0);
 				announcer.setText("Sorry, you have zero hints left.");
 			}
-			else if (state.getTotalCardsInDeck() == 0){announcer.setText("GAME OVER! All the cards have been played.");} //GAME OVER
+			else if (state.getTotalCardsInDeck() == 0)
+			{announcer.setText("GAME OVER! All the cards have been played.");} //GAME OVER
 
-			else {announcer.setText("Player"+state.getPlayer_Id() +" used a Hint.");}  // if the hints are negative.
-			game.sendAction(colorHint);
+			else {
+				announcer.setText("Player"+state.getPlayer_Id() +" gave a hint about "
+						+ colorHint._reciverId + "'s Card");
+			}
+
+			//launch a thread to ask the user what type of hint this is
+			//then send the thread to game
+			HintSelectDialogue hint = new HintSelectDialogue(colorHint, game, myActivity);
+			Thread hintThread = new Thread(hint);
+			hintThread.start();
+
+
+			int newHints = state.getTotalHints() - 1;
+			state.setTotalHints(newHints);
+			updateDisplay();
+		}
+			else if (button == discardButton) {
+
+			DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
+
+			//decrease the card in a player's deck by one
+			int cardsLeft = state.getTotalCardsInDeck() - 1;
+			state.setTotalCardsInDeck(cardsLeft);
+
+			if (state.getTotalHints() < 8) {
+				int newHints = state.getTotalHints() + 1;
+				state.setTotalHints(newHints);
+			}
+
+			//Checks if Game Over conditions are met
+			if(state.getTotalCardsInDeck() < 0 || state.getTotalCardsInDeck() == 0){
+
+				state.setTotalCardsInDeck(0);
+				announcer.setText("GAME OVER! All the cards have been played.");
+				myActivity.setGameOver(true);
+			} // if the hints are negative.
+
+			else {announcer.setText("Player"+state.getPlayer_Id() +" discarded a Card.");}
+			game.sendAction(discardCard);
 			updateDisplay();
 
 		}
-		else if (button == discardButton)
-		{
-			if(state.getPlayer_Id() == 0) //this if statement prevents the player from playing a card when its not thier turn
-			{
-				DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
+		else if (button == playCardButton) {
 
-				// TODO error? shouldn't this be done in HanabiState
-				//  via the discardCardAction?
-				//decrease the card in a player's deck by one
-				int cardsLeft = state.getTotalCardsInDeck() - 1;
-				state.setTotalCardsInDeck(cardsLeft);
+			PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
 
-				if (state.getTotalHints() < 8) {
-					int newHints = state.getTotalHints() + 1;
-					state.setTotalHints(newHints);
-				}
+			//TODO: This is just a test to see if the Fuse Tokens are working,
+			// we'll change this when we actually try to implement the Play Card Action
 
-				//Checks if Game Over conditions are met
-				if(state.getTotalCardsInDeck() < 0 || state.getTotalCardsInDeck() == 0){
+			/**
+			 * Suggestion:
+			 * if(card color == firework show column) {
+			 * 		if(card number = numCards in column + 1) {
+			 * 			playCard
+			 * 			announcer.setText("Player succesfully played a " +
+			 * 			getCardColor + getCardNumber)
+			 * 		}
+			 * 	}
+			 */
 
-					state.setTotalCardsInDeck(0);
-					announcer.setText("GAME OVER! All the cards have been played.");
-					myActivity.setGameOver(true);
-				} // if the hints are negative.
 
-				else {announcer.setText("Player"+state.getPlayer_Id() +" discarded a Card.");}
-				game.sendAction(discardCard);
-				updateDisplay();
-			}
-			else{
-				announcer.setText("Human player, its not your turn!");
+
+			int newFuse = state.getFuseTokens() - 1;
+			state.setFuseTokens(newFuse);
+			announcer.setText("Player Played the Wrong Card!");
+
+			//Checks if Game Over conditions are met
+			if(state.getFuseTokens() < 0 || state.getFuseTokens() == 0) {
+				state.setFuseTokens(0);
+				announcer.setText("GAME OVER! The Bomb Blew Up!");
+				myActivity.setGameOver(true);
 			}
 
-
-
-		}
-		else if (button == playCardButton)
-		{
-			if(state.getPlayer_Id() == 0) //this if statement prevents the player from playing a card when its not thier turn
-			{
-				PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
-
-				//TODO: This is just a test to see if the Fuse Tokens are working,
-				// we'll change this when we actually try to implement the Play Card Action
-
-				/**
-				 * Suggestion:
-				 * if(card color == firework show column) {
-				 * 		if(card number = numCards in column + 1) {
-				 * 			playCard
-				 * 			announcer.setText("Player succesfully played a " +
-				 * 			getCardColor + getCardNumber)
-				 * 		        }    * 	}
-				 */
-
-
-				int newFuse = state.getFuseTokens() - 1;
-				state.setFuseTokens(newFuse);
-				announcer.setText("Player Played the Wrong Card!");
-
-				//Checks if Game Over conditions are met
-				if (state.getFuseTokens() < 0 || state.getFuseTokens() == 0) {
-					state.setFuseTokens(0);
-					announcer.setText("GAME OVER! The Bomb Blew Up!");
-					myActivity.setGameOver(true);
-				}
-
-				game.sendAction(playCard);
-				updateDisplay();
-			}
-			else
-			{
-				announcer.setText("Player 0, its not your turn!");
-			}
+			game.sendAction(playCard);
+			updateDisplay();
 		}
 
 	}// onClick
@@ -310,46 +389,47 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		teammateCards[9] = activity.findViewById(R.id.Gemini5);
 
 		//Setting updated cards;
-		Random random = new Random();
+
 		for (int i = 0; i < teammateCards.length; i++){
-			int color = random.nextInt(5);
-			int value = random.nextInt(5) + 1;
+			int teammateId1 = (state.getPlayer_Id() + 1) % 3;
+			int teammateId2 = (teammateId1 + 1) % 3;
+			Card [] playerHand = state.getCardsInHand(teammateId1);
 
-			// color 0 = blue color.
-			// color 1 = red color.
-			// color 2 = yellow color.
-			// color 3 = white color.
-			// color 4 = red color.
+			if(i >= playerHand.length){
+				playerHand = state.getCardsInHand(teammateId2);
+			}
+			int color = playerHand[i%5]._color;
+			int value = playerHand[i%5]._number;
 
-			if (color == 0){ //blue color
+			if (color == state.BLUE){ //Blue color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_blue_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_blue_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_blue_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_blue_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_blue_5);}
 			}
-			else if (color == 1){ //red color
+			else if (color == state.RED){ //Red color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_red_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_red_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_red_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_red_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_red_5);}
 			}
-			else if (color == 2){ //yellow color
+			else if (color == state.YELLOW){ //Yellow color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_yellow_5);}
 			}
-			else if (color == 3){ //white color
+			else if (color == state.WHITE){ //White color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_white_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_white_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_white_3);}
 				else if(value == 4){teammateCards[i].setImageResource(R.drawable.hanabi_white_4);}
 				else if(value == 5){teammateCards[i].setImageResource(R.drawable.hanabi_white_5);}
 			}
-			else if (color == 4){ //green color
+			else if (color == state.GREEN){ //Green color
 				if(value == 1){teammateCards[i].setImageResource(R.drawable.hanabi_green_1);}
 				else if(value == 2){teammateCards[i].setImageResource(R.drawable.hanabi_green_2);}
 				else if(value == 3){teammateCards[i].setImageResource(R.drawable.hanabi_green_3);}
@@ -369,39 +449,41 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		yourCards[3] = activity.findViewById(R.id.playerCard4);
 		yourCards[4] = activity.findViewById(R.id.playerCard5);
 
+
 		for(int i = 0; i < yourCards.length; i++)
 		{
-			int color = random.nextInt(5);
-			int value = random.nextInt(5) + 1;
-			if (color == 0){ //blue color
+			int color = state.getCardsInHand(state.getPlayer_Id())[i]._color;
+			int value = state.getCardsInHand(state.getPlayer_Id())[i]._number;
+
+			if (color == state.BLUE){ //blue color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_blue_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_blue_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_blue_3);}
 				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_blue_4);}
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_blue_5);}
 			}
-			else if (color == 1){ //red color
+			else if (color == state.RED){ //red color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_red_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_red_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_red_3);}
 				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_red_4);}
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_red_5);}
 			}
-			else if (color == 2){ //yellow color
+			else if (color == state.YELLOW){ //yellow color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_yellow_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_yellow_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_yellow_3);}
 				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_yellow_4);}
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_yellow_5);}
 			}
-			else if (color == 3){ //white color
+			else if (color == state.WHITE){ //white color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_white_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_white_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_white_3);}
 				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_white_4);}
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_white_5);}
 			}
-			else if (color == 4){ //green color
+			else if (color == state.GREEN){ //green color
 				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_green_1);}
 				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_green_2);}
 				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_green_3);}
@@ -409,6 +491,8 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_green_5);}
 			}
 		}
+
+
 
 
 		//Make myself the touch listener for all the cards

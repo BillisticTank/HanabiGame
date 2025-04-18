@@ -3,7 +3,6 @@ package edu.up.cs301.hanabiPack;
 import android.graphics.Color;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -37,6 +36,7 @@ public class HanabiState extends GameState {
 
 	//TODO:  should this be public or should there be a getter?  You decide.
 	public int[] color = new int[5];
+
 	{
 		color[0] = Color.BLUE;
 		color[1] = Color.RED;
@@ -57,8 +57,7 @@ public class HanabiState extends GameState {
 	private Card[][] cards_Value = new Card[3][5]; // Array of Object Card Type;
 	private int discardAmount; // how many cards are discarded
 
-
-	public ArrayList<Card> drawPile = new ArrayList<Card>(totalCardsInDeck);
+	ArrayList<Card> drawPile = new ArrayList<Card>(totalCardsInDeck);
 	{
 		//for each color we have 5 cards;
 		for (int i = 0; i < color.length; ++i) {
@@ -68,17 +67,7 @@ public class HanabiState extends GameState {
 				drawPile.add(new Card(i, j));
 			}
 		}
-		// This shuffles the deck to make sure every game, players start with different cards
-		Collections.shuffle(drawPile);
-
-
-
-	}
-
-	// this methods grabs a specific index of the drawPile array
-	public ArrayList<Card> getDrawPile()
-	{
-		return drawPile;
+		//TODO shuffle the deck
 	}
 
 	/**\
@@ -129,7 +118,10 @@ public class HanabiState extends GameState {
 		}
 		this.discardAmount = 0;
 		this.finalScore = 0;
+		for(int i = 0; i < 5; i++)
+		{
 
+		}
 
 	}
 
