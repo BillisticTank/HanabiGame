@@ -4,7 +4,7 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
 public class GiveHintAction extends GameAction {
-    public boolean _isColor;
+    public boolean _byColor;
     public int _reciverId;
     public int _aboutCard; //the card you pick.
 
@@ -18,7 +18,7 @@ public class GiveHintAction extends GameAction {
     public GiveHintAction(GamePlayer player, boolean isColor,
                           int reciverId, int aboutCard) {
         super(player);
-        _isColor = isColor;
+        _byColor = isColor;
         _reciverId = reciverId;
         _aboutCard = aboutCard;
 

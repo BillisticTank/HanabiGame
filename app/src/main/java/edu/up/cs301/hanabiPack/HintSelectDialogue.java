@@ -2,12 +2,10 @@ package edu.up.cs301.hanabiPack;
 
 import static android.app.PendingIntent.getActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -51,13 +49,13 @@ public class HintSelectDialogue extends DialogFragment implements Runnable {
                 .setPositiveButton("Color", new DialogInterface.OnClickListener() {
                     //modify the hint to match the user's choice
                     public void onClick(DialogInterface dialog, int id) {
-                        hint._isColor = true;
+                        hint._byColor = true;
                         answer = true;
                     }
                 })
                 .setNegativeButton("Number", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        hint._isColor = false;
+                        hint._byColor = false;
                         answer = true;
                     }
                 });

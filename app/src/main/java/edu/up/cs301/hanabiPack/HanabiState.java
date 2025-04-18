@@ -1,8 +1,10 @@
 package edu.up.cs301.hanabiPack;
 
 import android.graphics.Color;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -22,6 +24,16 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
  */
 public class HanabiState extends GameState {
 
+
+	public static final int BLUE = 0;
+	public static final int RED = 1;
+	public static final int WHITE = 2;
+	public static final int YELLOW = 3;
+	public static final int GREEN = 4;
+
+
+
+
 	Random rand = new Random();
 	// instance variables,
 	private int player_Id; //three players (1...3)
@@ -31,18 +43,21 @@ public class HanabiState extends GameState {
 	private int totalCardsInDeck = 50; //cards in the deck
 	private boolean cardVisibility = true;
 
+	HanabiMainActivity mainActivity;
+
 
 	int count = rand.nextInt(5);
+
 
 	//TODO:  should this be public or should there be a getter?  You decide.
 	public int[] color = new int[5];
 
 	{
-		color[0] = Color.BLUE;
-		color[1] = Color.RED;
-		color[2] = Color.WHITE;
-		color[3] = Color.YELLOW;
-		color[4] = Color.GREEN;
+		color[BLUE] = Color.BLUE;
+		color[RED] = Color.RED;
+		color[WHITE] = Color.WHITE;
+		color[YELLOW] = Color.YELLOW;
+		color[GREEN] = Color.GREEN;
 	}
 
 	//TODO:  Nuxoll thinks a 3x5 2D array of Card objects would be a good way to track
@@ -67,7 +82,8 @@ public class HanabiState extends GameState {
 				drawPile.add(new Card(i, j));
 			}
 		}
-		//TODO shuffle the deck
+		// This shuffles the deck to make sure every game, players start with different cards
+		Collections.shuffle(drawPile);
 	}
 
 	/**\
@@ -92,7 +108,7 @@ public class HanabiState extends GameState {
 		this.player_Id = 0; // human player
 		this.totalHints = 8;
 		this.fuseTokens = 3;
-		this.cardsInHand = 4;
+		this.cardsInHand = 5;
 		for (int i = 0; i < color.length; i++) {
 			this.color[i] = color[count];
 		}
@@ -168,9 +184,10 @@ public class HanabiState extends GameState {
 	public int getPlayer_Id() {return player_Id;}
 	public int getTotalHints() {return totalHints;}
 	public int getFuseTokens() {return fuseTokens;}
-	public int getCardsInHand() {return cardsInHand;}
+	public Card[] getCardsInHand(int player_Id) {return cards_Value[player_Id];}
 	public int getTotalCardsInDeck(){return totalCardsInDeck;}
 	public boolean getCardVisibility(){return cardVisibility;}
+
 
 	/**
 	 * setter methods
@@ -227,15 +244,23 @@ public class HanabiState extends GameState {
 	}
 
 	public boolean makeDiscardCardAction(DiscardCardAction action) {
+	if(totalCardsInDeck > 0) {
 
-		if(totalHints < 8) {
-			totalHints++;
-			return true;
-		}
+		totalCardsInDeck--;
 
-		else if(totalHints == 8){
-			return true;
-		}
+	if (totalHints < 8) {
+		totalHints++;
+		return true;
+	}
+	else if (totalHints == 8) {
+		return true;
+	}
+
+	else if (totalCardsInDeck == 0) {
+		TextView announce = mainActivity.findViewById(R.id.announcer);
+		announce.setText("GAME OVER! You have no cards left in deck!");
+	}
+	}
 		return false;
 	}
 
@@ -255,7 +280,7 @@ public class HanabiState extends GameState {
 			}
 			//get the card the hint is about
 			Card hintCard = cards_Value[action._reciverId][action._aboutCard];
-			if(action._isColor)
+			if(action._byColor)
 			{
 				hints[action._reciverId][action._aboutCard]._color = hintCard._color;
 			}
