@@ -1,10 +1,12 @@
 package edu.up.cs301.hanabiPack;
 
+import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A GUI of a counter-player. The GUI displays the current value of the counter,
@@ -33,7 +36,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	/* instance variables */
 	//CHEATING MODE
 	Boolean CHEATING = true;
-
 
 
 	// The TextView the displays the current counter value
@@ -100,11 +102,13 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		TextView fuseView = myActivity.findViewById(R.id.fuseTokens);
 		fuseView.setText("Fuse Tokens: " + state.getFuseTokens());
 
-		TeammateCards();
+		//Player Cards
 		PlayerCards();
 
+		//TeammatesCards
+		TeammateCards();
 
-        //Update the currently selected teammate card
+		//Update the currently selected teammate card
 		for(int i = 0; i < teammateCards.length; ++i) {
 			teammateCards[i].setColorFilter(0);  //fully transparent
 		}
@@ -259,6 +263,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 
 
+
 		//TODO draw a little circle on com's cards to show which cards i've
 		//TODO I've already given hints on
 
@@ -320,6 +325,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			updateDisplay();
 		}
 			else if (button == discardButton) {
+				if(state.getPlayer_Id() == 0) {
 
 
 					DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
@@ -348,16 +354,16 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 					// next turn
 					state.setPlayer_Id(state.getPlayer_Id() + 1);
 					updateDisplay();
+				}
+				else
+				{
+					announcer.setText("Hey player 0, its not your turn!");
+				}
+
 		}
 		else if (button == playCardButton) {
-
+			if(state.getPlayer_Id() == 0) {
 				PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
-
-
-				int newFuse = state.getFuseTokens() - 1;
-				state.setFuseTokens(newFuse);
-				announcer.setText("Player Played the Wrong Card!");
-
 
 				//TODO: This is just a test to see if the Fuse Tokens are working,
 					// we'll change this when we actually try to implement the Play Card Action
@@ -374,21 +380,27 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 				 */
 
 
+				int newFuse = state.getFuseTokens() - 1;
+				state.setFuseTokens(newFuse);
+				announcer.setText("Player Played the Wrong Card!");
 
 				//Checks if Game Over conditions are met
 				if (state.getFuseTokens() < 0 || state.getFuseTokens() == 0) {
 					state.setFuseTokens(0);
-					announcer.setText("GAME OVER! Bomb Blew Up!");
-					myActivity.
-					setGameOver(true);
+					announcer.setText("GAME OVER! The Bomb Blew Up!");
+					myActivity.setGameOver(true);
 				}
+
 				game.sendAction(playCard);
 				// next turn
 				state.setPlayer_Id((state.getPlayer_Id() + 1));
 				updateDisplay();
-
+			}
+			else
+			{
+				announcer.setText("Hey player 0, its not your turn!");
+			}
 		}
-		else {	announcer.setText("Hey player " + state.getPlayer_Id() + ", its not your turn!"); }
 
 	}// onClick
 
