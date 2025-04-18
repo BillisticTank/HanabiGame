@@ -26,6 +26,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import edu.up.cs301.GameFramework.gameConfiguration.GameConfig;
 import edu.up.cs301.GameFramework.gameConfiguration.GamePlayerType;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -47,7 +50,7 @@ import edu.up.cs301.hanabiPack.R;
  * @author Eric Imperio
  * @date Version 2020
  */
-public abstract class GameMainActivity extends Activity implements
+public abstract class GameMainActivity extends AppCompatActivity implements
         View.OnClickListener {
     //Tag for Logging
     private static final String TAG = "GameMainActivity";

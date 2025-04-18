@@ -45,11 +45,6 @@ public class HanabiState extends GameState {
 		color[4] = Color.GREEN;
 	}
 
-	//TODO:  Nuxoll thinks a 3x5 2D array of Card objects would be a good way to track
-	//		 what's in each player's hand.  Each Card object contains:
-	//		 color, number, whether player knows the color, whether player knowns the number
-	//       i.e., int, int, boolean, boolean
-
 	/**
 	 * The cards_value is a 2D array. The 3 represents the 3 players, and the 5 represents the
 	 * 5 cards each player has
@@ -63,8 +58,9 @@ public class HanabiState extends GameState {
 		for (int i = 0; i < color.length; ++i) {
 			for (int j = 0; j < 5; j++) {
 
-				drawPile.add(new Card(i, j));
-				drawPile.add(new Card(i, j));
+					drawPile.add(new Card(i, j));
+					drawPile.add(new Card(i, j));
+
 			}
 		}
 		//TODO shuffle the deck
@@ -80,6 +76,9 @@ public class HanabiState extends GameState {
 	 * An Array of Cards in your hand, this will be used for the hint action in gamestate
 	 */
 	private Card[][] hints = new Card[3][5];
+
+	//ask the player whether or not you want to ask about the color
+	private boolean playersDecision = false;
 
 	private int finalScore; // score for firework show.
 
@@ -98,14 +97,13 @@ public class HanabiState extends GameState {
 		}
 
 		//add an empty list for each color
-		for (int j = 0; j < color.length; j++)
-		{
+		for (int j = 0; j < color.length; j++) {
 			fireworkShow.add(new ArrayList<Card>());
 		}
 
 		// this.recentCardPlayed = 0;
-		for (int i = 0; i < 3; i++){
-			for (int j = 0; j < 5; j++){
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 5; j++) {
 				cards_Value[i][j] = drawPile.remove(0) ;
 			}
 		}
@@ -118,10 +116,6 @@ public class HanabiState extends GameState {
 		}
 		this.discardAmount = 0;
 		this.finalScore = 0;
-		for(int i = 0; i < 5; i++)
-		{
-
-		}
 
 	}
 
@@ -135,28 +129,32 @@ public class HanabiState extends GameState {
 		this.totalHints = orig.totalHints;
 		this.fuseTokens = orig.fuseTokens;
 		this.cardsInHand = orig.cardsInHand;
-		//TODO this array needs to be a deep copy, currently it is a shallow copy
-		//this.cards_Value = orig.cards_Value;
+
 		for (int i = 0; i < cards_Value.length; i++) {
 			for (int j = 0; j < cards_Value[i].length; j++) {
 				this.cards_Value[i][j] = orig.cards_Value[i][j];
 			}
 		}
 
+
 		for (int i = 0; i < color.length; i++) {
 			this.color[i] = orig.color[i];
 		}
-		//TODO we need to deep copy the firework show
-		//This is a shallow copy, we'll fix it later
-		this.fireworkShow = orig.fireworkShow;
 
-		//TODO we need to deep copy the hints show
+		for (int i = 0; i < color.length; i++) {
+			this.fireworkShow = orig.fireworkShow;
+		}
+
 		for (int i = 0; i < hints.length; i++) {
-			this.hints[i] = orig.hints[i];
+			for (int j = 0; j < hints[i].length; j++) {
+				this.hints[i][j] = orig.hints[i][j];
+			}
 		}
 
 		this.discardAmount = orig.discardAmount;
+
 		this.finalScore = orig.finalScore;
+
 		for (int i = 0; i < drawPile.size(); i++) {
 			//TODO Add Cards after we created card class;
 		}
@@ -169,8 +167,9 @@ public class HanabiState extends GameState {
 	public int getTotalHints() {return totalHints;}
 	public int getFuseTokens() {return fuseTokens;}
 	public int getCardsInHand() {return cardsInHand;}
-	public int getTotalCardsInDeck(){return totalCardsInDeck;}
-	public boolean getCardVisibility(){return cardVisibility;}
+	public int getTotalCardsInDeck() {return totalCardsInDeck;}
+	public boolean getCardVisibility() {return cardVisibility;}
+	public boolean getPlayersDecision() {return playersDecision;}
 
 	/**
 	 * setter methods
@@ -180,7 +179,8 @@ public class HanabiState extends GameState {
 	public void setFuseTokens(int fuseTokens) {this.fuseTokens = fuseTokens;}
 	public void setCardsInHand(int cardsInHand) {this.cardsInHand = cardsInHand;}
 	public void setTotalCardsInDeck(int cardsInDeck) {this.totalCardsInDeck = cardsInDeck;}
-	public void setCardVisibility(boolean visible){this.cardVisibility = visible;};
+	public void setCardVisibility(boolean visible) {this.cardVisibility = visible;};
+	public void setPlayersDecision(boolean playersDecision) {this.playersDecision = playersDecision;}
 	/**
 	 * this toString method describes the state of the game as a string
 	 */
@@ -228,15 +228,27 @@ public class HanabiState extends GameState {
 
 	public boolean makeDiscardCardAction(DiscardCardAction action) {
 
-		if(totalHints < 8) {
+		if (totalHints < 8) {
+
+			//get a reference to the card, at this index
+			Card toPlay = cards_Value[player_Id][action._cardIndex];
+
+			//get the array for the selected card's respective color
+			ArrayList<Card> discardPile = new ArrayList<Card>(0);
+
+			//remove the card from the player's hand and replace it with a new card
+			cards_Value[player_Id][action._cardIndex] = drawPile.remove(0);
+
+			//add card to discard pile
+			discardPile.add(toPlay);
+
 			totalHints++;
 			return true;
 		}
 
-		else if(totalHints == 8){
+		else {
 			return true;
 		}
-		return false;
 	}
 
 	public boolean makeGiveHintAction(GiveHintAction action) {
@@ -253,9 +265,11 @@ public class HanabiState extends GameState {
 				 * you can't give a hint to yourself
 				 */
 			}
+
 			//get the card the hint is about
 			Card hintCard = cards_Value[action._reciverId][action._aboutCard];
-			if(action._isColor)
+
+			if(playersDecision)
 			{
 				hints[action._reciverId][action._aboutCard]._color = hintCard._color;
 			}

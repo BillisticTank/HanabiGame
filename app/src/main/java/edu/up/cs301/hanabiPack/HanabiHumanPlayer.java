@@ -131,31 +131,38 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 			//send a hint action to the local game based on color
 			//TODO colorHint isColor parameter needs to be changed to be something more flexible
-			GiveHintAction colorHint = new GiveHintAction(this, true,
-					state.getPlayer_Id(), selectedTeammateCard);
+			//create a hint action with a temporary value for the isColor boolean
+			GiveHintAction colorHint = new GiveHintAction(this,
+					false, state.getPlayer_Id(), selectedTeammateCard);
 
-			//TODO feel like this also should be done in HanabiState
-
-			int newHints = state.getTotalHints() - 1;
-			state.setTotalHints(newHints);
 			if(state.getTotalHints() < 0 || state.getTotalHints() == 0){
 
 				state.setTotalHints(0);
 				announcer.setText("Sorry, you have zero hints left.");
 			}
-			else if (state.getTotalCardsInDeck() == 0){announcer.setText("GAME OVER! All the cards have been played.");} //GAME OVER
+			else if (state.getTotalCardsInDeck() == 0)
+			{announcer.setText("GAME OVER! All the cards have been played.");} //GAME OVER
 
-			else {announcer.setText("Player"+state.getPlayer_Id() +" used a Hint.");}  // if the hints are negative.
-			game.sendAction(colorHint);
+			else {
+				announcer.setText("Player"+state.getPlayer_Id() +" gave a hint about "
+						+ colorHint._reciverId + "'s Card");
+			}
+
+			//launch a thread to ask the user what type of hint this is
+			//then send the thread to game
+			HintSelectDialogue hint = new HintSelectDialogue(colorHint, game, myActivity);
+			Thread hintThread = new Thread(hint);
+			hintThread.start();
+
+
+			int newHints = state.getTotalHints() - 1;
+			state.setTotalHints(newHints);
 			updateDisplay();
-
 		}
 			else if (button == discardButton) {
 
 			DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
 
-			// TODO error? shouldn't this be done in HanabiState
-			//  via the discardCardAction?
 			//decrease the card in a player's deck by one
 			int cardsLeft = state.getTotalCardsInDeck() - 1;
 			state.setTotalCardsInDeck(cardsLeft);
