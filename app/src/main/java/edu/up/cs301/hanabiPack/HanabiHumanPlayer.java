@@ -33,7 +33,9 @@ import java.util.Random;
 public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener {
 
 	/* instance variables */
-	
+	//CHEATING MODE
+	Boolean CHEATING = true;
+
 	// The TextView the displays the current counter value
 	private TextView testResultsTextView;
 	
@@ -85,6 +87,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 */
 
     protected void updateDisplay() {
+
 		//set the hint button to reflect the most recent hint
 		TextView hintView = myActivity.findViewById(R.id.hints);
 		hintView.setText("Hints: " + state.getTotalHints());
@@ -94,6 +97,12 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		TextView fuseView = myActivity.findViewById(R.id.fuseTokens);
 		fuseView.setText("Fuse Tokens: " + state.getFuseTokens());
+
+		//Player Cards
+		PlayerCards();
+
+		//TeammatesCards
+		TeammateCards();
 
 		//Update the currently selected teammate card
 		for(int i = 0; i < teammateCards.length; ++i) {
@@ -199,6 +208,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			if (blueSubShow.size() > 0) { blueSubShowCard1.setImageResource(R.drawable.hanabi_blue_1); }
 
 		}
+
 
 		//TODO draw a little circle on com's cards to show which cards i've
 		//TODO I've already given hints on
@@ -388,17 +398,115 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		discardButton = activity.findViewById(R.id.discardButton);
 		discardButton.setOnClickListener(this);
 
+		//Add Player Cards to the GUI
+		PlayerCards();
+
+		//Add Teammates Cards to the GUI;
+		TeammateCards();
+
+		//Make myself the touch listener for all the cards
+		for(int i = 0; i < teammateCards.length; ++i) {
+			teammateCards[i].setOnTouchListener(this);
+		}
+
+		for(int i = 0; i < yourCards.length; ++i) {
+			yourCards[i].setOnTouchListener(this);
+		}
+
+	}
+
+	//Player Cards Method
+	public void PlayerCards(){
 		//init the references to the teammates' cards
-		teammateCards[0] = activity.findViewById(R.id.GPT1);
-		teammateCards[1] = activity.findViewById(R.id.GPT2);
-		teammateCards[2] = activity.findViewById(R.id.GPT3);
-		teammateCards[3] = activity.findViewById(R.id.GPT4);
-		teammateCards[4] = activity.findViewById(R.id.GPT5);
-		teammateCards[5] = activity.findViewById(R.id.Gemini1);
-		teammateCards[6] = activity.findViewById(R.id.Gemini2);
-		teammateCards[7] = activity.findViewById(R.id.Gemini3);
-		teammateCards[8] = activity.findViewById(R.id.Gemini4);
-		teammateCards[9] = activity.findViewById(R.id.Gemini5);
+		yourCards[0] = myActivity.findViewById(R.id.playerCard1);
+		yourCards[1] = myActivity.findViewById(R.id.playerCard2);
+		yourCards[2] = myActivity.findViewById(R.id.playerCard3);
+		yourCards[3] = myActivity.findViewById(R.id.playerCard4);
+		yourCards[4] = myActivity.findViewById(R.id.playerCard5);
+
+		if(CHEATING) {
+			for (int i = 0; i < yourCards.length; i++) {
+				int color = state.getCardsInHand(state.getPlayer_Id())[i]._color;
+				int value = state.getCardsInHand(state.getPlayer_Id())[i]._number;
+
+				if (color == state.BLUE) { //blue color
+					if (value == 1) {
+						yourCards[i].setImageResource(R.drawable.hanabi_blue_1);
+					} else if (value == 2) {
+						yourCards[i].setImageResource(R.drawable.hanabi_blue_2);
+					} else if (value == 3) {
+						yourCards[i].setImageResource(R.drawable.hanabi_blue_3);
+					} else if (value == 4) {
+						yourCards[i].setImageResource(R.drawable.hanabi_blue_4);
+					} else if (value == 5) {
+						yourCards[i].setImageResource(R.drawable.hanabi_blue_5);
+					}
+				} else if (color == state.RED) { //red color
+					if (value == 1) {
+						yourCards[i].setImageResource(R.drawable.hanabi_red_1);
+					} else if (value == 2) {
+						yourCards[i].setImageResource(R.drawable.hanabi_red_2);
+					} else if (value == 3) {
+						yourCards[i].setImageResource(R.drawable.hanabi_red_3);
+					} else if (value == 4) {
+						yourCards[i].setImageResource(R.drawable.hanabi_red_4);
+					} else if (value == 5) {
+						yourCards[i].setImageResource(R.drawable.hanabi_red_5);
+					}
+				} else if (color == state.YELLOW) { //yellow color
+					if (value == 1) {
+						yourCards[i].setImageResource(R.drawable.hanabi_yellow_1);
+					} else if (value == 2) {
+						yourCards[i].setImageResource(R.drawable.hanabi_yellow_2);
+					} else if (value == 3) {
+						yourCards[i].setImageResource(R.drawable.hanabi_yellow_3);
+					} else if (value == 4) {
+						yourCards[i].setImageResource(R.drawable.hanabi_yellow_4);
+					} else if (value == 5) {
+						yourCards[i].setImageResource(R.drawable.hanabi_yellow_5);
+					}
+				} else if (color == state.WHITE) { //white color
+					if (value == 1) {
+						yourCards[i].setImageResource(R.drawable.hanabi_white_1);
+					} else if (value == 2) {
+						yourCards[i].setImageResource(R.drawable.hanabi_white_2);
+					} else if (value == 3) {
+						yourCards[i].setImageResource(R.drawable.hanabi_white_3);
+					} else if (value == 4) {
+						yourCards[i].setImageResource(R.drawable.hanabi_white_4);
+					} else if (value == 5) {
+						yourCards[i].setImageResource(R.drawable.hanabi_white_5);
+					}
+				} else if (color == state.GREEN) { //green color
+					if (value == 1) {
+						yourCards[i].setImageResource(R.drawable.hanabi_green_1);
+					} else if (value == 2) {
+						yourCards[i].setImageResource(R.drawable.hanabi_green_2);
+					} else if (value == 3) {
+						yourCards[i].setImageResource(R.drawable.hanabi_green_3);
+					} else if (value == 4) {
+						yourCards[i].setImageResource(R.drawable.hanabi_green_4);
+					} else if (value == 5) {
+						yourCards[i].setImageResource(R.drawable.hanabi_green_5);
+					}
+				}
+			}
+		}
+	}// PlayerCards
+
+	//Teammate Cards Helper Method
+	public void TeammateCards(){
+		//init the references to the teammates' cards
+		teammateCards[0] = myActivity.findViewById(R.id.GPT1);
+		teammateCards[1] = myActivity.findViewById(R.id.GPT2);
+		teammateCards[2] = myActivity.findViewById(R.id.GPT3);
+		teammateCards[3] = myActivity.findViewById(R.id.GPT4);
+		teammateCards[4] = myActivity.findViewById(R.id.GPT5);
+		teammateCards[5] = myActivity.findViewById(R.id.Gemini1);
+		teammateCards[6] = myActivity.findViewById(R.id.Gemini2);
+		teammateCards[7] = myActivity.findViewById(R.id.Gemini3);
+		teammateCards[8] = myActivity.findViewById(R.id.Gemini4);
+		teammateCards[9] = myActivity.findViewById(R.id.Gemini5);
 
 		//Setting updated cards;
 
@@ -450,73 +558,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			}
 
 		}
-		//
-
-
-
-		//init the references to the teammates' cards
-		yourCards[0] = activity.findViewById(R.id.playerCard1);
-		yourCards[1] = activity.findViewById(R.id.playerCard2);
-		yourCards[2] = activity.findViewById(R.id.playerCard3);
-		yourCards[3] = activity.findViewById(R.id.playerCard4);
-		yourCards[4] = activity.findViewById(R.id.playerCard5);
-
-
-		for(int i = 0; i < yourCards.length; i++)
-		{
-			int color = state.getCardsInHand(state.getPlayer_Id())[i]._color;
-			int value = state.getCardsInHand(state.getPlayer_Id())[i]._number;
-
-			if (color == state.BLUE){ //blue color
-				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_blue_1);}
-				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_blue_2);}
-				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_blue_3);}
-				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_blue_4);}
-				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_blue_5);}
-			}
-			else if (color == state.RED){ //red color
-				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_red_1);}
-				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_red_2);}
-				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_red_3);}
-				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_red_4);}
-				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_red_5);}
-			}
-			else if (color == state.YELLOW){ //yellow color
-				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_yellow_1);}
-				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_yellow_2);}
-				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_yellow_3);}
-				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_yellow_4);}
-				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_yellow_5);}
-			}
-			else if (color == state.WHITE){ //white color
-				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_white_1);}
-				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_white_2);}
-				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_white_3);}
-				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_white_4);}
-				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_white_5);}
-			}
-			else if (color == state.GREEN){ //green color
-				if(value == 1){yourCards[i].setImageResource(R.drawable.hanabi_green_1);}
-				else if(value == 2){yourCards[i].setImageResource(R.drawable.hanabi_green_2);}
-				else if(value == 3){yourCards[i].setImageResource(R.drawable.hanabi_green_3);}
-				else if(value == 4){yourCards[i].setImageResource(R.drawable.hanabi_green_4);}
-				else if(value == 5){yourCards[i].setImageResource(R.drawable.hanabi_green_5);}
-			}
-		}
-
-
-
-
-		//Make myself the touch listener for all the cards
-		for(int i = 0; i < teammateCards.length; ++i) {
-			teammateCards[i].setOnTouchListener(this);
-		}
-
-		for(int i = 0; i < yourCards.length; ++i) {
-			yourCards[i].setOnTouchListener(this);
-		}
-
-	}
+	}//TeammateCards
 
 }// class HanabiHumanPlayer
 
