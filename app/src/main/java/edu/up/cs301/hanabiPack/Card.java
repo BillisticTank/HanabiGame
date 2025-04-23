@@ -1,11 +1,13 @@
 package edu.up.cs301.hanabiPack;
 
+import java.io.Serializable;
+
 /**
  * class Card
- *
+ * <p>
  * represents a single card in a player's hand
  */
-public class Card {
+public class Card implements Serializable {
     public int _color;  //the color of the card
     public int _number; //the number of the card
 

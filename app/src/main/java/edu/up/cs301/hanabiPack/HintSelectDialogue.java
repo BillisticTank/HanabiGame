@@ -26,12 +26,17 @@ public class HintSelectDialogue extends DialogFragment implements Runnable {
 
     //Boolean flag that gets set to true after the user answers
     private boolean answer = false;
-    public boolean getAnswer() {return answer;}
+
+    public boolean getAnswer() {
+        return answer;
+    }
+
     GiveHintAction hint = null;
     //this is the incomplete hint that we're going to send to the game
     Game game = null;
     //game variable that we send hint to.
     AppCompatActivity myActivity = null;
+
     public HintSelectDialogue(GiveHintAction hint, Game game, AppCompatActivity myActivity) {
         this.hint = hint;
         this.game = game;
