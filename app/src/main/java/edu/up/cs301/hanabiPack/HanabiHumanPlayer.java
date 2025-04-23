@@ -6,13 +6,17 @@ import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.view.MotionEvent;
 import android.widget.ImageView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -91,6 +95,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 */
 
     protected void updateDisplay() {
+
+		setAsGui(myActivity);
+
 
 		//set the hint button to reflect the most recent hint
 		TextView hintView = myActivity.findViewById(R.id.hints);
@@ -269,6 +276,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 
 		//TODO: more code needed here!
+
+		LinearLayout mainLL = myActivity.findViewById(R.id.main);
+		mainLL.invalidate();
 	}
 
 
@@ -321,7 +331,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 			state.setTotalHints(newHints);
 
 			// next turn
-			state.setPlayer_Id(state.getPlayer_Id() + 1);
+			//state.setPlayer_Id(state.getPlayer_Id() + 1);
 			updateDisplay();
 		}
 			else if (button == discardButton) {
@@ -352,7 +362,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 					}
 					game.sendAction(discardCard);
 					// next turn
-					state.setPlayer_Id(state.getPlayer_Id() + 1);
+					//state.setPlayer_Id(state.getPlayer_Id() + 1);
 					updateDisplay();
 				}
 				else
@@ -393,7 +403,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 				game.sendAction(playCard);
 				// next turn
-				state.setPlayer_Id((state.getPlayer_Id() + 1));
+				// state.setPlayer_Id((state.getPlayer_Id() + 1));
 				updateDisplay();
 			}
 			else
@@ -439,6 +449,9 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// update our state; then update the display
 		this.state = (HanabiState)info;
 		updateDisplay();
+
+
+
 	}
 	
 	/**
@@ -449,10 +462,10 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * 		the activity under which we are running
 	 */
 	public void setAsGui(GameMainActivity activity) {
-		
+
 		// remember the activity
 		this.myActivity = activity;
-		
+
 	    // Load the layout resource for our GUI
 		activity.setContentView(R.layout.hanabi_human_player);
 
@@ -460,10 +473,13 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		PlayerCards();
-		TeammateCards();
+		//PlayerCards();
+		//TeammateCards();
 
-		updateDisplay();
+
+
+
+		//updateDisplay();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//Setting Listeners for Buttons;
@@ -474,11 +490,29 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 		discardButton = activity.findViewById(R.id.discardButton);
 		discardButton.setOnClickListener(this);
 
+		//init the references to the teammates' cards
+		teammateCards[0] = myActivity.findViewById(R.id.GPT1);
+		teammateCards[1] = myActivity.findViewById(R.id.GPT2);
+		teammateCards[2] = myActivity.findViewById(R.id.GPT3);
+		teammateCards[3] = myActivity.findViewById(R.id.GPT4);
+		teammateCards[4] = myActivity.findViewById(R.id.GPT5);
+		teammateCards[5] = myActivity.findViewById(R.id.Gemini1);
+		teammateCards[6] = myActivity.findViewById(R.id.Gemini2);
+		teammateCards[7] = myActivity.findViewById(R.id.Gemini3);
+		teammateCards[8] = myActivity.findViewById(R.id.Gemini4);
+		teammateCards[9] = myActivity.findViewById(R.id.Gemini5);
+
 		//Make myself the touch listener for all the cards
 		for(int i = 0; i < teammateCards.length; ++i) {
 			teammateCards[i].setOnTouchListener(this);
 		}
 
+		//init the references to the teammates' cards
+		yourCards[0] = myActivity.findViewById(R.id.playerCard1);
+		yourCards[1] = myActivity.findViewById(R.id.playerCard2);
+		yourCards[2] = myActivity.findViewById(R.id.playerCard3);
+		yourCards[3] = myActivity.findViewById(R.id.playerCard4);
+		yourCards[4] = myActivity.findViewById(R.id.playerCard5);
 
 		for(int i = 0; i < yourCards.length; ++i) {
 			yourCards[i].setOnTouchListener(this);
@@ -489,17 +523,12 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 	public void PlayerCards(){
 
 
-		//init the references to the teammates' cards
-		yourCards[0] = myActivity.findViewById(R.id.playerCard1);
-		yourCards[1] = myActivity.findViewById(R.id.playerCard2);
-		yourCards[2] = myActivity.findViewById(R.id.playerCard3);
-		yourCards[3] = myActivity.findViewById(R.id.playerCard4);
-		yourCards[4] = myActivity.findViewById(R.id.playerCard5);
+
 
 		if(CHEATING) {
 			for (int i = 0; i < yourCards.length; i++) {
 				int color = state.getCardsInHand(state.getPlayer_Id())[i]._color;
-				int value = state.getCardsInHand(state.getPlayer_Id())[i]._number;
+				int value = state.getCardsInHand(state.getPlayer_Id())[i]._number + 1;
 
 				if (color == state.BLUE) { //blue color
 					if (value == 1) {
@@ -562,24 +591,18 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 						yourCards[i].setImageResource(R.drawable.hanabi_green_5);
 					}
 				}
+
+				yourCards[i].invalidate();
 			}
 		}
+
+
 
 	}
 
 	public void TeammateCards(){
 
-		//init the references to the teammates' cards
-		teammateCards[0] = myActivity.findViewById(R.id.GPT1);
-		teammateCards[1] = myActivity.findViewById(R.id.GPT2);
-		teammateCards[2] = myActivity.findViewById(R.id.GPT3);
-		teammateCards[3] = myActivity.findViewById(R.id.GPT4);
-		teammateCards[4] = myActivity.findViewById(R.id.GPT5);
-		teammateCards[5] = myActivity.findViewById(R.id.Gemini1);
-		teammateCards[6] = myActivity.findViewById(R.id.Gemini2);
-		teammateCards[7] = myActivity.findViewById(R.id.Gemini3);
-		teammateCards[8] = myActivity.findViewById(R.id.Gemini4);
-		teammateCards[9] = myActivity.findViewById(R.id.Gemini5);
+
 
 		//Setting updated cards;
 
