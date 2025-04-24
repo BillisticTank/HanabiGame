@@ -62,13 +62,14 @@ public class HanabiMainActivity extends GameMainActivity implements Serializable
         // - from 1 to 2 players
         // - name of game is "Counter Game"
         // - port number as defined above
-        GameConfig defaultConfig = new GameConfig(playerTypes, 3, 3, "Counter Game",
+
+        GameConfig defaultConfig = new GameConfig(playerTypes, 3, 3, "Hanabi",
                 PORT_NUMBER);
 
         // Add the default players to the configuration
         defaultConfig.addPlayer("Human", 0); // player 1: a human player
-        defaultConfig.addPlayer("Fred", 1); // player 2: a computer player
-        defaultConfig.addPlayer("Barf", 2); // player 3: a computer player
+        defaultConfig.addPlayer("Gemini", 1); // player 2: a computer player
+        defaultConfig.addPlayer("ChatGPT", 2); // player 3: a computer player
 
         // Set the default remote-player setup:
         // - player name: "Remote Player"
@@ -79,6 +80,9 @@ public class HanabiMainActivity extends GameMainActivity implements Serializable
         // return the configuration
         return defaultConfig;
     }//createDefaultConfig
+
+
+
 
     /**
      * create a local game
