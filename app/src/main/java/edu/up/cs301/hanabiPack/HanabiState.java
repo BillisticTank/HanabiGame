@@ -105,7 +105,7 @@ public class HanabiState extends GameState implements Serializable {
      * default constructor;
      * intitalizes all the variables for a new game of Hanabi
      */
-
+// trolled
     public HanabiState() {
         this.player_Id = 0; // human player
         this.totalHints = 8;
@@ -147,22 +147,22 @@ public class HanabiState extends GameState implements Serializable {
      * @param orig the object from which the copy should be made
      */
     public HanabiState(HanabiState orig) {
-        orig.player_Id = this.player_Id;
-        orig.totalHints = this.totalHints;
-        orig.fuseTokens = this.fuseTokens;
-        orig.cardsInHand = this.cardsInHand;
+        this.player_Id = orig.player_Id;
+        this.totalHints = orig.totalHints;
+        this.fuseTokens = orig.fuseTokens;
+        this.cardsInHand = orig.cardsInHand;
         for (int i = 0; i < cards_Value.length; i++) {
             System.arraycopy(orig.cards_Value[i], 0, this.cards_Value[i], 0, cards_Value[i].length);
         }
 
         System.arraycopy(orig.color, 0, this.color, 0, color.length);
 
-        orig.fireworkShow = this.fireworkShow;
+        this.fireworkShow = orig.fireworkShow;
 
         System.arraycopy(orig.hints, 0, this.hints, 0, hints.length);
 
-        orig.discardAmount = this.discardAmount;
-        orig.finalScore = this.finalScore;
+        this.discardAmount = orig.discardAmount;
+        this.finalScore = orig.finalScore;
     }
 
     /**

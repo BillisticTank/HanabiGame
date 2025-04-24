@@ -36,17 +36,6 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        //deciding factors
-        Random rand = new Random();
-
-        Boolean isColor = rand.nextBoolean();
-        int cardIndex = rand.nextInt(5);
-        int receiverId = rand.nextInt(3);
-
-        while (receiverId == this.playerNum) {
-            receiverId = rand.nextInt(3);
-        }
-
         // Make sure that 'info' is a HanabiGameState
         if (!(info instanceof HanabiState)) {
             return;
@@ -57,6 +46,17 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
         // See if it's "my" turn
         if (state.getPlayer_Id() != this.playerNum) {
             return;
+        }
+
+        //deciding factors
+        Random rand = new Random();
+
+        Boolean isColor = rand.nextBoolean();
+        int cardIndex = rand.nextInt(5);
+        int receiverId = rand.nextInt(3);
+
+        while (receiverId == this.playerNum) {
+            receiverId = rand.nextInt(3);
         }
 
         // Calculate what move to make
