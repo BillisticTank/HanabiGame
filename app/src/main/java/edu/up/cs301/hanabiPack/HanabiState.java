@@ -69,7 +69,7 @@ public class HanabiState extends GameState implements Serializable {
      * 5 cards each player has
      */
     private final Card[][] cards_Value = new Card[3][5]; // Array of Object Card Type;
-    private final int discardAmount; // how many cards are discarded
+    private int discardAmount; // how many cards are discarded
 
     ArrayList<Card> drawPile = new ArrayList<Card>(totalCardsInDeck);
 
@@ -147,22 +147,22 @@ public class HanabiState extends GameState implements Serializable {
      * @param orig the object from which the copy should be made
      */
     public HanabiState(HanabiState orig) {
-        this.player_Id = orig.player_Id;
-        this.totalHints = orig.totalHints;
-        this.fuseTokens = orig.fuseTokens;
-        this.cardsInHand = orig.cardsInHand;
+        orig.player_Id = this.player_Id;
+        orig.totalHints = this.totalHints;
+        orig.fuseTokens = this.fuseTokens;
+        orig.cardsInHand = this.cardsInHand;
         for (int i = 0; i < cards_Value.length; i++) {
             System.arraycopy(orig.cards_Value[i], 0, this.cards_Value[i], 0, cards_Value[i].length);
         }
 
         System.arraycopy(orig.color, 0, this.color, 0, color.length);
 
-        this.fireworkShow = orig.fireworkShow;
+        orig.fireworkShow = this.fireworkShow;
 
         System.arraycopy(orig.hints, 0, this.hints, 0, hints.length);
 
-        this.discardAmount = orig.discardAmount;
-        this.finalScore = orig.finalScore;
+        orig.discardAmount = this.discardAmount;
+        orig.finalScore = this.finalScore;
     }
 
     /**
