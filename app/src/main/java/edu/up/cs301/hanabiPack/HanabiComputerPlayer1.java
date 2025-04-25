@@ -11,12 +11,12 @@ import edu.up.cs301.GameFramework.utilities.Tickable;
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
- * @version February 2025
+ * @version April 2025
  */
 public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickable, Serializable {
 
     /**
-     * Constructor for objects of class CounterComputerPlayer1
+     * Constructor for objects of class HanabiComputerPlayer1
      *
      * @param name the player's name
      */

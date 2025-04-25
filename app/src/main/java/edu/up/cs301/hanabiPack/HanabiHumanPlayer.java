@@ -22,24 +22,20 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * A GUI of a counter-player. The GUI displays the current value of the counter,
- * and allows the human player to press the '+' and '-' buttons in order to
- * send moves to the game.
- * <p>
- * Just for fun, the GUI is implemented so that if the player presses either button
- * when the counter-value is zero, the screen flashes briefly, with the flash-color
- * being dependent on whether the player is player 0 or player 1.
+ * The game's information and tools available to the human player. That's you, and your friends!
+ * Allows a human player to either give a hint to another player or play/discard a card. Displays
+ * this information via their cards (not visible), their teammate's cards, and the firework show.
  *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
- * @version February 2025
+ * @version April 2025
  */
 public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener {
 
     /* instance variables */
     //CHEATING MODE
-    Boolean CHEATING = true;
+    Boolean CHEATING = false;
 
 
     // The TextView the displays the current counter value
@@ -104,9 +100,11 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
         TextView hintView = myActivity.findViewById(R.id.hints);
         hintView.setText("Hints: " + state.getTotalHints());
 
+        //Show the amount of cards left
         TextView deckView = myActivity.findViewById(R.id.cardsDeck);
         deckView.setText("Cards Left in Deck: " + state.getTotalCardsInDeck());
 
+        //Show the amount of fuse tokens left
         TextView fuseView = myActivity.findViewById(R.id.fuseTokens);
         fuseView.setText("Fuse Tokens: " + state.getFuseTokens());
 
@@ -381,8 +379,8 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 
     /**
-     * this method gets called when the user clicks the '+' or '-' button. It
-     * creates a new CounterMoveAction to return to the parent activity.
+     * Whenever a human player clicks a button or card, this method is called.
+     * Makes sure it is your turn if the action is only available on your turn.
      *
      * @param button the button that was clicked
      */
@@ -393,7 +391,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
         // if we are not yet connected to a game, ignore
         if (game == null) return;
 
-        if (state.getPlayer_Id() == 0)
             //handle the hint button
             if (button == hintButton) {
 
@@ -402,10 +399,12 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
                 GiveHintAction colorHint = new GiveHintAction(this,
                         false, state.getPlayer_Id(), selectedTeammateCard);
 
+                //Do you have any hints left?
                 if (state.getTotalHints() < 0 || state.getTotalHints() == 0) {
-
                     state.setTotalHints(0);
                     announcer.setText("Sorry, you have zero hints left.");
+
+                    //Are there even any cards left?
                 } else if (state.getTotalCardsInDeck() == 0) {
                     announcer.setText("GAME OVER! All the cards have been played.");
                 } //GAME OVER
@@ -431,13 +430,14 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
             } else if (button == discardButton) {
                 if (state.getPlayer_Id() == 0) {
 
-
+                    //Creates a discard action
                     DiscardCardAction discardCard = new DiscardCardAction(this, selectedYourCard);
 
                     //decrease the card in a player's deck by one
                     int cardsLeft = state.getTotalCardsInDeck() - 1;
                     state.setTotalCardsInDeck(cardsLeft);
 
+                    //Gives you back a hint unless you're at max hints already
                     if (state.getTotalHints() < 8) {
                         int newHints = state.getTotalHints() + 1;
                         state.setTotalHints(newHints);
@@ -460,13 +460,15 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
                 }
                 else
                 {
-                    announcer.setText("Hey player 0, its not your turn!");
+                    announcer.setText("Hey player 0, its not your turn!"); //You can only discard if it's your turn
                 }
 
+                //Handles playCard if it is clicked
             } else if (button == playCardButton) {
                 if (state.getPlayer_Id() == 0) {
                     PlayCardAction playCard = new PlayCardAction(this, selectedYourCard);
 
+                    //If you play the wrong card
                     int newFuse = state.getFuseTokens() - 1;
                     state.setFuseTokens(newFuse);
                     announcer.setText("Player Played the Wrong Card!");
@@ -478,13 +480,14 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
                         myActivity.setGameOver(true);
                     }
 
+                    //Sends the action, progresses to the next player's turn.
                     game.sendAction(playCard);
                     // next turn
                     state.setPlayer_Id((state.getPlayer_Id() + 1));
                 }
                 else
                 {
-                    announcer.setText("Hey player 0, its not your turn!");
+                    announcer.setText("Hey player 0, its not your turn!"); //You can only play a card if it's your turn
                 }
             }
         updateDisplay();
@@ -496,6 +499,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        //For teammate's cards
         for (int i = 0; i < teammateCards.length; ++i) {
             if (v == teammateCards[i]) {
                 this.selectedTeammateCard = i;
@@ -503,8 +507,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
                 return true;
             }
         }
-
-
+        //For your cards
         for (int i = 0; i < yourCards.length; ++i) {
             if (v == yourCards[i]) {
                 this.selectedYourCard = i;
@@ -595,8 +598,7 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
     }
 
     public void PlayerCards() {
-
-
+        //Activates if cheating is enabled, otherwise you can't see your cards
         if (CHEATING) {
             for (int i = 0; i < yourCards.length; i++) {
                 int color = state.getCardsInHand(state.getPlayer_Id())[i]._color;

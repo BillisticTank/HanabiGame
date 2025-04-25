@@ -14,18 +14,14 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 /**
  * This contains the state for the Hanabi game. The state consist of simply
  * the value of the counter.
- * <p>
- * start to end move sequence: 1.Player 1 gives hint to player 2 --- 2.player 2 plays a card (red 2) -
- * -- 3.player 2 gives hint to player 3 --- 4.player three discards a card (added to discard pile) -
- * -- 5.player three gives hint to player 4 --- 5. player four plays card (green 3). Game is won due to cards
- * in correct order with no faliures.
  *
  * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
- * @version February 2025
+ * @version April 2025
  */
 public class HanabiState extends GameState implements Serializable {
 
 
+    //Color variables and the number values tied to them (Used to determine each card's color)
     public static final int BLUE = 0;
     public static final int RED = 1;
     public static final int WHITE = 2;
@@ -33,8 +29,10 @@ public class HanabiState extends GameState implements Serializable {
     public static final int GREEN = 4;
 
 
+
     Random rand = new Random();
-    // instance variables,
+
+    //General Hanabi State inst. variables
     private int player_Id; //three players (1...3)
     private int totalHints; // total hints.
     private int fuseTokens; // Number of failures, more than 3 lose.;
@@ -47,6 +45,7 @@ public class HanabiState extends GameState implements Serializable {
 
     int count = rand.nextInt(5);
 
+    //Color array for the cards
     public int[] color = new int[5];
 
     {
@@ -65,6 +64,7 @@ public class HanabiState extends GameState implements Serializable {
     private final Card[][] cards_Value = new Card[3][5]; // Array of Object Card Type;
     private int discardAmount; // how many cards are discarded
 
+    //The DrawPile, not actually visible but contains the cards that haven't been drawn or discarded yet
     ArrayList<Card> drawPile = new ArrayList<Card>(totalCardsInDeck);
 
     {
@@ -102,9 +102,11 @@ public class HanabiState extends GameState implements Serializable {
 // trolled
     public HanabiState() {
         this.player_Id = 0; // human player
-        this.totalHints = 8;
-        this.fuseTokens = 3;
-        this.cardsInHand = 5;
+        this.totalHints = 8; //Starts with 8 hints, also the maximum you can have
+        this.fuseTokens = 3; //Starts with 3 fuse tokens, can only decrease from here
+        this.cardsInHand = 5; //Your hand will always have 5 cards
+
+        //Array for color types
         for (int i = 0; i < color.length; i++) {
             this.color[i] = color[count];
         }
@@ -127,12 +129,9 @@ public class HanabiState extends GameState implements Serializable {
                 hints[i][j] = new Card(-1, -1);
             }
         }
+        //The game starts with 0 score and discarded cards
         this.discardAmount = 0;
         this.finalScore = 0;
-        for (int i = 0; i < 5; i++) {
-
-        }
-
     }
 
     /**
@@ -181,7 +180,6 @@ public class HanabiState extends GameState implements Serializable {
     public int getTotalCardsInDeck() {
         return totalCardsInDeck;
     }
-
     public boolean getCardVisibility() {
         return cardVisibility;
     }
@@ -278,18 +276,18 @@ public class HanabiState extends GameState implements Serializable {
         return false;
     }
 
+    /**
+     * give hint action should question you on who you want to give the hint to
+     * and then question whether you want to hint them on color or number of their cards
+     * and then check to make sure if total hints is not equal to 0
+     * and then display that information
+     */
     public boolean makeGiveHintAction(GiveHintAction action) {
         if (totalHints > 0) {
-            /**
-             * give hint action should question you on who you want to give the hint to
-             * and then question whether you want to hint them on color or number of their cards
-             * and then check to make sure if total hints is not equal to 0
-             * and then display that information
-             */
             if (player_Id == action._reciverId) {
                 return false;
                 /**
-                 * you can't give a hint to yourself
+                 * you can't give a hint to yourself, nice try
                  */
             }
             //get the card the hint is about

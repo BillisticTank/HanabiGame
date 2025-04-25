@@ -16,10 +16,9 @@ import edu.up.cs301.GameFramework.Game;
 /**
  * This class should create a popup box that prompts the user to tell the other players
  * about their card's numbers or colors.
- */
-
-/**
  *
+ * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+ * @version April 2025
  */
 
 public class HintSelectDialogue extends DialogFragment implements Runnable {

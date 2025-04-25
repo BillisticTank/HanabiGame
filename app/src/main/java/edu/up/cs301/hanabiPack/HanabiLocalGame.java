@@ -10,22 +10,16 @@ import android.util.Log;
 import java.io.Serializable;
 
 /**
- * A class that represents the state of a game. In our counter game, the only
- * relevant piece of information is the value of the game's counter. The
- * CounterState object is therefore very simple.
+ * A class that represents the local game. In Hanabi, knowing whose turn it is, which actions
+ * Are being taken, and if the game is over are important details to keep track of.
  *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
- * @version February 2025
+ * @version April 2025
  */
 public class HanabiLocalGame extends LocalGame implements Serializable {
 
-    // When a counter game is played, any number of players. The first player
-    // is trying to get the counter value to TARGET_MAGNITUDE; the second player,
-    // if present, is trying to get the counter to -TARGET_MAGNITUDE. The
-    // remaining players are neither winners nor losers, but can interfere by
-    // modifying the counter.
     public static final int TARGET_MAGNITUDE = 10;
 
     // the game's state
@@ -40,9 +34,6 @@ public class HanabiLocalGame extends LocalGame implements Serializable {
 
     /**
      * can this player move
-     *
-     * @return true, because all player are always allowed to move at all times,
-     * as this is a fully asynchronous game
      */
     @Override
     protected boolean canMove(int playerIdx) {
@@ -53,7 +44,7 @@ public class HanabiLocalGame extends LocalGame implements Serializable {
     }
 
     /**
-     * This ctor should be called when a new counter game is started
+     * This ctor should be called when a new game of Hanabi starts
      */
     public HanabiLocalGame(GameState state) {
         // initialize the game state, with the counter value starting at 0
@@ -65,7 +56,7 @@ public class HanabiLocalGame extends LocalGame implements Serializable {
     }
 
     /**
-     * The only type of GameAction that should be sent is CounterMoveAction
+     * The different actions in Hanabi: GiveHint, PlayCard, and DiscardCard
      */
     @Override
     protected boolean makeMove(GameAction action) {
@@ -95,6 +86,9 @@ public class HanabiLocalGame extends LocalGame implements Serializable {
         return false;
     }//makeMove
 
+    /**
+     * Progresses the turn to the next person
+     */
     protected void nextTurn() {
         //Player 0's turn ends
         if (gameState.getPlayer_Id() == 0) {

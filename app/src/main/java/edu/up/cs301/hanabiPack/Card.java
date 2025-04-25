@@ -6,6 +6,9 @@ import java.io.Serializable;
  * class Card
  * <p>
  * represents a single card in a player's hand
+ *
+ * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+ * @version April 2025
  */
 public class Card implements Serializable {
     public int _color;  //the color of the card

@@ -5,18 +5,16 @@ import java.util.ArrayList;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
-
+/**
+ * The setup class for the Discard Action
+ *
+ * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
+ * @version April 2025
+ */
 public class DiscardCardAction extends GameAction implements Serializable {
 
     public int _cardIndex;
 
-    /**
-     * constructor for GameAction
-     *
-     * @param player the player who created the action
-     * @author Derric Smith, Alexander Leah, Hassin Niazy, Carter Chan
-     * @version February 2025 l.
-     */
     public DiscardCardAction(GamePlayer player, int cardIndex) {
         super(player);
         _cardIndex = cardIndex;

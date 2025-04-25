@@ -10,12 +10,12 @@ import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.gameConfiguration.*;
 
 /**
- * this is the primary activity for Counter game
+ * this is the primary activity for Hanabi
  *
  * @author Andrew M. Nuxoll
  * @author Steven R. Vegdahl
  * @author Derric Smith, Alexander Leah, Hassinullah Niazy, Carter Chan
- * @version February 2025
+ * @version April 2025
  */
 public class HanabiMainActivity extends GameMainActivity implements Serializable {
 
@@ -23,12 +23,7 @@ public class HanabiMainActivity extends GameMainActivity implements Serializable
     private static final int PORT_NUMBER = 2234;
 
     /**
-     * Create the default configuration for this game:
-     * - one human player vs. one computer player
-     * - minimum of 1 player, maximum of 2
-     * - one kind of computer player and one kind of human player available
-     *
-     * @return the new configuration object, representing the default configuration
+     * Create the default configuration for this game
      */
     @Override
     public GameConfig createDefaultConfig() {
@@ -57,10 +52,10 @@ public class HanabiMainActivity extends GameMainActivity implements Serializable
             }
         });
 
-        // Create a game configuration class for Counter:
+        // Create a game configuration class for Hanabi:
         // - player types as given above
-        // - from 1 to 2 players
-        // - name of game is "Counter Game"
+        // - 3 players
+        // - name of game is "Hanabi Game"
         // - port number as defined above
 
         GameConfig defaultConfig = new GameConfig(playerTypes, 3, 3, "Hanabi",
@@ -87,7 +82,7 @@ public class HanabiMainActivity extends GameMainActivity implements Serializable
     /**
      * create a local game
      *
-     * @return the local game, a counter game
+     * @return the local game (Hanabi)
      */
     @Override
     public LocalGame createLocalGame(GameState state) {
