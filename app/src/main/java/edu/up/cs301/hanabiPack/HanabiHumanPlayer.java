@@ -55,7 +55,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
     Button hintButton;
     Button playCardButton;
     Button discardButton;
-    GiveHintAction colorHint;
 
     ImageView[] teammateCards = new ImageView[10];
 
@@ -400,8 +399,8 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
                 //send a hint action to the local game based on color
                 //create a hint action with a temporary value for the byColor boolean
-                colorHint = new GiveHintAction(this,
-                        false, colorHint._reciverId, selectedTeammateCard);
+                GiveHintAction colorHint = new GiveHintAction(this,
+                        false, state.getPlayer_Id(), selectedTeammateCard);
 
                 if (state.getTotalHints() < 0 || state.getTotalHints() == 0) {
 
