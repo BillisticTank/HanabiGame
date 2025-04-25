@@ -457,9 +457,11 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
                     }
                     game.sendAction(discardCard);
                     // next turn
-                    //state.setPlayer_Id(state.getPlayer_Id() + 1);
+                    state.setPlayer_Id(state.getPlayer_Id() + 1);
                     updateDisplay();
-                } else {
+                }
+                else
+                {
                     announcer.setText("Hey player 0, its not your turn!");
                 }
 
@@ -480,9 +482,11 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
                     game.sendAction(playCard);
                     // next turn
-                    // state.setPlayer_Id((state.getPlayer_Id() + 1));
+                    state.setPlayer_Id((state.getPlayer_Id() + 1));
                     updateDisplay();
-                } else {
+                }
+                else
+                {
                     announcer.setText("Hey player 0, its not your turn!");
                 }
             }

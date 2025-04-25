@@ -53,33 +53,34 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
         }
 
         HanabiState state = ((HanabiState) info);
-
-        // See if it's "my" turn
-        if (state.getPlayer_Id() != this.playerNum) {
-            return;
-        }
-
-        // Calculate what move to make
-
-
-        //send the move to the local game
-
         double decide = Math.random();
+        // See if it's "my" turn
+            if (state.getPlayer_Id() != this.playerNum) {
+                return;
+            }
+            else if (decide < 0.3) {
+                GiveHintAction hint = new GiveHintAction(this, isColor, receiverId, cardIndex);
+                this.sleep(10);
+                this.game.sendAction(hint);
 
-        if (decide < 0.3) {
-            GiveHintAction hint = new GiveHintAction(this, isColor, receiverId, cardIndex);
-            this.sleep(1000);
-            this.game.sendAction(hint);
-        } else if (decide > 0.3 && decide < 0.6) {
-            DiscardCardAction discard = new DiscardCardAction(this, cardIndex);
-            this.sleep(1000);
-            this.game.sendAction(discard);
 
-        } else {
-            PlayCardAction play = new PlayCardAction(this, cardIndex);
-            this.sleep(1000);
-            this.game.sendAction(play);
-        }
+            } else if (decide > 0.3 && decide < 0.6) {
+                DiscardCardAction discard = new DiscardCardAction(this, cardIndex);
+                this.sleep(10);
+                this.game.sendAction(discard);
+                state.setPlayer_Id(state.getPlayer_Id() + 1);
+
+
+            }
+            else
+            {
+                PlayCardAction play = new PlayCardAction(this, cardIndex);
+                this.sleep(10);
+                this.game.sendAction(play);
+                state.setPlayer_Id(state.getPlayer_Id() + 1);
+
+            }
+
 
     }
 
