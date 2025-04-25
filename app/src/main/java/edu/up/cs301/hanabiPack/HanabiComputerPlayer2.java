@@ -89,7 +89,7 @@ public class HanabiComputerPlayer2 extends HanabiComputerPlayer1 implements Seri
                     new Runnable() {
                         public void run() {
                             if (counterValueTextView != null && currentGameState != null) {
-                                counterValueTextView.setText("" /**currentGameState.getCounter()**/);
+                                counterValueTextView.setText("" );
                             }
                         }
                     });

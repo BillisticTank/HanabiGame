@@ -36,6 +36,18 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
      */
     @Override
     protected void receiveInfo(GameInfo info) {
+        // Make sure that 'info' is a HanabiGameState
+        if (!(info instanceof HanabiState)) {
+            return;
+        }
+
+        HanabiState state = ((HanabiState) info);
+
+        // See if it's "my" turn
+        if (state.getPlayer_Id() != this.playerNum) {
+            return;
+        }
+
         //deciding factors
         Random rand = new Random();
 
@@ -47,28 +59,21 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
             receiverId = rand.nextInt(3);
         }
 
-        // Make sure that 'info' is a HanabiGameState
-        if (!(info instanceof HanabiState)) {
-            return;
-        }
+        // Calculate what move to make
 
-        HanabiState state = ((HanabiState) info);
+
+        //send the move to the local game
+
         double decide = Math.random();
-        // See if it's "my" turn
-            if (state.getPlayer_Id() != this.playerNum) {
-                return;
-            }
-            else if (decide < 0.3) {
-                GiveHintAction hint = new GiveHintAction(this, isColor, receiverId, cardIndex);
-                this.sleep(10);
-                this.game.sendAction(hint);
 
-
-            } else if (decide > 0.3 && decide < 0.6) {
-                DiscardCardAction discard = new DiscardCardAction(this, cardIndex);
-                this.sleep(10);
-                this.game.sendAction(discard);
-                state.setPlayer_Id(state.getPlayer_Id() + 1);
+        if (decide < 0.3) {
+            GiveHintAction hint = new GiveHintAction(this, isColor, receiverId, cardIndex);
+            this.sleep(1000);
+            this.game.sendAction(hint);
+        } else if (decide > 0.3 && decide < 0.6) {
+            DiscardCardAction discard = new DiscardCardAction(this, cardIndex);
+            this.sleep(1000);
+            this.game.sendAction(discard);
 
 
             }

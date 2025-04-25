@@ -69,7 +69,7 @@ public class HanabiState extends GameState implements Serializable {
      * 5 cards each player has
      */
     private final Card[][] cards_Value = new Card[3][5]; // Array of Object Card Type;
-    private final int discardAmount; // how many cards are discarded
+    private int discardAmount; // how many cards are discarded
 
     ArrayList<Card> drawPile = new ArrayList<Card>(totalCardsInDeck);
 
@@ -105,7 +105,7 @@ public class HanabiState extends GameState implements Serializable {
      * default constructor;
      * intitalizes all the variables for a new game of Hanabi
      */
-
+// trolled
     public HanabiState() {
         this.player_Id = 0; // human player
         this.totalHints = 8;
