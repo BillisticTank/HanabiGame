@@ -68,23 +68,22 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
 
         if (decide < 0.3) {
             GiveHintAction hint = new GiveHintAction(this, isColor, receiverId, cardIndex);
-            this.sleep(1000);
+            this.sleep(10);
             this.game.sendAction(hint);
         } else if (decide > 0.3 && decide < 0.6) {
             DiscardCardAction discard = new DiscardCardAction(this, cardIndex);
-            this.sleep(1000);
+            this.sleep(10);
             this.game.sendAction(discard);
+            state.setPlayer_Id(state.getPlayer_Id() + 1);
+        }
+        else
+        {
+            PlayCardAction play = new PlayCardAction(this, cardIndex);
+            this.sleep(10);
+            this.game.sendAction(play);
+            state.setPlayer_Id(state.getPlayer_Id() + 1);
 
-
-            }
-            else
-            {
-                PlayCardAction play = new PlayCardAction(this, cardIndex);
-                this.sleep(10);
-                this.game.sendAction(play);
-                state.setPlayer_Id(state.getPlayer_Id() + 1);
-
-            }
+        }
 
 
     }
