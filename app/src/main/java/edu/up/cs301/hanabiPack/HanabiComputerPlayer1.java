@@ -59,17 +59,20 @@ public class HanabiComputerPlayer1 extends GameComputerPlayer implements Tickabl
             receiverId = rand.nextInt(3);
         }
 
-        // Calculate what move to make
-
-
-        //send the move to the local game
-
+        //The deciding variable for which action the computer will take
         double decide = Math.random();
 
         if (decide < 0.3) {
             GiveHintAction hint = new GiveHintAction(this, isColor, receiverId, cardIndex);
             this.sleep(10);
             this.game.sendAction(hint);
+            double decideTwo = Math.random(); //This is how the computer chooses which type of hint to give
+            if(decideTwo < 0.5) {
+                hint._byColor = false;
+            }
+            else {
+                hint._byColor = true;
+            }
         } else if (decide > 0.3 && decide < 0.6) {
             DiscardCardAction discard = new DiscardCardAction(this, cardIndex);
             this.sleep(10);

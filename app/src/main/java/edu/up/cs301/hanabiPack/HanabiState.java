@@ -47,8 +47,6 @@ public class HanabiState extends GameState implements Serializable {
 
     int count = rand.nextInt(5);
 
-
-    //TODO:  should this be public or should there be a getter?  You decide.
     public int[] color = new int[5];
 
     {
@@ -59,10 +57,6 @@ public class HanabiState extends GameState implements Serializable {
         color[GREEN] = Color.GREEN;
     }
 
-    //TODO:  Nuxoll thinks a 3x5 2D array of Card objects would be a good way to track
-    //		 what's in each player's hand.  Each Card object contains:
-    //		 color, number, whether player knows the color, whether player knowns the number
-    //       i.e., int, int, boolean, boolean
 
     /**
      * The cards_value is a 2D array. The 3 represents the 3 players, and the 5 represents the
@@ -252,8 +246,10 @@ public class HanabiState extends GameState implements Serializable {
         //remove the card from the player's hand and replace it with a new card
         cards_Value[player_Id][action._cardIndex] = drawPile.remove(0);
 
+        this.totalCardsInDeck --;
+
         //if the card is appropriate to play
-        if (toPlay._number == subShow.size() + 1) {
+        if (toPlay._number == subShow.size() + 1 || subShow.size() == 0) {
             subShow.add(toPlay);
             finalScore++;
         }

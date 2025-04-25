@@ -428,7 +428,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
 
                 // next turn
                 //state.setPlayer_Id(state.getPlayer_Id() + 1);
-                updateDisplay();
             } else if (button == discardButton) {
                 if (state.getPlayer_Id() == 0) {
 
@@ -458,7 +457,6 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
                     game.sendAction(discardCard);
                     // next turn
                     state.setPlayer_Id(state.getPlayer_Id() + 1);
-                    updateDisplay();
                 }
                 else
                 {
@@ -483,13 +481,13 @@ public class HanabiHumanPlayer extends GameHumanPlayer implements OnClickListene
                     game.sendAction(playCard);
                     // next turn
                     state.setPlayer_Id((state.getPlayer_Id() + 1));
-                    updateDisplay();
                 }
                 else
                 {
                     announcer.setText("Hey player 0, its not your turn!");
                 }
             }
+        updateDisplay();
 
     }// onClick
 
